@@ -1,0 +1,21 @@
+java:!=  JS:!==
+java:==  JS:==或===
+java:!后面只能跟boolean  JS:!后面跟什么都行
+java:a=b=c=d=100;✔      JS:a=b=c=d=100;×
+
+java:作用域重叠(即:有公共的大括号)时，变量不能重名。
+JS:作用域重叠(即:有公共的大括号)时，变量可以重名。
+
+java:switch只判断byte/short/int/char/String，只能判断相等
+JS:switch可以判断任何类型
+
+java生成min~max之间的随整机数:
+  int y = (int)(Math.random()*(min - (max+1)) + (max+1));//或
+  import java.util.Random;
+  Random rand = new Random();
+  finalNum = rand.nextInt(n+1);生成0,1,...,n中的随机整数(包含n)
+JS生成min~max之间的随整机数:
+  let num = Math.floor(Math.random()*(min - (max+1)) + (max+1));//或
+  let num = parseInt(Math.random()*(min - (max+min)) + (max+min));
+
+java中的数组中的元素类型必须相同；JS中的数组中的元素类型可以相同

@@ -1,0 +1,32 @@
+for循环和while循环都有continue和break
+
+switch case有break;
+
+
+看见static就要有一个条件反射：
+01.static变量：方法区中只有一个，只能被类点 和 类中的static方法使用
+02.static方法：方法区中只有一个，只能被类点 和 类中的static方法使用，它只能使用static变量和static方法,因为没有this
+03.类.只能使用statc变量和static方法
+04.实例的东西(实例、实例方法)可以使用类的(static修饰的)，但是极其不建议！！！
+05.构造方法绝对不能加static 也不能继承           抽象方法不能加static
+06.静态块中只能有静态变量和静态方法
+07.超类中使用静态变量：若所有由超类的子类创建出来的对象都有相同的属性值，那么超类中才使用静态变量，否则所有对象的那个属性值都一样了
+   重要：在子类没有重定义超类的静态属性时，超类的静态属性与子类是共享的；
+   注意：所说的“继承”是类的继承  类的继承  类的继承  类的继承  类的继承  类的继承  类的继承  ！！！！！！
+
+
+如果只有一个实例对象的话，就不用考虑static成员变量了，因为只会创建一个实例
+
+java同包读取图片的方法：
+import java.awt.image.BufferedImage;//用来装图片的类
+import javax.imageio.ImageIO;//做图片读写的类
+try{
+	//只能在同包之内进行读取图片
+	BufferedImage img = ImageIO.read(FlyingObject.class.getResource("xxx.png"));
+	//return img;
+}catch(Exception e){
+	e.printStackTrace();
+	throw new RuntimeException();
+}
+
+画图片的时候，后调用paintObject方法的对象会在前面对象的屏幕上面

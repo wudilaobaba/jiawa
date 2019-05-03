@@ -1,0 +1,72 @@
+01、获取数组中最大值的算法：
+int max = arr[0];
+for(int i=0;i<arr.length;i++){
+	if(arr[i]>max){
+		max = arr[i];
+	}
+	System.out.println(arr[i]);
+}
+
+02、
+int sum = 0;
+long num = 0;
+for(int i =1;i<=10;i++){
+	num = num*10+9;
+	System.out.println(num);
+}
+
+03、冒泡排序
+int[] arr = {5,2,66,3,20,15,52,36};
+	for(int i=0;i<arr.length-1;i++){
+		for(int j=0; j<arr.length-1-i; j++){//一轮之中要比较arr.length-1-i次
+			if(arr[j]>arr[j+1]){//>升序  <降序
+				int t = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = t;
+			}
+		}
+	}
+
+	04、实现在m个数字中抽出n个数字，n个数字中每个数字不能重复(m>n)
+		/**
+		*@param fromArr 原始数组
+		*@param count 想要生成新的数组的元素个数
+		*/
+		public static int[] randomNum(int[] fromArr, int count){
+			//实现了在m个数字中抽出n个数字，n个数字中每个数字不能重复(m>n)
+			//可实现在{1,5,3,22,10}中随机生成3个不重复的数字，返回由三个数字组成的数组
+
+			int[] arr = new int[count];
+			boolean[] flag = new boolean[fromArr.length];//作为开关，实现了每次生成不重复的随机数
+			for(int i=0;i<count;i++){
+				int randomChar; 
+				do{
+					randomChar = (int)(Math.random()*(0 - (fromArr.length-1+1)) + (fromArr.length-1+1));
+				}while(flag[randomChar]);
+				flag[randomChar] = true;
+				arr[i] = fromArr[randomChar];
+			}
+			return arr;
+		}
+
+	05、n种情况不停切换
+		int index = 0;
+		index++%n
+
+	06、两个数组的拼接：
+		将数组a拼接到数组b的后面：
+		b = Arrays.copyOf(b, b.length + a.length);
+		System.arraycopy(a, 0, b, b.length-a.length, a.length);
+		最终b的长度增加了a.length
+
+	07.删除数组arr中满足某一条件的元素
+		int[] arr = {10,5,2,3,66,20,55,205};//原数组，以下为删除arr中小于30的元素的逻辑
+		int index = 0;
+		int[] arr2 = new int[arr.length];
+		for(int i=0;i<arr.length;i++){
+			if(!(arr[i]<30)){  //将删除的条件取反
+				arr2[index] = arr[i];
+				index++;
+			}
+		}
+		arr = Arrays.copyOf(arr2,index);  //此时arr中的元素全部都是大于等于30的数字了

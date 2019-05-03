@@ -1,0 +1,10 @@
+java将二进制转为十进制：
+BigInteger bi = new BigInteger("11101000",2);
+int n = bi.intValue();
+//n就是转后的int类型的值
+
+
+若打印出来的汉字的unicode转后的二进制不足16位，那么就在前面补0，如“王”是15位
+
+
+给类重写一个toStirng方法后，由该类创建出来的对象p，直接使用System.out.println(p);调用就是该对象的toStirng方法

@@ -1,0 +1,17 @@
+write:
+raf.write(int或char) 写入低八位
+raf.write(byte数组,start,length)  一次性写入byte数组中的length个字节
+raf.write(byte数组)               一次性写入byte数组中的所有字节
+raf.writeInt(num)
+
+
+
+read:
+raf.read() //无参时,只读一个字节,将该字节二进制转为int返回   -1代表读到了文件末尾
+raf.read(byte数组)  一次性读byte数组长度个字节，返回实际读取到的字节数量int返回  -1代表读到了文件末尾
+readInt：一次读4个字节，最后将这4个字节转为一个int值返回
+
+String s = new String(byte数组,"gbk");
+
+
+补充：raf.length()是一个long型的数字

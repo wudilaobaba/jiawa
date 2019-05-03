@@ -1,0 +1,22 @@
+正课：
+方法（建议一个方法只干一件事）
+方法的定义：与main方法并列写
+  1)修饰词 public static
+  2)返回值类型
+      无返回值：public static void  return可写--->return;（无返回值的方法中，return后面不能跟值）
+      有返回值：public static int  写成具体的数据类型，如:int、long、int[]...
+        必须出现return关键字来结束方法的执行，有return就意味着方法结束了
+  3)方法名(驼峰)
+  4)参数列表(int a,double b)  有参数，调用的时候必须传参
+  5)方法体(大括号里面的)
+方法的调用：get()
+注意事项：
+  1)有参数必须传参，并且参数类型必须匹配
+  2)有返回值必须有return,并且返回类型与定义时一致
+
+补充：
+判断一个程序所消耗的时间的方法：
+long a = System.currentTimeMillis();
+Arrays.sort(arr);
+long b = System.currentTimeMillis();
+System.out.println(b-a);//结果为a,b之间程序执行的时间毫秒数

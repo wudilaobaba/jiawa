@@ -1,0 +1,44 @@
+注意：
+  a.JS的正则表达式可以加模式匹配符i或g --> /\d/ig
+  b.java中不写边界符也能全匹配
+01.大小写互转
+toUpperCase()
+toLowerCase()
+
+02.charAt(num)
+查找第num个位置是什么字符
+JS特有：charCodeAt(num)
+查找第num个位置的字符的unicode码
+
+03.indexOf(Stirng str)  查找字符中是否包含str (不支持正则) 找不到返回-1
+   indexOf("str",num) 从第位置num开始查找
+
+04.正则表达式的测试：
+  Java:   string.matches(reg)  --> 必须全匹配才是true (java中不写边界符也能全匹配)
+  JS:     reg.test(string)     --> 能匹配上就是true   (js中必须写边界符才能全匹配)
+
+05.字符串的替换
+  Java:   string.replaceAll(reg,"xxx");
+  JS      string.replace(reg,"xxx");
+          string.replace(/关键词/ig,"xxx")
+
+06.spilt
+
+07.startsWith & endsWith
+
+08.截取字符串的一部分：(含头不含尾)
+  JAVA   substring(start,end)
+  JS     substr(start,个数)
+
+09.trim()
+
+10.
+JS特有：
+  match(reg); 将所有符合reg的部分放在一个数组中  reg建议加模式匹配符g
+  search(reg);其实就是一个支持正则模式的indexOf
+
+11.
+Java特有：
+  a.将java中其他类型转换为字符串
+    String.valueOf(不限类型的数据)
+  b.若频繁对字符串进行操作，则使用StringBuilder类

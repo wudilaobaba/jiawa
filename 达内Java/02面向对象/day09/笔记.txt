@@ -1,0 +1,200 @@
+正课：
+!!!接口和抽象类中的抽象方法，就是为了向上造型以后能点出来..........!!!
+1.接口(为了实现多继承)   接口可以理解为就是一个特殊的抽象类，但它不是类，是接口类型的
+  1)是一种引用的数据类型，与类并列
+  2)由interface来定义的
+  3)接口中只能包含常量和抽象方法
+  4)接口不能被实例化(因为接口中的东西不完整)
+  5)接口是需要被实现的(意思就是继承 实现类就是他的派生类)------>接口必须被类继承
+    必须重写所有的抽象方法
+    interface Inter1{
+      void show();
+    }
+    class Aoo implements Inter1{
+      //必须重写继承的接口的抽象方法,必须用public修饰，遵循两同两小一大的原则
+      public void show(){}
+    }
+  6)一个类可以实现(继承)多个接口，用逗号隔开
+    若有继承又有实现时，先继承后实现
+    abstract class Boo{
+      abstract void test();
+    }
+    interface Inter1{
+      void show();
+    }
+    interface Inter2{
+      void say();
+    }
+    class Aoo extends Boo implements Inter1,Inter2{
+      //必须重写继承的接口的抽象方法,必须用public修饰，遵循两同两小一大的原则
+      public void show(){}
+      public void say(){}
+      void test(){}
+    }
+  7)接口可以继承接口
+    interface Inter1{
+      void show();
+    }
+    interface Inter2 extends Inter1{
+      void say();
+    }
+    class Aoo implements Inter2{
+      public void say(){}
+      public void show(){}
+    }
+    Inter2 a1 = new Aoo(); //向上造型
+    Inter1 a2 = new Aoo(); //也是向上造型，因为两个接口有继承关系
+
+    类和类---------->继承extends
+    接口和接口------->继承extends
+    类和接口--------->实现implements
+
+  interface Inter{
+    public static final int NUN = 5;
+    public abstract void show();
+    double PI = 3.14;//前面默认会加一个public static final   是一个常量
+    void test();  //前面默认会加一个public abstract
+    //以上四句都对
+    //接口的默认权限都是public
+
+    int count;//会报错，因为常量必须声明同时初始化！！！
+    void show(){};//会报错，因为抽象方法不能有方法体
+  }
+
+  Inter o1 = new Inter();//报错
+  Inter o1;对 表示一个接口对象o1  可以声明引用
+
+
+设计规则：
+  1)将所有派生类所共有的属性和行为，抽到超类中------抽共性
+  2)在超类中：=============全部相同
+      所有派生类"共有的行为"的实现方式都一样，设计为普通方法
+      所有派生类"共有的行为"的实现方式都不同，设计为抽象方法
+  3)根据static的使用情境来判断要不要使用static关键字
+  4)将部分派生类所共有的行为设计在接口中(符合既是也是的原则，就用接口)============部分相同
+    比如：子弹打掉小敌机------得1分   只有打小敌机和大敌机的时候能得分，他们两个得分的行为要放在接口中，再让他们两个实现
+         子弹打掉大敌机------得2分
+    案例：打掉敌人得分接口 和得奖励的接口
+  5)一个派生类自己特有的行为和属性就直接放在自己的类中就好了================自己特有
+
+好的设计-----不能只看眼前，考虑到后面会多加个角色也有奖励功能，就给奖励加个接口
+
+
+2.多态
+  1)意义：   @@@@重001.
+    1.1)行为多态(cut)  实现条件：01.多个类都继承一个超类 02.重写方法 03.向上造型为该超类  --> 即可实现"行为多态"(不同对象的同一个行为的实现结果是不一样的)
+      同一类型的引用在指向不同的对象时(超类引用指向不同的派生类时),相同方法名有不同的实现结果 如：step()
+      抽象方法都是多态的
+    1.2)对象多态(水)   实现条件：01.一个类实现成多个接口 02.重写方法 03.向上造型为多个接口  --> 即可实现"对象多态"(一个对象充当不同的角色时，行为由角色提供)
+      同一个对象被造型为不同的类型时，有不同的功能
+      该对象满足既是也是的逻辑
+  2)想实现多态就一定有 向上造型(能造型为超类，也能造型为接口)+重写，那就必须要 继承
+    Airplane     o1 = new AirPlane();
+    FlyingObject o2 = new AirPlane();
+    Enemy        o3 = new AirPlane();
+    能点出来什么要看超类
+            @@@@重002.
+  3)强制类型转换：强制类型转换成功的条件只有以下2种  一定要注意是：*引用所指向的对象*
+    3.1)*引用所指向的对象*就是该引用类型
+        意思就是Boo o2 = (Boo)o1;
+          001.一定先看等号右边的(Boo)o1：引用o1所指向的对象必须是小括号中的类型，并且
+          002.等号两边满足向上造型或者等号两边类型相同即可强转成功
+        或：
+    3.2)*引用所指向的对象*实现了该接口/继承了该类
+        意思就是Boo o2 = (Boo)o1;
+          001.一定先看等号右边的(Boo)o1：引用o1所指向的对象必须继承或实现了小括号中的类型，并且
+          002.等号两边满足向上造型或者等号两边类型相同即可强转成功
+    FlyingObject o1 = new AirPlane();(向上造型，其实就是一个自动类型转换，小转大自动转)
+    Airplane o2 = new FlyingObject();//大转小
+
+    /*    @@@@重003.
+      补充：不强装实现赋值成功要满足以下任意一点：
+        01.等号两边类型相同
+        02.满足向上造型
+    */
+
+    例子：
+    interface Inter1{}
+    class Aoo{}
+    class Boo extends Aoo implements Inter1{}
+    class Coo extends Aoo{}
+
+    Aoo o1 = new Boo();
+    //Boo o2 = o1; //o1是Aoo类型的 要报错
+    //强转 :
+    Boo o2 = (Boo)o1;  //重点：引用o1所指向的对象是new Boo(),就是Boo类型，所以可以实现强转   符合条件1
+    Inter1 o3 = (Inter1)o1;//符合条件2
+    Coo o4 = (Coo)o1;//强转失败
+
+  4)强转若不符合以上两个条件，则发生ClassCastException类型转换
+    建议：在强转之前先instanceof判断引用指向的对象是否是该类型  接着3)的例子继续以下：
+    只要符合3)的那两个条件以下就返回true
+          @@@@重004.
+    看到a instanceof B 就翻译为 :(B)a  根据以上的两个判断依据判断(B)a时候报错，若报错，(a instanceof B) 就返回false
+    System.out.println(o1 instanceof Boo);    //true
+    System.out.println(o1 instanceof Inter1); //true
+    System.out.println(o1 instanceof Coo);    //false
+
+    *引用所指向的对象*
+    *引用所指向的对象*
+    *引用所指向的对象*
+编译期只检查语法，还没有对象产生
+
+1.行为多态
+class abstract 人{
+  abstract void cut();
+}
+class 理发师 extends 人{
+  public void cut(){理发}
+}
+class 外科医生 extends 人{
+  public void cut(){开刀}
+}
+class 演员 extends 人{
+  public void cut(){停止表演}
+}
+人 p1 = new 理发师();
+人 p2 = new 外科医生();
+人 p3 = new 演员();
+p1.cut();
+p2.cut();
+p3.cut();
+
+2.对象多态
+interface 讲师{
+  void 授课();
+}
+interface 孩子他妈{
+  void 揍他();
+}
+interface 老婆{
+  void 咬他();
+  void 收工资();
+}
+class 我 implenets 讲师,孩子他妈,老婆{
+  public void 授课(){}
+  public void 揍他(){}
+  public void 咬他(){}
+  public void 收工资(){}
+}
+我 me = new 我();
+讲师 o1 = me;
+o1.授课(); o1只能授课
+
+孩子他妈 o2 = me;
+o2.揍他(); o1只能揍他
+
+老婆 o3 = me;
+o3.咬他();  o3只能执行以下两个方法
+o3.收工资()
+
+me.授课()
+me.揍他()
+me.咬他()
+me.收工资()
+
+
+
+
+子弹与敌人的碰撞
+碰撞的方法写在敌人中，因为敌人要与子弹个英雄机撞

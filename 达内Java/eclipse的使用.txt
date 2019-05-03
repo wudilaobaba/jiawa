@@ -1,0 +1,14 @@
+﻿01.创建java项目： 注意( 项目名 和 类名 都是帕斯卡)
+File--New--Java Project---取名(帕斯卡)---Use default loaction打钩---JRE 第一个选1.8---Project layout选第二个---Finish
+建包cn.tedu.shoot---Finish
+建类：( 类名使用帕斯卡 )
+  抽象出来的类不用打钩
+  主方法的类要打钩
+02.
+  以文件夹的形式展示项目:window---Show View---Navigator
+  以包的形式展示项目:window---Show View---Package Explorer
+
+03.设置eclipse的字体大小
+window--preferences--展开General--展开Appearance--Color and fonts--展开右边的Basic---双击Text Font
+
+04.eclipse中查看文件的路径，右键-->properties

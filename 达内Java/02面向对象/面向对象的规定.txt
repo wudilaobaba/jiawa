@@ -1,0 +1,17 @@
+﻿一个.java文件中可以包含多个类(但是不建议  建议一个.java文件中只包含一个class)
+一个.java文件中最多只能包含一个public类   (类与类、方法与方法都是并列的)
+.java文件中的public修饰的类必须与当前.java文件名相同
+
+项目的入口方法中可以new当前main方法所在的类，如：
+public class World {
+	Xdj x;
+	Ddj d;
+	void action() {
+		x = new Xdj();
+	}
+	public static void main(String[] args) { //-------------> 项目的入口方法中可以new当前类,建议就这样使用，分离好一些
+		World world = new World();
+		world.action();
+	}
+
+}

@@ -1,0 +1,47 @@
+正则表达式
+[] 里面表示一个字符
+.  任意一个字符
+\d 等同于[0-9]              \D
+\w 数字、字母、下划线        \W
+\s 空白字符                 \S
+
+量词：
+[abc]?  -----  最多一次
+[abc]+  -----  至少有一次
+[abc]*  -----  有没有都行
+[abc]{3} ---- 只能出现三次
+[abc]{3,5} --- 3~5次
+[abc]{3,}  ---至少三次
+[abc]{0,5} ---最多5次
+
+分组：
+(abc){3}  圆括号中的是一个整体
+(abc|def){3}  或者|
+
+字符串中有一部分符合正则表达式就可以
+
+边界符 ^以后面的正则开始   $以后面的正则结束    java中不写边界符也能全匹配
+^[abc]{3}&  //完全匹配验证，只能有三个字母
+
+
+
+面相对象就是面向东西，所以Object就是东西，东西类就是所有东西的超类
+Object是所有引用类型的超类
+一般都是先有派生类再有超类  不要以父子的关系来想
+猫科动物是一个抽象类，所以不能new
+
+eclipse中自动生成get/set方法：
+类中右键--->Source--->Generate Getters and Setters---> OK
+
+自动生成类的构造方法：
+右键--->Source--->Generate Constructor using Fields---> OK
+
+toString
+equals
+
+8种基本类型包装类，在java.lang包中，直接用
+int----Integer
+char---Character
+其他6个都是一样的Boolean Long
+byte/short/int/long/float/double的父类都是Number
+char和boolean的父类都是Object

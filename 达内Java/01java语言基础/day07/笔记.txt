@@ -1,0 +1,21 @@
+正课：
+猜字符小游戏
+先设计数据结构，设计方法结构，再设计算法
+
+注意：
+  01.循环嵌套中注意内层循环的break的使用
+  02.char[] arr数组可以直接输出 System.out.println(arr);
+  03.8种基本类型的相等比较使用"=="
+     引用类型判断相等要用string.equals("abc")
+自造死循环：
+while(true){
+  //代码块
+  break;
+}
+
+//字符串转为char数组
+char[] inputArr = string.toCharArray();
+
+大小写互转：
+字符串.toUpperCase()
+字符串.toLowerCase()

@@ -1,0 +1,42 @@
+Java开发环境：
+JAVA的两步编译：
+  01编译期：将.java源文件编译为.class字节码文件
+  02运行期：JVM(虚拟机)加载.class文件并运行.class文件
+    下载一个windows版的JVM -------java程序就会运行在windows系统上
+    下载一个Linux版的JVM -------java程序就会运行在Linux系统上
+    下载一个IOS版的JVM -------java程序就会运行在IOS系统上
+    下载一个???版的JVM -------java程序就会运行在???系统上
+    综上：java是跨平台的(一次编程，到处使用) 如果没有JVM,那么想要在其他系统上运行，就要再写一套对应系统的代码
+
+JVM:java虚拟机 加载.class文件并运行.class文件
+JRE:java运行环境(包含JVM和运行一个java程序所必须的环境  JRE=JVM+java系统类库)
+JDK:java开发工具包(包含JRE和开发java程序所必须的命令工具 JDK=JRE+编译/运行等命令工具)
+说明：运行java程序的最小环境是JRE
+      开发java程序的最小环境是JDK
+
+java环境变量不需要配置
+
+Java主要做服务器端开发
+Linux主要是服务器系统(要自己学)
+
+eclipse下载：https://www.eclipse.org/downloads IBM公司的
+
+开发步骤：
+01.新建java工程------小区
+02.新建java包--------楼+单元
+03.新建java类--------601号
+
+eclipse中：对应以上的开发步骤执行以下
+01.file--->new--->JavaProject--->命名--->finish
+02.src右键--->new--->Package--->命名--->finish
+03.包中右键--->new--->Class--->命名并将public static void main打钩
+
+
+注释：
+01.单行注释：//
+02.多行注释：/**/
+03.文档注释：/** */
+
+注意：
+01.java严格区分大小写
+02.语句必须以分号结尾

@@ -1,0 +1,4 @@
+异常处理机制：
+java的异常中有Throwable类，以及其派生的子类Exception和Error
+Exception是程序逻辑级别的异常
+Error是java系统中的异常，如内存溢出
