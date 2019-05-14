@@ -1,0 +1,26 @@
+## XML API
+什么是XML API
+1.用于读取XML文件，写XML文件
+2.提供非常简化的访问方法
+3.XML API能够自动识别XML语法
+  - 能够识别元素、内容、属性、标记等
+  - 可以按照标记，属性等获取信息
+
+## 常见的XML API
+1. SAX API 是w3c组织定义的API,是底层API,很少直接使用
+2. DOM API 是w3c组织定义的API,是底层API,很少直接使用
+3. DOM4j 是对标准DOM的封装扩展，其底层仍然是DOM,在DOM基础上提供了更加简化的操作API.成为了行业标准API.
+4. DOM4j 是第三方API,需要导入到项目中使用(java是第一方，开发人员是第二方)
+
+## Maven
+Maven 是java行业中的构建工具。提供了自动化的包管理功能，可以自动下载管理第三方的包。
+
+使用步骤：
+1. 在Eclipse中配置Maven  11:50
+    -配置组件(API)仓库  全世界的包都在美国，但是有墙，所以要用代理仓库
+    -国内仓库：maven.aliyun.com
+    Window-Preferences-Maven-User Settings-将maven路径写入Global Settings中
+    Window-show View-Other-Maven-Maven Respositories-OK  看控制台的Dlobal中就是美国中央仓库
+    (美国中央仓库：https://repo.maven.apache.org/maven2/)
+2. 创建Maven项目
+3. 利用Maven自动导入第三方的包
