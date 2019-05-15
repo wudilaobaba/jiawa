@@ -16,11 +16,17 @@
 Maven 是java行业中的构建工具。提供了自动化的包管理功能，可以自动下载管理第三方的包。
 
 使用步骤：
-1. 在Eclipse中配置Maven  11:50
+STEP01. 在Eclipse中配置Maven 看笔记中的那张maven settings.html的图片,若使用中央仓库则不用看此图
     -配置组件(API)仓库  全世界的包都在美国，但是有墙，所以要用代理仓库
     -国内仓库：maven.aliyun.com
-    Window-Preferences-Maven-User Settings-将maven路径写入Global Settings中
+    Window-Preferences-Maven-User Settings-将maven的settings.xml文件路径写入Global Settings中
     Window-show View-Other-Maven-Maven Respositories-OK  看控制台的Dlobal中就是美国中央仓库
     (美国中央仓库：https://repo.maven.apache.org/maven2/)
-2. 创建Maven项目
-3. 利用Maven自动导入第三方的包
+STEP02. 创建Maven项目
+    01.在 https://mvnrepository.com 中找到dom4j  https://mvnrepository.com/artifact/dom4j/dom4j/1.6.1
+    02.看到Maven标签下的xml片段，称为组件的坐标，将其复制 ，如果是桌面项目请选择jar
+    03.exlipse中 File-new-Other-Maven-Maven Project-next-勾选第一项-next (看"创建maven项目.png")
+    04.maven项目中打开pom.xml(maven的配置文件)选中pom标签,追加一行<dependencies></dependencies>
+      dependencies标签中将02中复制的坐标粘贴进去，保存后就会自动下载依赖包到项目中，Maven Dependencies中会出现粘贴的依赖包
+      <!-- dependencies当前项目依赖的第三方包 -->
+STEP03. 利用Maven自动导入第三方的包，自动执行
