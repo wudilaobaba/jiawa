@@ -1,11 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>cd.whj</groupId>
+  <groupId>cn.com.whj</groupId>
   <artifactId>MAVEN1803</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <!-- dependencies当前项目依赖的第三方包 -->
   <dependencies>
-  	<!-- maven会根据坐标自动从Maven仓库中下载组件dom4j -->
+  	<!-- dom4j的包 -->
   	<dependency>
 	    <groupId>dom4j</groupId>
 	    <artifactId>dom4j</artifactId>

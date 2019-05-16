@@ -30,3 +30,20 @@ STEP02. 创建Maven项目
       dependencies标签中将02中复制的坐标粘贴进去，保存后就会自动下载依赖包到项目中，Maven Dependencies中会出现粘贴的依赖包
       <!-- dependencies当前项目依赖的第三方包 -->
 STEP03. 利用Maven自动导入第三方的包，自动执行
+
+使用DOM4j：
+  SAXReader reader = new SAXReader();
+  Document doc = reader.read("book.xml")
+  在maven项目中的src/main/java中创建java文件
+
+###DOM4j的API:
+  ### SAXReader 可以将一个XML文件读取解析为Docoment对象
+  ### Document代表一个xml文件解析以后的内存对象。其结构与原有的xml文件结构相同。
+    读取内存中的Document对象就相当于读取了xml文件内容。
+    document对象提供了查找根元素的方法：Element root = document.getRootElement();
+  ### Element 元素 代表xml中的一个元素读取到内存中的对象。Element对象可以代表根元素books，也可以代表某个子元素book等
+    Element提供了查找子元素的方法
+
+补充：
+若一个引用类型的变量是null，当访问了该引用类型的变量的属性或方法，则出现空指针异常
+解决(两种)：1.不让变量为null  2.if判断

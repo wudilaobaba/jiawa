@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 处理指令之前不能有任何内容 -->
+<books>
+	<book id="b1" language="中文"> <!-- 建议等号前后不要加空格 -->
+		<name>《水浒传》</name>
+		<!-- 作者 -->
+		<author>施耐庵</author>
+	</book>
+	<book id="b1" language="en">
+		<name>《乡关何处》</name>
+		<author>土家野夫</author>
+	</book>
+	<book id="b3" language="cn">
+		<name>18岁给我一个姑娘</name>
+		<author>冯唐</author>
+	</book>
+</books>
