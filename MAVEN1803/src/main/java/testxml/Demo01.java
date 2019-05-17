@@ -32,7 +32,7 @@ public class Demo01 {
 		//查找books的全部子元素
 		List list = root.elements();//------------02.查找root的全部子元素(不区别名字查找全部子元素)
 		list.size();//===========返回list中元素的个数
-		//List list = root.elements("book");//----03.查找元素中名字是参数book的所有子元素(子元素很多，但子元素名字不相同，找出名字相同的一组子元素)
+		//List list = root.elements("book-xxx");//----03.查找元素中名字是参数book的所有子元素(子元素很多，但子元素名字不相同，找出名字相同的一组子元素)
 //		System.out.println(list);
 		//List是一个集合，相当于一个数组，存储了books的全部子元素(3个book)
 		Element e1 = (Element)list.get(0);
@@ -46,7 +46,9 @@ public class Demo01 {
 			Element e = (Element)list.get(i);
 //			System.out.println(e.asXML());
 			Element n = e.element("name");
-			System.out.println(n.asXML());
+//			System.out.println(n.asXML());
+			System.out.println(n.getText());//调用getText方法的元素中只有文本，
+			System.out.println(e.attributeValue("id"));//attributeValue获取该元素的属性值(只能由元素进行调用)
 		}
 	}
 
