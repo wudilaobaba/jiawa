@@ -10,6 +10,8 @@ package exception;
  * }
  * @author Administrator
  * 
+ * ***重点：
+ * 所有catch的最后必须是：IOException和Exception
  */
 public class TryCatchDemo {
 	public static void main(String[] args) {

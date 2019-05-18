@@ -2,3 +2,25 @@
 java的异常中有Throwable类，以及其派生的子类Exception和Error
 Exception是程序逻辑级别的异常
 Error是java系统中的异常，如内存溢出
+
+
+检查异常：除了RuntimeException以外的异常
+非检查异常：RuntimeException (运行时异常/常识型异常，如空指针都是该异常的子类)
+常见RuntimeException的异常：
+IllegalArgumentException
+NullPointerException
+ArrayIndexOutOfBoundsException
+ClassCastException
+NumberFormatException
+
+Exception常见API:
+e.printStackTrace();//输出错误堆栈信息
+String str = e.getMessage();
+
+
+自定义异常：见IllegaAgeException08和Person09.java  异常类的类名要见名知意
+Person09.java中的两个地方抛出IllegaAgeException08
+
+补充：
+实现父类有什么构造方法，让子类也有相同的构造方法
+空白处右键--Source--Generate Constructors From SuperClass
