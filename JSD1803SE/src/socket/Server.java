@@ -45,12 +45,12 @@ public class Server {
 			 */
 			System.out.println("等待客户端连接....");
 			//一旦有客户端介入，就返回一个Socket,这样两端就各有一个socket了，是一个对等关系，相当于两端都有一个电话了
-			Socket socket = server.accept(); 
+			Socket socket = server.accept(); //此处只调用了一次，想要在接电话，就得再调一次
 			System.out.println("一个客户端连接了");
 			
 			//...阻塞中....
 			
-			//************************ 一旦客户端有数据进入，则执行以下代码：******************************
+			//以下接收输入流
 			InputStream in = socket.getInputStream();
 			//以下简记为->读入：IB.readLine();
 			InputStreamReader isr = new InputStreamReader(in,"UTF-8");//两边编码格式必须一致
@@ -61,8 +61,6 @@ public class Server {
 				str= br.readLine();//读出带换行符的字符串  //***readLine()是阻塞方法***
 				System.out.println("客户端说："+str);
 			}
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
