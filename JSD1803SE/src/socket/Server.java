@@ -45,7 +45,7 @@ public class Server {
 			 */
 			System.out.println("等待客户端连接....");
 			//一旦有客户端介入，就返回一个Socket,这样两端就各有一个socket了，是一个对等关系，相当于两端都有一个电话了
-			Socket socket = server.accept(); //此处只调用了一次，想要在接电话，就得再调一次
+			Socket socket = server.accept(); // 重点01.******此处只调用了一次，想要再接电话，就得再调一次
 			System.out.println("一个客户端连接了");
 			
 			//...阻塞中....
@@ -56,7 +56,7 @@ public class Server {
 			InputStreamReader isr = new InputStreamReader(in,"UTF-8");//两边编码格式必须一致
 			BufferedReader br = new BufferedReader(isr);
 			String str = null;
-			while(true){
+			while(true){ // 重点02.***********此处相当于一直不挂电话！！！！！！！
 				System.out.println("daddasddasdasdasd");
 				str= br.readLine();//读出带换行符的字符串  //***readLine()是阻塞方法***
 				System.out.println("客户端说："+str);

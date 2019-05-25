@@ -10,7 +10,7 @@ package thread;
  * 导致不能同时又继承复用方法的类又继承线程
  * 2.定义线程的同时重写run方法定义任务，这就导致了线程和任务有一个必然的耦合关系。不利于线程的重用。
  * @author Administrator
- *
+ * *********************** 必须是Thread类型的对象才可以调用start方法  **************
  */
 public class ThreadDemo01 {
 	public static void main(String[] args) {
