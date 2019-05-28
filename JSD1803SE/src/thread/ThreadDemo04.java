@@ -17,6 +17,7 @@ public class ThreadDemo04 {
 		System.out.println(id);
 		
 		//获取线程的优先级
+		
 		int priority = main.getPriority();
 		
 		//线程是否活着
