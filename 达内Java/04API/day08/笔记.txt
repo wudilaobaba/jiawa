@@ -20,3 +20,6 @@ java中所有的代码都是靠线程运行的
 
 JAJA三大框架：
 SSM: spring-mvc spring mybattis
+
+单线程就是同步
+多线程就是异步
