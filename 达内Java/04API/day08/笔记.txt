@@ -23,3 +23,10 @@ SSM: spring-mvc spring mybattis
 
 单线程就是同步
 多线程就是异步
+
+面试：
+  同步锁：
+    使用synchronized只锁住一段代码，多个线程会同步执行该代码
+  互斥锁：
+    使用synchronized锁住不同段代码，且锁对象一样，那么线程之间执行这几段代码的时候是互斥的
+  死锁：看"滥用锁对象.png"
