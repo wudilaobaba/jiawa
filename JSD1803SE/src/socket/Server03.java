@@ -98,10 +98,14 @@ public class Server03 {
 					),true
 				);
 				
-				//将该输出流存入allOut中，以便其他的ClientHandler可以将消息发送给当前客户端
-				allOut = Arrays.copyOf(allOut, allOut.length+1);//先扩容
-				allOut[allOut.length-1] = pw;//将当前客户端输出流存入数组最后
-				System.out.println("当前在线人数：" + allOut.length);
+				synchronized(allOut){ //抢睡就锁谁
+					//将该输出流存入allOut中，以便其他的ClientHandler可以将消息发送给当前客户端
+					allOut = Arrays.copyOf(allOut, allOut.length+1);//先扩容
+					allOut[allOut.length-1] = pw;//将当前客户端输出流存入数组最后
+					System.out.println("当前在线人数：" + allOut.length);
+				}
+				
+				
 				
 				/*
 				 * 当客户端与服务端断开连接时，不同系统的客户端在服务端这边体现的不太一样。
@@ -114,21 +118,26 @@ public class Server03 {
 					//将消息再回复给客户端
 //					pw.println(str);
 					//遍历allOut,转发消息，此时为给所有客户端发消息
-					for(int i=0;i<allOut.length;i++){
-						allOut[i].println(str);
+					synchronized(allOut){
+						for(int i=0;i<allOut.length;i++){
+							allOut[i].println(str);
+						}
 					}
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();//win的客户端断开时，服务端这里br.readLine方法通常会直接抛出异常
 			} finally{
 				//处理客户端断开时的逻辑
 				//将该客户端的输出流从共享数组中删除,将pw从allOut中删除
-				for(int i=0;i<allOut.length;i++){
-					if(pw == allOut[i]){
-						System.out.println(i);
-						allOut[i] = allOut[allOut.length-1];
-						allOut = Arrays.copyOf(allOut, allOut.length-1);
-						break;
+				synchronized(allOut){
+					for(int i=0;i<allOut.length;i++){
+						if(pw == allOut[i]){
+							System.out.println(i);
+							allOut[i] = allOut[allOut.length-1];
+							allOut = Arrays.copyOf(allOut, allOut.length-1);
+							break;
+						}
 					}
 				}
 				System.out.println("当前在线人数：" + allOut.length);
