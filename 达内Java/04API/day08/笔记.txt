@@ -30,3 +30,6 @@ SSM: spring-mvc spring mybattis
   互斥锁：
     使用synchronized锁住不同段代码，且锁对象一样，那么线程之间执行这几段代码的时候是互斥的
   死锁：看"滥用锁对象.png"
+
+链表LinkedList：类似于火车车厢的相连，增删快，查的慢 - 适用于增删
+ArrayList:适用于查
