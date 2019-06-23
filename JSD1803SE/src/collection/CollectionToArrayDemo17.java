@@ -22,6 +22,7 @@ public class CollectionToArrayDemo17 {
 //		Object[] array = c.toArray(); 一般不这么用
 		
 		String[] array = c.toArray(new String[c.size()-1]); //长度不够依然取原数组，但泛型必须一致
+								 //这里的参数一定要用引用类型，不可以用基本类型
 		System.out.println(array.length);
 		System.out.println(Arrays.toString(array));
 		
