@@ -33,3 +33,7 @@ SSM: spring-mvc spring mybattis
 
 链表LinkedList：类似于火车车厢的相连，增删快，查的慢 - 适用于增删
 ArrayList:适用于查
+
+
+队列和栈：
+队列：先进先出场景(严格顺序)就要用队列
