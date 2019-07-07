@@ -22,3 +22,46 @@ Map 翻译为 映射
 3.查询时候，根据Key查询到Value
     value = map.get(key)
     >如果没有找到则返回null
+
+Map的API方法
+0.get()在map中根据key查询得到指定的value
+1.size() 检测map集合中元素的个数
+2.isEmpty() 检测map集合是否为空
+3.remove()删除map集合中的指定元素，返回被删除的value
+4.clear()清空map集合
+5.containsKey(key) 检测map集合中是否包含指定的key,返回true/false
+
+HashMap的工作原理  类似于酒店的花名册
+1.HashMap内部利用数组存储数据
+2.根据key的HashCode值计算出数组的下标位置，进行添加/查询数据
+    -根据HashCode计算出数组下标位置的算法称为"散列算法"
+3.数组下标位置会重复，重复时利用链表存储重复元素
+    -这个链表称为"散列桶"
+4.添加和查询时，如果有散列桶，则根据equals方法逐一比较找到位置
+由于利用HashCode直接定位到数组的存储位置，无需依次查找，所以HashMap具有极高的查找性能
+影响HashMap的查找性能因素：
+  1.如果数据多，而数组容量少，大量数据重复的存储在散列桶中，造成在散列桶中进行大量的顺序查找，性能下降很快。
+    - 解决办法：提供更多的数组容量，减少散列桶中重复的数据
+    - 如果保持元素的总数和数组容量的比值少于75%时，一般出现重复位置的机会少于三个！（即不会造成数组容量过多的浪费，又保证了散列桶查询小于三次挺高查询性能）
+    - HashMap中默认的"加载因子"值就是75%,HashMap中添加元素时，HashMap始终会保持元素和数组容量的比值小于75%，如果超过75%，则进行数组扩容"重新散列"
+  2.hashCode方法
+    - java在Object类上定义了hashCode方法，用于支持HashMap中的算法
+    - 作为key的类型必须很好的实现hashCode方法，否则会影响HashMap的性能
+        - 当两个对象的equals方法比较结果为true时，他们的hashCode相同
+        - 当两个对象的equals方法比较结果为false时，他们的hashCode尽可能不同
+  3.equals方法：
+    - HashMap添加或查找时，先根据hashCode计算数组的下标位置，然后再利用equals比较key对象是否相同。添加时候：key相同就直接换掉新的key
+    - 如果key的hashcode和equals方法不"一致",会造成HashMap工作异常！可能会重复添加，或者找不到数据。
+     >建议：一定要成对重写key类型的equals方法和hashCode方法。！！！！！！！！！！
+     >java中的API：String/Integer等都成对重写了equals和hashCode方法
+  4.创建HashMap的性能优化参数(优化添加时的性能)
+    - new HashMap(数组容量，加载因子)
+    - 默认情况下：new HashMap() 等价于new HashMap(16,0.75f)  元素数量超过12的时候，就会扩容为32个，再超过24，就扩为64个
+    - 如果事先可以预测添加到HashMap中的数量，则可以声明足够大容量的数组，避免反复扩容，浪费时间
+      - 如果有1000条数据需要添加到HashMap, new HashMap(1500);
+
+Map的遍历(迭代)：
+  
+
+补充：
+某数对n取余，结果为0~(n-1)

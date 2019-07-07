@@ -31,7 +31,7 @@ public class MapTestDemo03 {
 	}
 	
 	public static void compareWithList(int times){
-		Map<Integer,String> map = new HashMap<>();
+		Map<Integer,String> map = new HashMap<>(times+times/2);
 		List<String> list = new ArrayList<String>();
 		List<String> listLink = new LinkedList<String>();
 		for(int i=0;i<times;i++){
