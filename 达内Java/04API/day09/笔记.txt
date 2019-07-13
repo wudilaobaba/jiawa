@@ -16,7 +16,7 @@ HTTP协议现在常用的是HTTP1.1版本协议。
 网游-qq等都是长连接
 
 HTTP协议中规定的请求与响应的内容大部分是文本数据。但是这些字符只能是ISO88590-1编码中出现的字符，这意味着在HTTP协议内容中
-是不能直接出现中文等字符的。
+是不能直接出现中文等字符的。所以，这里所有的字符用一个字节就可以搞定！！！！！！！！！！！！！！！！！
 HTTP协议要求客户端给服务端发送数据时，必要要带的东西(请求定义)有：
   一个请求通常包含三部分：请求行、消息头、消息正文
     1.请求行：
@@ -43,15 +43,16 @@ HTTP协议要求客户端给服务端发送数据时，必要要带的东西(请
       请求是否含有消息正文的一个重要的标志是该请求的消息头中是否含有以下两个头：
         Content-Type:用于说明消息正文的内容是什么类型的数据(1000多种类型)
         Content-Length:用于说明消息正文的数据长度(字节量)
-
-GET /?id=123 HTTP/1.1
-Host: localhost:8080
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
-Accept-Encoding: gzip, deflate, br
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+一个标准请求如下：
+GET /?id=123 HTTP/1.1(CRLF)
+Host: localhost:8080(CRLF)
+Connection: keep-alive(CRLF)
+Cache-Control:max-age=0(CRLF)
+Upgrade-Insecure-Requests: 1(CRLF)
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36(CRLF)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3(CRLF)
+Accept-Encoding: gzip, deflate, br(CRLF)
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8(CRLF)(CRLF)
 
 补充：
   回车：光标回到当前行的起始位置
