@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * WebServerÖ÷Àà
+ * WebServerä¸»ç±»
  * @author Administrator
  *
  */
@@ -14,7 +14,7 @@ public class WebServer {
 	private ServerSocket server;
 	public WebServer(){
 		try{
-			//TomcatÄ¬ÈÏ¿ªÆôµÄ¶Ë¿Ú¾ÍÊÇ8080
+			//Tomcaté»˜è®¤å¼€å¯çš„ç«¯å£å°±æ˜¯8080
 			server = new ServerSocket(8080);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -22,10 +22,10 @@ public class WebServer {
 	}
 	public void start() {
 		try {
-			//ÔİÊ±²»´¦Àí¶à¿Í»§¶ËÁ¬½Ó
+			//æš‚æ—¶ä¸å¤„ç†å¤šå®¢æˆ·ç«¯è¿æ¥
 //			while(true){
 				Socket socket = server.accept();
-				//Æô¶¯Ò»¸öÏß³Ì£¬´¦Àí¸Ã¿Í»§¶ËµÄÇëÇó
+				//å¯åŠ¨ä¸€ä¸ªçº¿ç¨‹ï¼Œå¤„ç†è¯¥å®¢æˆ·ç«¯çš„è¯·æ±‚
 				Thread t = new Thread(new ClientHandler(socket));
 				t.start();
 //			}

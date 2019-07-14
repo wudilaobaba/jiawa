@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/come/tedu/webserver/core/ClientHandler.java=UTF-8
+encoding//src/main/java/come/tedu/webserver/core/WebServer.java=UTF-8
+encoding//src/main/java/come/tedu/webserver/http/HttpRequest.java=UTF-8
 encoding/<project>=UTF-8
+encoding/readme.txt=UTF-8
