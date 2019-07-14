@@ -32,26 +32,24 @@ public class ClientHandler implements Runnable{
 			HttpRequest request = new HttpRequest(socket);
 			
 			//2.处理请求
-			HttpResponse hp = new HttpResponse(socket);
+			HttpResponse response = new HttpResponse(socket);
 			/*
 			 * 通过request获取请求的资源路径，从webapps中寻找对应资源
 			 */
 			String str = request.getUrl();
 			File file = new File("webapps"+str);			
 			if(file.exists()){
-				System.out.println("资源已找到");
-				hp.setStatusDis("OK");
-				hp.setStatusCode(200);
-				hp.setEntity(new File("./webapps"+str));
-				hp.flush();
+				System.out.println("资源已找到"+str);
+				response.setStatusCode(200);
+				response.setEntity(new File("./webapps"+str));
 			}else{
 				System.out.println("资源未找到"+str);
-				hp.setStatusDis("BAD");
-				hp.setStatusCode(404);
-				hp.setEntity(new File("./webapps/myweb/404.html"));
-				hp.flush();
+				response.setStatusCode(404);
+				response.setEntity(new File("./webapps/myweb/404.html"));
 			}
-			
+			response.flush();
+		}catch(EmptyRequestException e){
+			System.out.println("空请求来了");  //会继续走到finally中，与客户端断开连接
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
