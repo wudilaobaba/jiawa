@@ -11,30 +11,30 @@ public class Demo01 {
 
 	public static void main(String[] args) throws IOException,DocumentException{
 		/*
-		 *ÀûÓÃdom4j¶ÁÈ¡XMLÎÄ¼ş 
+		 *åˆ©ç”¨dom4jè¯»å–XMLæ–‡ä»¶ 
 		 */
 		FileInputStream fis = new FileInputStream("books.xml");
 		SAXReader reader = new SAXReader();
-		//Èç¹ûXMLÎÄ¼ş¸ñÊ½´íÎó£¬ÔòÅ×Òì³£
+		//å¦‚æœXMLæ–‡ä»¶æ ¼å¼é”™è¯¯ï¼Œåˆ™æŠ›å¼‚å¸¸
 		Document doc = reader.read(fis);
 		fis.close();
-		//Êä³ödoc
+		//è¾“å‡ºdoc
 		//System.out.println(doc.asXML());
 		Element root = doc.getRootElement();
-		//ElementÀàĞÍµÄ¶ÔÏó£¬¾Í´ú±íxmlÎÄ¼şÖĞµÄÒ»¸öÔªËØ
-		//Êä³örootĞÅÏ¢£¬Ôò»áÊä³ö¸ùÔªËØµÄÈ«²¿ÄÚÈİ
+		//Elementç±»å‹çš„å¯¹è±¡ï¼Œå°±ä»£è¡¨xmlæ–‡ä»¶ä¸­çš„ä¸€ä¸ªå…ƒç´ 
+		//è¾“å‡ºrootä¿¡æ¯ï¼Œåˆ™ä¼šè¾“å‡ºæ ¹å…ƒç´ çš„å…¨éƒ¨å†…å®¹
 //		System.out.println(root.asXML());
 		
-		//²éÕÒ¸ùÔªËØµÄµÚÒ»¸ö×ÓÔªËØ
-		Element book = root.element("book");//-----01.²éÕÒrootÖĞµÚÒ»¸öÂú×ã²ÎÊıµÄ×ÓÔªËØ(ÊÊºÏ²éÕÒÓĞÎ¨Ò»×ÓÔªËØµÄÇé¿ö)
+		//æŸ¥æ‰¾æ ¹å…ƒç´ çš„ç¬¬ä¸€ä¸ªå­å…ƒç´ 
+		Element book = root.element("book");//-----01.æŸ¥æ‰¾rootä¸­ç¬¬ä¸€ä¸ªæ»¡è¶³å‚æ•°çš„å­å…ƒç´ (é€‚åˆæŸ¥æ‰¾æœ‰å”¯ä¸€å­å…ƒç´ çš„æƒ…å†µ)
 //		System.out.println(book.asXML());
 		
-		//²éÕÒbooksµÄÈ«²¿×ÓÔªËØ
-		List list = root.elements();//------------02.²éÕÒrootµÄÈ«²¿×ÓÔªËØ(²»Çø±ğÃû×Ö²éÕÒÈ«²¿×ÓÔªËØ)
-		list.size();//===========·µ»ØlistÖĞÔªËØµÄ¸öÊı
-		//List list = root.elements("book-xxx");//----03.²éÕÒÔªËØÖĞÃû×ÖÊÇ²ÎÊıbookµÄËùÓĞ×ÓÔªËØ(×ÓÔªËØºÜ¶à£¬µ«×ÓÔªËØÃû×Ö²»ÏàÍ¬£¬ÕÒ³öÃû×ÖÏàÍ¬µÄÒ»×é×ÓÔªËØ)
+		//æŸ¥æ‰¾booksçš„å…¨éƒ¨å­å…ƒç´ 
+		List list = root.elements();//------------02.æŸ¥æ‰¾rootçš„å…¨éƒ¨å­å…ƒç´ (ä¸åŒºåˆ«åå­—æŸ¥æ‰¾å…¨éƒ¨å­å…ƒç´ )
+		list.size();//===========è¿”å›listä¸­å…ƒç´ çš„ä¸ªæ•°
+		//List list = root.elements("book-xxx");//----03.æŸ¥æ‰¾å…ƒç´ ä¸­åå­—æ˜¯å‚æ•°bookçš„æ‰€æœ‰å­å…ƒç´ (å­å…ƒç´ å¾ˆå¤šï¼Œä½†å­å…ƒç´ åå­—ä¸ç›¸åŒï¼Œæ‰¾å‡ºåå­—ç›¸åŒçš„ä¸€ç»„å­å…ƒç´ )
 //		System.out.println(list);
-		//ListÊÇÒ»¸ö¼¯ºÏ£¬Ïàµ±ÓÚÒ»¸öÊı×é£¬´æ´¢ÁËbooksµÄÈ«²¿×ÓÔªËØ(3¸öbook)
+		//Listæ˜¯ä¸€ä¸ªé›†åˆï¼Œç›¸å½“äºä¸€ä¸ªæ•°ç»„ï¼Œå­˜å‚¨äº†booksçš„å…¨éƒ¨å­å…ƒç´ (3ä¸ªbook)
 		Element e1 = (Element)list.get(0);
 		Element e2 = (Element)list.get(1);
 		Element e3 = (Element)list.get(2);
@@ -47,8 +47,8 @@ public class Demo01 {
 //			System.out.println(e.asXML());
 			Element n = e.element("name");
 //			System.out.println(n.asXML());
-			System.out.println(n.getText());//µ÷ÓÃgetText·½·¨µÄÔªËØÖĞÖ»ÓĞÎÄ±¾£¬
-			System.out.println(e.attributeValue("id"));//attributeValue»ñÈ¡¸ÃÔªËØµÄÊôĞÔÖµ(Ö»ÄÜÓÉÔªËØ½øĞĞµ÷ÓÃ)
+			System.out.println(n.getText());//è°ƒç”¨getTextæ–¹æ³•çš„å…ƒç´ ä¸­åªæœ‰æ–‡æœ¬ï¼Œ
+			System.out.println(e.attributeValue("id"));//attributeValueè·å–è¯¥å…ƒç´ çš„å±æ€§å€¼(åªèƒ½ç”±å…ƒç´ è¿›è¡Œè°ƒç”¨)
 		}
 	}
 
