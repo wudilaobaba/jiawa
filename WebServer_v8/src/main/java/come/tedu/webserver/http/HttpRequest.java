@@ -51,7 +51,7 @@ public class HttpRequest {
 	
 	/**
 	 * 实例化HttpRequest使用的构造方法，需要将对应的客户端的Socket传入，以便读取该客户端发送过来的请求内容
-	 * @param socket
+	 * @param socket 
 	 * @throws EmptyRequestException 
 	 */
 	public HttpRequest(Socket socket) throws EmptyRequestException{
