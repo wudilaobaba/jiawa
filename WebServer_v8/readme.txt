@@ -6,7 +6,10 @@
 	2.含有参数的，如：/myweb/reg?username=fan&password=xx
 	因此我们要重构HttpRequest这个类的解析工作，对请求行中url部分要进行进一步解析工作
 		2.1在HttpRequest中添加三个新的属性，用于保存url中的各部分内容。
-		requestURI:保存请求部分
-		queryString:保存参数部分
-		Map parameters:保存每个参数(通过解析queryString得到)
-		
+			requestURI:保存请求部分
+			queryString:保存参数部分
+			Map parameters:保存每个参数(通过解析queryString得到)
+		2.2提供一个专门用来解析请求行中url部分的方法，
+			解析后，将url各部分内容设置到2.1定义的属性上
+		2.3在解析请求行的方法中，得到url后，调用2.2提供的方法进一步解析url
+		2.4为2.1定义的属性提供对应的get方法，便于外面获取这些信息

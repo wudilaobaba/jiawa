@@ -3,6 +3,7 @@ package come.tedu.webserver.http;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,13 @@ public class HttpRequest {
 	private String url;
 	//请求使用的协议版本
 	private String protocol;
+	//url中的部分请求
+	private String requestURI;
+	//url中的参数部分
+	private String queryString;
+	//url中所有参数
+	//key参数名 value:参数值
+	private Map<String,String> parameters = new HashMap<String,String>(); 
 	
 	//消息头相关定义
 	private Map<String,String> headers = new HashMap();
@@ -43,6 +51,21 @@ public class HttpRequest {
 	}
 	public String getProtocol() {
 		return protocol;
+	}
+	
+	public String getRequestURI() {
+		return requestURI;
+	}
+	public String getQueryString() {
+		return queryString;
+	}
+	/**
+	 * 根据给定的参数名获取对应的参数值
+	 * @param name
+	 * @return
+	 */
+	public String getParamter(String name){
+		return this.parameters.get(name);
 	}
 	//提供获取消息头信息的方法
 	public String getHeader(String name){
@@ -93,9 +116,56 @@ public class HttpRequest {
 		}
 		method = str[0];
 		url = str[1];
+		//进一步解析url部分
+		parseURL();
 		protocol = str[2];
 		System.out.println("解析请求行");
 		System.out.println(Arrays.toString(str));
+	}
+	/**
+	 * 进一步对url进行解析
+	 * 将url中的请求部分设置到属性requestURI上
+	 * 将url中的参数部分设置到queryString上
+	 * 在对参数部分进一步解析，将每个参数都存入到属性parameters中
+	 * 若该url不含有参数部分，则直接将url的值赋值给requestURI，参数部分不做任何处理
+	 */
+	private void parseURL(){
+		System.out.println("开始解析url:"+url);
+		/*
+		 *思路：
+		 *url是否含有参数，可以根据该url中是否含有?来决定。若有则按照?拆分为两部分
+		 *第一部分为请求部分，第二部分为参数部分
+		 *设置到对应属性即可。然后再对参数进行拆分，最终将每个参数的名字作为key,值作为value存入到parameter中。
+		 *若不含有参数，则直接将url赋值给requestURL即可。 
+		 */
+//		if(url.indexOf('?')!=-1){//若含有问号
+//			
+//		}
+		if(url.contains("?")){
+			String[] data = url.split("\\?");
+			requestURI = data[0];
+			if(data.length>1){//防止问号右边没值
+				queryString = data[1];
+				String[] query = queryString.split("\\&");
+				for(String str : query){
+					String[] m = str.split("\\=");
+					if(m.length>1){//防止等号右边没值
+						parameters.put(m[0], m[1]);
+					}else{
+						parameters.put(m[0], "");
+					}
+				}
+			}
+		}else{
+			requestURI = url;
+		}
+		
+		
+		
+		System.out.println("requestURI:"+requestURI);
+		System.out.println("queryString:"+queryString);
+		System.out.println("parameters:"+parameters);
+		System.out.println("url解析完毕！");
 	}
 	/**
 	 * 解析消息头  不需要被外界调用就用private

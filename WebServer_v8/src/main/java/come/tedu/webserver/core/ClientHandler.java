@@ -36,17 +36,23 @@ public class ClientHandler implements Runnable{
 			/*
 			 * 通过request获取请求的资源路径，从webapps中寻找对应资源
 			 */
-			String str = request.getUrl();
-			File file = new File("webapps"+str);			
-			if(file.exists()){
-				System.out.println("资源已找到"+str);
-				response.setStatusCode(200);
-				response.setEntity(new File("./webapps"+str));
+			String str = request.getRequestURI();
+			//判断是否请求注册业务
+			if("/login".equals(str)){
+				System.out.println("开始处理注册业务");
 			}else{
-				System.out.println("资源未找到"+str);
-				response.setStatusCode(404);
-				response.setEntity(new File("./webapps/myweb/404.html"));
+				File file = new File("webapps"+str);			
+				if(file.exists()){
+					System.out.println("资源已找到"+str);
+					response.setStatusCode(200);
+					response.setEntity(new File("./webapps"+str));
+				}else{
+					System.out.println("资源未找到"+str);
+					response.setStatusCode(404);
+					response.setEntity(new File("./webapps/myweb/404.html"));
+				}
 			}
+			
 			response.flush();
 		}catch(EmptyRequestException e){
 			System.out.println("空请求来了");  //会继续走到finally中，与客户端断开连接
