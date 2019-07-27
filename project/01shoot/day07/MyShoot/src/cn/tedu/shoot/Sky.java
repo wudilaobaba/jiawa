@@ -1,12 +1,12 @@
 package cn.tedu.shoot;
-//Ìì¿Õ
+//å¤©ç©º
 public class Sky extends FlyingObject{
-	int y1;//Á½ÕÅÍ¼Æ¬µÄy×ø±êµÄÇÐ»»
+	int y1;//ä¸¤å¼ å›¾ç‰‡çš„yåæ ‡çš„åˆ‡æ¢
 	int speed;
 	Sky(){
 		super(400,700,0,0);
 		y1 = -700;
 		speed = 1;
-		System.out.println("Ìì¿Õ³õÊ¼×ø±ê--> (x:"+x+", y:"+y+")");
+		System.out.println("å¤©ç©ºåˆå§‹åæ ‡--> (x:"+x+", y:"+y+")");
 	}
 }

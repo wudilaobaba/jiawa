@@ -1,8 +1,8 @@
 package cn.tedu.shoot;
-//Ëæ»ú½±Àø½Ó¿Ú
+//éšæœºå¥–åŠ±æ¥å£
 public interface Award {
-	int DOUBLE_FIRE = 0;//»ğÁ¦Öµ
-	int LIFE = 1; //Ãü
-	int TIME = 2;//Ê±¼ä
+	int DOUBLE_FIRE = 0;//ç«åŠ›å€¼
+	int LIFE = 1; //å‘½
+	int TIME = 2;//æ—¶é—´
 	public int getAwardType();
 }

@@ -1,12 +1,12 @@
 package cn.tedu.shoot;
-//Ö÷·½·¨
+//ä¸»æ–¹æ³•
 public class World {
 	Sky sky = new Sky();
 	Hero hero = new Hero();
 	FlyingObject enemies[] = {};
 	Bullet[] bullets = {};
-	
-	void action(){//²âÊÔ´úÂë
+
+	void action(){//æµ‹è¯•ä»£ç 
 		enemies = new FlyingObject[5];
 		enemies[0] = new AirPlane();
 		enemies[1] = new BigAirPlane();
@@ -15,11 +15,11 @@ public class World {
 		enemies[4] = new BigAirPlane();
 		for(int i=0;i<enemies.length;i++){
 			enemies[i].step();
-			//×Óµ¯Éä»÷enemies[i]
-			//enemies[i]ÓëÓ¢ĞÛ»úÏà×²
+			//å­å¼¹å°„å‡»enemies[i]
+			//enemies[i]ä¸è‹±é›„æœºç›¸æ’
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		World world = new World();
 		world.action();

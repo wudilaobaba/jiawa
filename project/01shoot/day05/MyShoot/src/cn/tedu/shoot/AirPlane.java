@@ -1,10 +1,10 @@
 package cn.tedu.shoot;
-//Ð¡µÐ»úµÄÀà
+//å°æ•Œæœºçš„ç±»
 public class AirPlane extends FlyingObject{
 	int speed;
 	AirPlane(){
-		super(49,36);		
+		super(49,36);
 		speed = 2;
-		System.out.println("Ð¡µÐ»ú³õÊ¼×ø±ê--> (x:"+x+", y:"+y+"), ¿í:"+super.width+"¸ß:"+super.height);
+		System.out.println("å°æ•Œæœºåˆå§‹åæ ‡--> (x:"+x+", y:"+y+"), å®½:"+super.width+"é«˜:"+super.height);
 	}
 }

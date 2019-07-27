@@ -1,12 +1,12 @@
 package cn.tedu.shoot;
 import java.util.Random;
-//ËùÓĞ·ÉĞĞÎïµÄ³¬Àà
+//æ‰€æœ‰é£è¡Œç‰©çš„è¶…ç±»
 public class FlyingObject {
 	int width;
 	int height;
 	int x;
 	int y;
-	//ÒÔÏÂµÄ¹¹Ôìº¯ÊıÊÇ×¨ÃÅ¸ø´óµĞ»ú¡¢Ğ¡µĞ»ú¡¢Ğ¡ÃÛ·äÌá¹©µÄ
+	//ä»¥ä¸‹çš„æ„é€ å‡½æ•°æ˜¯ä¸“é—¨ç»™å¤§æ•Œæœºã€å°æ•Œæœºã€å°èœœèœ‚æä¾›çš„
 	FlyingObject(int width, int height){
 		Random rand = new Random();
 		this.width = width;
@@ -14,15 +14,15 @@ public class FlyingObject {
 		this.x = rand.nextInt(400-this.width);
 		this.y = -this.height;
 	}
-	//ÒÔÏÂµÄ¹¹Ôìº¯ÊıÊÇ×¨ÃÅ¸øÓ¢ĞÛ»ú¡¢×Óµ¯¡¢Ìì¿ÕÌá¹©µÄ...
+	//ä»¥ä¸‹çš„æ„é€ å‡½æ•°æ˜¯ä¸“é—¨ç»™è‹±é›„æœºã€å­å¼¹ã€å¤©ç©ºæä¾›çš„...
 	FlyingObject(int width, int height, int x, int y){
 		this.width = width;
 		this.height = height;
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	void step(){
-		System.out.println("·ÉĞĞÎïÒÆ¶¯À²");
+		System.out.println("é£è¡Œç‰©ç§»åŠ¨å•¦");
 	}
 }

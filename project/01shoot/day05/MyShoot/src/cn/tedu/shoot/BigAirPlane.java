@@ -4,6 +4,6 @@ public class BigAirPlane extends FlyingObject {
 	BigAirPlane(){
 		super(69,99);
 		speed = 2;
-		System.out.println("´óµÐ»ú³õÊ¼×ø±ê--> (x:"+x+", y:"+y+"), ¿í:"+super.width+"¸ß:"+super.height);
+		System.out.println("å¤§æ•Œæœºåˆå§‹åæ ‡--> (x:"+x+", y:"+y+"), å®½:"+super.width+"é«˜:"+super.height);
 	}
 }

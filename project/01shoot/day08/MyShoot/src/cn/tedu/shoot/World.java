@@ -1,14 +1,14 @@
 package cn.tedu.shoot;
-import javax.swing.JFrame;//»­´°¿Ú3²½---step01
-import javax.swing.JPanel;//»­´°¿Ú3²½---step01
-//Ö÷·½·¨
-public class World extends JPanel{//»­´°¿ÚÒª¼Ì³Ð(Ö»ÒªÏëÒ»ÔËÐÐ¾Íµ¯³öÒ»¸ö´°¿Ú£¬¾Í¼Ì³ÐJPanel)»­´°¿Ú3²½---step02
+import javax.swing.JFrame;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½---step01
+import javax.swing.JPanel;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½---step01
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+public class World extends JPanel{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ì³ï¿½(Ö»Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð¾Íµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½Í¼Ì³ï¿½JPanel)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½---step02
 	Sky sky = new Sky();
 	Hero hero = new Hero();
 	FlyingObject enemies[] = {};
 	Bullet[] bullets = {};
-	
-	void action(){//²âÊÔ´úÂë
+
+	void action(){//ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 		sky.step();
 		hero.step();
 		bullets = new Bullet[1];
@@ -22,22 +22,22 @@ public class World extends JPanel{//»­´°¿ÚÒª¼Ì³Ð(Ö»ÒªÏëÒ»ÔËÐÐ¾Íµ¯³öÒ»¸ö´°¿Ú£¬¾Í¼
 		enemies[4] = new BigAirPlane();
 		for(int i=0;i<enemies.length;i++){
 			enemies[i].step();
-			//×Óµ¯Éä»÷enemies[i]
-			//enemies[i]ÓëÓ¢ÐÛ»úÏà×²
+			//ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½enemies[i]
+			//enemies[i]ï¿½ï¿½Ó¢ï¿½Û»ï¿½ï¿½ï¿½×²
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		//ÒÔÏÂÖ±½ÓCopy¹ýÀ´¼´¿É »­´°¿Ú3²½---step03
-		JFrame frame = new JFrame(); //´°¿Ú--»­¿ò
-		World world = new World();//Ãæ°å
-		frame.add(world); //½«Ãæ°å¼Óµ½´°¿ÚÖÐ
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ÍË³ö´°¿Ú¾Í×Ô¶¯¹Ø±Õ³ÌÐò
-		frame.setSize(400, 700); //´óÐ¡
-		frame.setLocationRelativeTo(null); //³õÊ¼Î»ÖÃ ¾ÓÖÐÏÔÊ¾
-		frame.setVisible(true);//ÏÔÊ¾-¾¡¿ìµ÷ÓÃpaint·½·¨
-		world.action();  //²âÊÔ´úÂë
+		//ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Copyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½---step03
+		JFrame frame = new JFrame(); //ï¿½ï¿½ï¿½ï¿½--ï¿½ï¿½ï¿½ï¿½
+		World world = new World();//ï¿½ï¿½ï¿½ï¿½
+		frame.add(world); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ï¿½Ë³ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½Ô¶ï¿½ï¿½Ø±Õ³ï¿½ï¿½ï¿½
+		frame.setSize(400, 700); //ï¿½ï¿½Ð¡
+		frame.setLocationRelativeTo(null); //ï¿½ï¿½Ê¼Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+		frame.setVisible(true);//ï¿½ï¿½Ê¾-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½paintï¿½ï¿½ï¿½ï¿½
+		world.action();  //ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 	}
 
 }

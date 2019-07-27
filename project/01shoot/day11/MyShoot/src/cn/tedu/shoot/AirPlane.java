@@ -1,8 +1,8 @@
 package cn.tedu.shoot;
-import java.awt.image.BufferedImage;//ÓÃÀ´×°Í¼Æ¬µÄÀà
-//Ð¡µÐ»úµÄÀà
+import java.awt.image.BufferedImage;//ç”¨æ¥è£…å›¾ç‰‡çš„ç±»
+//å°æ•Œæœºçš„ç±»
 public class AirPlane extends FlyingObject{
-	//¾²Ì¬½¨Òé·ÅÔÚ×îÉÏÃæ
+	//é™æ€å»ºè®®æ”¾åœ¨æœ€ä¸Šé¢
 	private static BufferedImage[] images;
 	static{
 		images = new BufferedImage[5];
@@ -12,16 +12,16 @@ public class AirPlane extends FlyingObject{
 	}
 	private int speed;
 	public AirPlane(){
-		super(49,36);		
+		super(49,36);
 		speed = 2;
-		//System.out.println("Ð¡µÐ»ú³õÊ¼×ø±ê--> (x:"+x+", y:"+y+"), ¿í:"+super.width+"¸ß:"+super.height);
+		//System.out.println("å°æ•Œæœºåˆå§‹åæ ‡--> (x:"+x+", y:"+y+"), å®½:"+super.width+"é«˜:"+super.height);
 	}
 	public void step(){
 		y+=speed;
 	}
-	
-	int deadIndex = 1;//ËÀÁË×´Ì¬µÄÏÂ±ê
-	public BufferedImage getImage(){//¸Ã·½·¨Ã¿10msÖ´ÐÐÒ»´Î
+
+	int deadIndex = 1;//æ­»äº†çŠ¶æ€çš„ä¸‹æ ‡
+	public BufferedImage getImage(){//è¯¥æ–¹æ³•æ¯10msæ‰§è¡Œä¸€æ¬¡
 		if(isLife()){
 			return images[0];
 		}else if(isDead()){
@@ -33,8 +33,8 @@ public class AirPlane extends FlyingObject{
 		}
 		return null;
 	}
-	
-	//ÖØÐ´outOfBounds·½·¨
+
+	//é‡å†™outOfBoundsæ–¹æ³•
 	public boolean outOfBounds(){
 		return y>=World.HEIGHT;
 	}

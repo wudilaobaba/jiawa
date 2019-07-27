@@ -1,20 +1,20 @@
 package cn.tedu.shoot;
 import java.util.Random;
-import java.awt.image.BufferedImage;//ÓÃÀ´×°Í¼Æ¬µÄÀà
-import javax.imageio.ImageIO;//×öÍ¼Æ¬¶ÁÐ´µÄÀà
-import java.awt.Graphics;//»­±Ê£¬»­Í¼Æ¬ÓÃµÄ
-//ËùÓÐ·ÉÐÐÎïµÄ³¬Àà
+import java.awt.image.BufferedImage;//ç”¨æ¥è£…å›¾ç‰‡çš„ç±»
+import javax.imageio.ImageIO;//åšå›¾ç‰‡è¯»å†™çš„ç±»
+import java.awt.Graphics;//ç”»ç¬”ï¼Œç”»å›¾ç‰‡ç”¨çš„
+//æ‰€æœ‰é£žè¡Œç‰©çš„è¶…ç±»
 public abstract class FlyingObject {
-	public static final int LIFE = 0;//»îµÄ×´Ì¬
-	public static final int DEAD = 1;//ËÀµÄ×´Ì¬
-	public static final int REMOVE = 2;//ÒÆ³ý×´Ì¬
-	protected int state = LIFE;//µ±Ç°×´Ì¬
-	
+	public static final int LIFE = 0;//æ´»çš„çŠ¶æ€
+	public static final int DEAD = 1;//æ­»çš„çŠ¶æ€
+	public static final int REMOVE = 2;//ç§»é™¤çŠ¶æ€
+	protected int state = LIFE;//å½“å‰çŠ¶æ€
+
 	protected int width;
 	protected int height;
 	protected int x;
 	protected int y;
-	//ÒÔÏÂµÄ¹¹Ôìº¯ÊýÊÇ×¨ÃÅ¸ø´óµÐ»ú¡¢Ð¡µÐ»ú¡¢Ð¡ÃÛ·äÌá¹©µÄ
+	//ä»¥ä¸‹çš„æž„é€ å‡½æ•°æ˜¯ä¸“é—¨ç»™å¤§æ•Œæœºã€å°æ•Œæœºã€å°èœœèœ‚æä¾›çš„
 	public FlyingObject(int width, int height){
 		Random rand = new Random();
 		this.width = width;
@@ -22,21 +22,21 @@ public abstract class FlyingObject {
 		this.x = rand.nextInt(World.WIDTH-this.width);
 		this.y = -this.height;
 	}
-	//ÒÔÏÂµÄ¹¹Ôìº¯ÊýÊÇ×¨ÃÅ¸øÓ¢ÐÛ»ú¡¢×Óµ¯¡¢Ìì¿ÕÌá¹©µÄ...
+	//ä»¥ä¸‹çš„æž„é€ å‡½æ•°æ˜¯ä¸“é—¨ç»™è‹±é›„æœºã€å­å¼¹ã€å¤©ç©ºæä¾›çš„...
 	public FlyingObject(int width, int height, int x, int y){
 		this.width = width;
 		this.height = height;
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public abstract void step();
-	
-	//¶ÁÈ¡Í¼Æ¬,¸Ã·½·¨µÄ²Ù×÷Óë¶ÔÏóÎÞ¹Ø£¬¸ø¸÷¸öÀàÉèÖÃ×Ô¼ºµÄÍ¼Æ¬Êý¾Ý
+
+	//è¯»å–å›¾ç‰‡,è¯¥æ–¹æ³•çš„æ“ä½œä¸Žå¯¹è±¡æ— å…³ï¼Œç»™å„ä¸ªç±»è®¾ç½®è‡ªå·±çš„å›¾ç‰‡æ•°æ®
 	public static BufferedImage loadImage(String fileName){
-		//javaµÄIO²Ù×÷Òª·½·¨try catchÖÐ
+		//javaçš„IOæ“ä½œè¦æ–¹æ³•try catchä¸­
 		try{
-			//Ö»ÄÜÔÚÍ¬°üÖ®ÄÚ½øÐÐ¶ÁÈ¡Í¼Æ¬
+			//åªèƒ½åœ¨åŒåŒ…ä¹‹å†…è¿›è¡Œè¯»å–å›¾ç‰‡
 			BufferedImage img = ImageIO.read(FlyingObject.class.getResource(fileName));
 			return img;
 		}catch(Exception e){
@@ -44,40 +44,40 @@ public abstract class FlyingObject {
 			throw new RuntimeException();
 		}
 	}
-	
-	//¸ù¾Ý²»Í¬µÄ×´Ì¬ÉèÖÃ¶ÔÏóÔÚµ±Ç°×´Ì¬ÏÂÐèÒªÏÔÊ¾ÄÄÕÅÍ¼Æ¬
+
+	//æ ¹æ®ä¸åŒçš„çŠ¶æ€è®¾ç½®å¯¹è±¡åœ¨å½“å‰çŠ¶æ€ä¸‹éœ€è¦æ˜¾ç¤ºå“ªå¼ å›¾ç‰‡
 	public abstract BufferedImage getImage();
-	
-	//ÅÐ¶ÏÊÇ·ñ»î×Å
+
+	//åˆ¤æ–­æ˜¯å¦æ´»ç€
 	public boolean isLife(){
 		return state==LIFE;
 	}
-	//ÅÐ¶ÏÊÇ·ñËÀÁË
+	//åˆ¤æ–­æ˜¯å¦æ­»äº†
 	public boolean isDead(){
 		return state==DEAD;
 	}
-	//ÅÐ¶ÏÊÇ·ñÉ¾³ý
+	//åˆ¤æ–­æ˜¯å¦åˆ é™¤
 	public boolean isRemove(){
 		return state==REMOVE;
 	}
-	
-	//»­Í¼Æ¬ g:»­±Ê    Ìì¿ÕÒªÖØÐ´
+
+	//ç”»å›¾ç‰‡ g:ç”»ç¬”    å¤©ç©ºè¦é‡å†™
 	public void paintObject(Graphics g){
 		g.drawImage(getImage(),x,y,null);
 	}
-	
-	//É¾³ýÔ½½çµÄ·ÉÐÐÎï 
+
+	//åˆ é™¤è¶Šç•Œçš„é£žè¡Œç‰©
 	public abstract boolean outOfBounds();
-	
-	//Åö×²Ëã·¨,Ö»ÓÉµÐÈËÀ´µ÷ÓÃ   otherÎª×Óµ¯»òÓ¢ÐÛ»ú
+
+	//ç¢°æ’žç®—æ³•,åªç”±æ•Œäººæ¥è°ƒç”¨   otherä¸ºå­å¼¹æˆ–è‹±é›„æœº
 	public boolean hit(FlyingObject other){
-		return 	
-				other.x >= this.x-other.width 
-				&& 
-				other.x <= this.x+this.width 
-				&& 
+		return
+				other.x >= this.x-other.width
+				&&
+				other.x <= this.x+this.width
+				&&
 				other.y >= this.y-other.height
-				&& 
+				&&
 				other.y <= this.y+this.height;
 	}
 }

@@ -1,9 +1,9 @@
 package cn.tedu.shoot;
-import javax.swing.JFrame;//»­´°¿Ú3²½---step01
-import javax.swing.JPanel;//»­´°¿Ú3²½---step01
-import java.awt.Graphics;//»­±Ê£¬»­Í¼Æ¬ÓÃµÄ
-//Ö÷·½·¨
-public class World extends JPanel{//»­´°¿ÚÒª¼Ì³Ğ(Ö»ÒªÏëÒ»ÔËĞĞ¾Íµ¯³öÒ»¸ö´°¿Ú£¬¾Í¼Ì³ĞJPanel)»­´°¿Ú3²½---step02
+import javax.swing.JFrame;//ç”»çª—å£3æ­¥---step01
+import javax.swing.JPanel;//ç”»çª—å£3æ­¥---step01
+import java.awt.Graphics;//ç”»ç¬”ï¼Œç”»å›¾ç‰‡ç”¨çš„
+//ä¸»æ–¹æ³•
+public class World extends JPanel{//ç”»çª—å£è¦ç»§æ‰¿(åªè¦æƒ³ä¸€è¿è¡Œå°±å¼¹å‡ºä¸€ä¸ªçª—å£ï¼Œå°±ç»§æ‰¿JPanel)ç”»çª—å£3æ­¥---step02
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 700;
 	private Sky sky = new Sky();
@@ -17,13 +17,13 @@ public class World extends JPanel{//»­´°¿ÚÒª¼Ì³Ğ(Ö»ÒªÏëÒ»ÔËĞĞ¾Íµ¯³öÒ»¸ö´°¿Ú£¬¾Í¼
 		new Bullet(hero.x+10,hero.y-30),
 		new Bullet(hero.x+80,hero.y-30),
 	};
-	
-	
-	public void action(){//²âÊÔ´úÂë
-		
+
+
+	public void action(){//æµ‹è¯•ä»£ç 
+
 	}
-	
-	public void paint(Graphics g){ //Õâ¸öpaintÊÇWorldÀàµÄ³¬ÀàJPanelÖĞµÄ·½·¨
+
+	public void paint(Graphics g){ //è¿™ä¸ªpaintæ˜¯Worldç±»çš„è¶…ç±»JPanelä¸­çš„æ–¹æ³•
 		sky.paintObject(g);
 		hero.paintObject(g);
 		for(int i=0;i<enemies.length;i++){
@@ -32,19 +32,19 @@ public class World extends JPanel{//»­´°¿ÚÒª¼Ì³Ğ(Ö»ÒªÏëÒ»ÔËĞĞ¾Íµ¯³öÒ»¸ö´°¿Ú£¬¾Í¼
 		for(int i=0;i<bullets.length;i++){
 			bullets[i].paintObject(g);
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args) {
-		//ÒÔÏÂÖ±½ÓCopy¹ıÀ´¼´¿É »­´°¿Ú3²½---step03
-		JFrame frame = new JFrame(); //´°¿Ú--»­¿ò
-		World world = new World();//Ãæ°å
-		frame.add(world); //½«Ãæ°å¼Óµ½´°¿ÚÖĞ
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ÍË³ö´°¿Ú¾Í×Ô¶¯¹Ø±Õ³ÌĞò
-		frame.setSize(WIDTH, HEIGHT); //´óĞ¡
-		frame.setLocationRelativeTo(null); //³õÊ¼Î»ÖÃ ¾ÓÖĞÏÔÊ¾
-		frame.setVisible(true);//ÏÔÊ¾-¾¡¿ìµ÷ÓÃpaint·½·¨ ------------------->¿´ÕâÀï£¡£¡£¡
-		world.action();  //²âÊÔ´úÂë
+		//ä»¥ä¸‹ç›´æ¥Copyè¿‡æ¥å³å¯ ç”»çª—å£3æ­¥---step03
+		JFrame frame = new JFrame(); //çª—å£--ç”»æ¡†
+		World world = new World();//é¢æ¿
+		frame.add(world); //å°†é¢æ¿åŠ åˆ°çª—å£ä¸­
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//é€€å‡ºçª—å£å°±è‡ªåŠ¨å…³é—­ç¨‹åº
+		frame.setSize(WIDTH, HEIGHT); //å¤§å°
+		frame.setLocationRelativeTo(null); //åˆå§‹ä½ç½® å±…ä¸­æ˜¾ç¤º
+		frame.setVisible(true);//æ˜¾ç¤º-å°½å¿«è°ƒç”¨paintæ–¹æ³• ------------------->çœ‹è¿™é‡Œï¼ï¼ï¼
+		world.action();  //æµ‹è¯•ä»£ç 
 	}
 
 }
