@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.Socket;
+import java.util.Arrays;
 
 import come.tedu.webserver.http.HttpRequest;
 import come.tedu.webserver.http.HttpResponse;
@@ -40,6 +42,31 @@ public class ClientHandler implements Runnable{
 			//判断是否请求注册业务
 			if("/login".equals(str)){
 				System.out.println("开始处理注册业务");
+				/*
+				 * 注册业务流程
+				 * 1.通过reqest获取用户在注册页面上输入的注册信息
+				 * 2.使用RandomAccessFile打开use.dat文件
+				 * 3.将该用户信息写入文件
+				 * 4.设置response,响应注册成功页面
+				 */
+				String userName = request.getParamter("userName");
+				String psw = request.getParamter("psw");
+				String nickName = request.getParamter("nickName");
+				int age = Integer.parseInt(request.getParamter("age"));
+				//对用户数据进行必要验证
+				try{
+					RandomAccessFile raf = new RandomAccessFile("./user.dat","rw");
+					raf.seek(raf.length());
+					raf.write(Arrays.copyOf(userName.getBytes("utf-8"), 32));
+					raf.write(Arrays.copyOf(psw.getBytes("utf-8"), 32));
+					raf.write(Arrays.copyOf(nickName.getBytes("utf-8"), 32));
+					raf.writeInt(age);
+					raf.close();
+					response.setStatusCode(200);
+					response.setEntity(new File("./webapps/myweb/success.html"));
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}else{
 				File file = new File("webapps"+str);			
 				if(file.exists()){
@@ -52,7 +79,7 @@ public class ClientHandler implements Runnable{
 					response.setEntity(new File("./webapps/myweb/404.html"));
 				}
 			}
-			
+			//响应客户端
 			response.flush();
 		}catch(EmptyRequestException e){
 			System.out.println("空请求来了");  //会继续走到finally中，与客户端断开连接
