@@ -1,0 +1,5 @@
+本版本改动：
+重构项目。ClientHandler目前违背了高内聚原则，要进行功能拆分。将业务处理的部分抽离出去。
+1.创建新的包servlet,这个包中的类负责处理某个具体的业务。
+2.在servlet包中定义两个类RegServlet,LoginServlet.分别负责注册与登录业务
+3.当ClientHandler根据请求判断为请求某个业务时，只需实例化用于处理该业务的Servlet并交由其处理即可。
