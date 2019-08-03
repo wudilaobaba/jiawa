@@ -8,9 +8,14 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import come.tedu.webserver.http.HttpRequest;
 import come.tedu.webserver.http.HttpResponse;
+import come.tedu.webserver.servlet.HttpServlet;
+import come.tedu.webserver.servlet.LoginServlet;
+import come.tedu.webserver.servlet.RegServlet;
 
 /**
  * 处理客户端请求的线程任务
@@ -20,7 +25,7 @@ import come.tedu.webserver.http.HttpResponse;
  */
 public class ClientHandler implements Runnable {
 	private Socket socket;
-
+	private Map<String,HttpServlet> servletMapping = new HashMap<String,HttpServlet>();
 	public ClientHandler(Socket socket) {
 		this.socket = socket;
 	}
@@ -39,59 +44,10 @@ public class ClientHandler implements Runnable {
 			 * 通过request获取请求的资源路径，从webapps中寻找对应资源
 			 */
 			String str = request.getRequestURI();
-			// 判断是否请求注册业务
-			if ("/login".equals(str)) {
-				System.out.println("开始处理注册业务");
-				/*
-				 * 注册业务流程 1.通过reqest获取用户在注册页面上输入的注册信息
-				 * 2.使用RandomAccessFile打开use.dat文件 3.将该用户信息写入文件
-				 * 4.设置response,响应注册成功页面
-				 */
-				String userName = request.getParamter("userName");
-				String psw = request.getParamter("psw");
-				String nickName = request.getParamter("nickName");
-				int age = Integer.parseInt(request.getParamter("age"));
-				// 对用户数据进行必要验证
-				try {
-					RandomAccessFile raf = new RandomAccessFile("./user.dat", "rw");
-					raf.seek(raf.length());
-					raf.write(Arrays.copyOf(userName.getBytes("utf-8"), 32));
-					raf.write(Arrays.copyOf(psw.getBytes("utf-8"), 32));
-					raf.write(Arrays.copyOf(nickName.getBytes("utf-8"), 32));
-					raf.writeInt(age);
-					raf.close();
-					response.setStatusCode(200);
-					response.setEntity(new File("./webapps/myweb/success.html"));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if ("/denglu".equals(str)) {
-				System.out.println("开始处理登录业务");
-				String userName = request.getParamter("userName");
-				String psw = request.getParamter("psw");
-				try {
-					RandomAccessFile raf = new RandomAccessFile("./user.dat", "r");
-					byte[] b = new byte[32];
-					for (int i = 0; i < raf.length() / 100; i++) {
-						raf.seek(i * 100);
-						raf.read(b);
-						String name = new String(b, "utf-8").trim();
-						raf.read(b);
-						String password = new String(b, "utf-8").trim();
-						if (userName.equals(name) && psw.equals(password)) {
-							response.setStatusCode(200);
-							response.setEntity(new File("./webapps/myweb/success.html"));
-							break;
-						} else {
-							response.setStatusCode(200);
-							response.setEntity(new File("./webapps/myweb/fail.html"));
-						}
-					}
-					raf.close();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			// 判断是否是请求业务
+			if(this.servletMapping.containsKey(str)){
+				HttpServlet servlet = this.servletMapping.get(str);
+				servlet.service(request, response);
 			} else {
 				File file = new File("webapps" + str);
 				if (file.exists()) {
