@@ -25,7 +25,6 @@ import come.tedu.webserver.servlet.RegServlet;
  */
 public class ClientHandler implements Runnable {
 	private Socket socket;
-	private Map<String,HttpServlet> servletMapping = new HashMap<String,HttpServlet>();
 	public ClientHandler(Socket socket) {
 		this.socket = socket;
 	}
@@ -45,8 +44,11 @@ public class ClientHandler implements Runnable {
 			 */
 			String str = request.getRequestURI();
 			// 判断是否是请求业务
-			if(this.servletMapping.containsKey(str)){
-				HttpServlet servlet = this.servletMapping.get(str);
+			if("/login".equals(str)){
+				HttpServlet servlet = new RegServlet();
+				servlet.service(request, response);
+			}else if("/denglu".equals(str)){
+				HttpServlet servlet = new LoginServlet();
 				servlet.service(request, response);
 			} else {
 				File file = new File("webapps" + str);

@@ -61,7 +61,8 @@ HashMap的工作原理  类似于酒店的花名册
       - 如果有1000条数据需要添加到HashMap, new HashMap(1500);
 
 Map的遍历(迭代)：
-  
+
 
 补充：
 某数对n取余，结果为0~(n-1)
+this.queryString = URLDecoder.decode(this.queryString,"UTF-8");  %XX转中文

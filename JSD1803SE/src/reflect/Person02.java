@@ -11,7 +11,13 @@ public class Person02 {
 	public void sayHello(){
 		System.out.println("大家好");
 	}
-	public void sayHi(){
-		System.out.println("Hi!");
+	public void sayHello(String name){
+		System.out.println("带一个参数的");
+	}
+	public void sayHello(String name,int age){
+		System.out.println("带两个参数的");
+	}
+	private void dosome(){
+		System.out.println("私有...");
 	}
 }
