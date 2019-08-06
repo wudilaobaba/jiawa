@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<servlets>
+		<servlet url="/login" className="come.tedu.webserver.servlet.RegServlet"/>
+		<servlet url="/denglu" className="come.tedu.webserver.servlet.LoginServlet"/>
+		<servlet url="/update" className="come.tedu.webserver.servlet.UpdateServlet"/>
+	</servlets>
+</config>
