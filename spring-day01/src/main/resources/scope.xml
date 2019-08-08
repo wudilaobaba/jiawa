@@ -20,7 +20,13 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/tx/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/tx/spring-util-3.2.xsd">
-	<bean id="s1" class="scope.ScopeBean"></bean>
+		
+	<!-- 
+		配置作用域
+		scope属性：配置作用域，缺省值为singleton(单例，单个实例，一个bean只创建一个实例)
+		如果值为prototype(原型，即一个bean会创建多个实例)
+	 -->
+	<bean id="s1" class="scope.ScopeBean" scope="prototype"></bean>
 	
 </beans>
 

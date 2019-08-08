@@ -33,4 +33,10 @@ spring容器(最重要的模块)
     方式三 使用实例工厂方法(了解)
       通过调用对象的实例方法来创建对象
   4.作用域
-    
+    默认情况下，容器对于某个bean只会创建一个实例
+    可以设置scope属性，置为prototype,这样，容器对于某个bean会创建多个实例
+
+
+补充：单元测试
+  导入junit包-在src/test/java中写测试类
+  window-Show View - Outline - 右侧的类右键--Run as - JUnit Test
