@@ -11,7 +11,26 @@ Spring是什么？
   spring是一个一站式的框架
 
 spring容器(最重要的模块)
-  spring容器是什么？
+  1.spring容器是什么？
     是spring框架中的一个核心模块，用于管理对象
-  启动spring容器
+  2.启动spring容器
     step01.导包 (spring-webmvc)
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>3.2.8.RELEASE</version>
+      </dependency>
+    step02.添加配置文件
+      在src/main/resoures中创建一个xml文件applicationContext.xml
+    step03.启动spring容器  FirstSpring类
+  3.如何创建对象?
+    方式一 使用无参构造器(重点)：
+      step01.给类添加无参构造器(或缺省构造器)
+      step02.配置<bean>元素
+      step03.调用容器的getBean方法来获得对象。
+    方式二 使用静态工厂方法(了解)
+      通过类的静态方法来创建对象
+    方式三 使用实例工厂方法(了解)
+      通过调用对象的实例方法来创建对象
+  4.作用域
+    
