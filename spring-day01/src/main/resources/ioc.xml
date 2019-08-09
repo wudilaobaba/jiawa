@@ -22,25 +22,33 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/tx/spring-util-3.2.xsd">
 		
 	<!-- 
-		配置作用域
-		scope属性：配置作用域，缺省值为singleton(单例，单个实例，一个bean只创建一个实例)
-		如果值为prototype(原型，即一个bean会创建多个实例)
+		property元素：表示使用set方法来注入依赖关系
+		name属性：自定义属性名
+		ref属性：指定属性值(是被注入的bean的id)
+		
+		set的方式进行依赖注入:
+		对象a1创建的时候会将name属性值的第一个字母大写，然后加set,即：setB,并自动执行a1的setB，传参为b1这个对象即setB(b1)
 	 -->
-	<bean id="s1" class="scope.ScopeBean" scope="prototype"></bean>
+	<bean id="a1" class="ioc.A">
+		<property name="iB" ref="c1"/>
+	</bean>
+	<bean id="b1" class="ioc.B"></bean>
+	<bean id="c1" class="ioc.C"></bean>
+	
 	
 	
 	<!-- 
-		init-method属性：用来指定初始化方法(就是类中的方法名)
-		destory-method属性：用来指定销毁方法,关闭容器的时候会销毁对象
-		lazy-init属性：用来指定是否延迟加载，true为需要延迟加载，缺省值为false
+		课后练习LoginService类 与 AdminDAO类
+			要求：
+			   a.由容器创建这两个对象
+			   b.采用set方式将AdminDAO类注入到LoginService中
 	 -->
-	<bean id="message" class="scope.MessageBean" init-method="init" destroy-method="destroy" lazy-init="true"></bean>
-	
-	
-	<!-- 
-		课堂练习：ExampleBean类
-	 -->
-	 <bean id="example" class="scope.ExampleBean" init-method="init" destroy-method="destory"></bean>
+	 <bean id="login" class="iocTest.LoginService">
+	 	<property name="dao" ref="admin"/>
+	 </bean>
+	 <bean id="admin" class="iocTest.AdminDAO">
+	 	
+	 </bean>
 </beans>
 
 

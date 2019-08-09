@@ -28,6 +28,19 @@
 	 -->
 	<bean id="s1" class="scope.ScopeBean" scope="prototype"></bean>
 	
+	
+	<!-- 
+		init-method属性：用来指定初始化方法(就是类中的方法名)
+		destory-method属性：用来指定销毁方法,关闭容器的时候会销毁对象
+		lazy-init属性：用来指定是否延迟加载，true为需要延迟加载，缺省值为false
+	 -->
+	<bean id="message" class="scope.MessageBean" init-method="init" destroy-method="destroy" lazy-init="true"></bean>
+	
+	
+	<!-- 
+		课堂练习：ExampleBean类
+	 -->
+	 <bean id="example" class="scope.ExampleBean" init-method="init" destroy-method="destory"></bean>
 </beans>
 
 

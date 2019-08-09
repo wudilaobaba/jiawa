@@ -1,4 +1,4 @@
-Spring是什么？
+一、Spring是什么？
   是一个开源的，用来简化应用开发的框架
   简化开发
   spring对常用的api做了封装和简化(比如封装了jdbc，使用spring jdbc来访问数据库，就不再需要考虑获取连接和关闭连接了)
@@ -10,10 +10,10 @@ Spring是什么？
     即：不发明重复的轮子
   spring是一个一站式的框架
 
-spring容器(最重要的模块)
+二、spring容器(最重要的模块)
   1.spring容器是什么？
     是spring框架中的一个核心模块，用于管理对象
-  2.启动spring容器
+  2.启动spring容器(启动后就会自动读取xml配置文件，然后创建单例的实例)
     step01.导包 (spring-webmvc)
       <dependency>
         <groupId>org.springframework</groupId>
@@ -34,7 +34,41 @@ spring容器(最重要的模块)
       通过调用对象的实例方法来创建对象
   4.作用域
     默认情况下，容器对于某个bean只会创建一个实例
-    可以设置scope属性，置为prototype,这样，容器对于某个bean会创建多个实例
+    可以设置scope属性，值为prototype,这样，容器对于某个bean会创建多个实例
+  5.生命周期
+    初始化方法：使用init-method属性来指定初始化方法名
+    注：spring容器创建对象之后，会立即调用初始化方法
+    销毁方法：使用destroy-method属性来指定销毁方法(只用作用域为单例的时候，销毁方法才会起作用)
+    注：spring容器在关闭之前，会先销毁对象，在销毁对象之前，会先调用对象的销毁方法
+  6.延迟加载(了解)
+    不延迟加载的话：spring容器启动之后，会将所有作用域为单例的bean创建好，并自动执行其初始化方法。
+    设置延迟加载以后：spring容器启动之后，不会自动创建作用域为单例的bean。必须手动调用getBean方法才会创建
+    指定lazy-init属性值为true,此时spring容器对于作用域为单例的bean就不会创建相应的实例了。
+练习：
+  写一个java类 ExampleBean
+    要求：
+      a.由容器来创建该对象
+      b.有相应的初始化方法与销毁方法
+      c.作用域为单例
+      d.不使用延迟加载
+
+三、IOC (Inversion Of Controll 控制反转)
+  1.IOC是什么？
+    对象之间的依赖关系由容器来建立(目标)
+  2.DI(Dependency Injection 依赖注入)是什么？
+    容器通过调用对象提供的set方法或者构造方法来建立依赖关系(达成目标)
+    注：IOC是目标，DI是手段
+  3.set方式注入
+    step01.提供相应的set方法
+    step02.配置property元素
+    step03.
+练习：
+  LoginService类 与 AdminDAO类
+  要求：
+   a.由容器创建这两个对象
+   b.采用set方式将AdminDAO类注入到LoginService中
+
+
 
 
 补充：单元测试
