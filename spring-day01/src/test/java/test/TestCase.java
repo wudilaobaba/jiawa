@@ -12,6 +12,7 @@ import iocTest.LoginService;
 import scope.ExampleBean;
 import scope.MessageBean;
 import scope.ScopeBean;
+import value.SpelBean;
 import value.ValueBean;
 
 public class TestCase {
@@ -95,5 +96,21 @@ public class TestCase {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
 		ValueBean vb1 = ac.getBean("vb1",ValueBean.class);
 		System.out.println(vb1);
+	}
+	
+
+	@Test
+	//≤‚ ‘∂¡»°.propertiesŒƒº˛
+	public void Test10(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
+		System.out.println(ac.getBean("config"));
+	}
+	
+	@Test
+	//≤‚ ‘
+	public void Test11(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
+		SpelBean sp1 = ac.getBean("sp1",SpelBean.class);
+		System.out.println(sp1);
 	}
 }

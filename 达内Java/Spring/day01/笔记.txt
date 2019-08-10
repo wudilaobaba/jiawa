@@ -82,8 +82,13 @@
     Set 其中的元素不能重复，会自动去重
     Map
     Properties //是一个特殊的Map,他的value和key都是字符串
+  8.引用的方式注入集合类型的值
+  9.读取properties文件的内容
+  10.使用spring表达式
 
 
+补充
+  .properties文件
 补充：单元测试
   导入junit包-在src/test/java中写测试类
   window-Show View - Outline - 右侧的类右键--Run as - JUnit Test

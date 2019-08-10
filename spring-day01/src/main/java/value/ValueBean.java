@@ -14,6 +14,16 @@ public class ValueBean {
 	private Map<String,Double> score;
 	private Properties db;
 	
+	
+	public String getName() {
+		return name;
+	}
+	public Map getScore() {
+		return score;
+	}
+	public List<String> getCity() {
+		return city;
+	}
 	public void setDb(Properties db) {
 		this.db = db;
 	}

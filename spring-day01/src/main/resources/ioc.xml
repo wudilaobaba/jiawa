@@ -113,7 +113,7 @@
 	    	</property>
 	    	<property name="score">
 	    		<map>
-	    			<entry key="英语" value="60.3"/>
+	    			<entry key="englisg" value="60.3"/>
 	    			<entry key="数学" value="66.3"/>
 	    			<entry key="语文" value="50.5"/>
 	    			<entry key="化学" value="11.2"/>
@@ -125,6 +125,68 @@
 	    			<prop key="密码">123465</prop>
 	    		</props>
 	    	</property>
+	    </bean>
+	    
+	    
+	    
+	    
+	    
+	    <!-- 
+	    	将集合类型的值配置成一个bean
+	     -->
+	    <!--
+		    <util:list id="cityBean">
+		    	<value>上海</value>
+		    	<value>深圳</value>
+		    	<value>成都</value>
+		    </util:list>
+	    -->
+	    <!--
+	    <util:set id="instrestBean">
+	    	<value>书法</value>
+	    	<value>会话</value>
+	    	<value>足球</value>
+	    </util:set>
+	    -->
+	    <!--
+	    <util:map id="scoreBean">
+	    	<entry key="英语" value="80"/>
+	    	<entry key="历史" value="80"/>
+	    	<entry key="地理" value="80"/>
+	    </util:map>
+	    -->
+	    <!--
+	    <util:properties id="dbBean">
+	    	<prop key="用户名">xxx</prop>
+	    	<prop key="密码">xxx</prop>
+	    </util:properties>
+	    -->
+	    <!-- 引用的方式来注入集合的值 -->
+	    <!--
+	    <bean id="vb2" class="value.ValueBean">
+	    	<property name="city" ref="cityBean"/>
+	    	<property name="instrest" ref="instrestBean"/>
+	    	<property name="score" ref="scoreBean"/>
+	    	<property name="db" ref="dbBean"/>
+	    </bean>
+	    -->
+	    
+	    <!-- 
+	    	读取properties文件的内容
+	    	spring容器会依据以下路径找到对应的配置文件，然后读取该文件的内容到Properties对象
+	    	classpath：按照类路径来搜索 config/config.properties config文件下的config.properties文件
+	    -->
+	    <!--
+	    <util:properties id="config" location="classpath:config.properties"/>
+	    -->
+	    
+	    
+	    <bean id="sp1" class="value.SpelBean">
+	    	<property name="name" value="#{vb1.name}"/> <!-- 使用vb1对象的getName方法    使用SpelBean对象的setName方法 -->
+	    	<property name="city" value="#{vb1.city[1]}"/> <!-- 使用vb1对象的getCity方法,并获取List的第0个元素 -->
+	    	<property name="score" value="#{vb1.score['数学']}"/> <!-- 解析Map -->
+	    	<!-- <property name="score" value="#{vb1.score.english}"/> -->
+	    	<!-- <property name="pageSize" value="config.pagesize"/> 读取.properties文件的内容 -->
 	    </bean>
 </beans>
 
