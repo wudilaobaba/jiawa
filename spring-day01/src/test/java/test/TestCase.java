@@ -6,10 +6,13 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ioc.A;
+import ioc2.AA;
+import ioc2.Restrarant;
 import iocTest.LoginService;
 import scope.ExampleBean;
 import scope.MessageBean;
 import scope.ScopeBean;
+import value.ValueBean;
 
 public class TestCase {
 	@Test
@@ -68,5 +71,29 @@ public class TestCase {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
 		LoginService login = ac.getBean("login",LoginService.class);
 		login.run();
+	}
+	
+	@Test
+	//测试构造器方式注入
+	public void Test7(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
+		AA aa = ac.getBean("aa",AA.class);
+		aa.excute();
+	}
+	
+	@Test
+	//测试自动装配
+	public void Test8(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
+		Restrarant rest = ac.getBean("rest",Restrarant.class);
+		System.out.println(rest);
+	}
+	
+	@Test
+	//测试注入基本类型
+	public void Test9(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
+		ValueBean vb1 = ac.getBean("vb1",ValueBean.class);
+		System.out.println(vb1);
 	}
 }

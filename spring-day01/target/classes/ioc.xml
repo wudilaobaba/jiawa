@@ -49,6 +49,83 @@
 	 <bean id="admin" class="iocTest.AdminDAO">
 	 	
 	 </bean>
+	 
+	 
+	 <!-- 
+	 	构造器方式的注入
+	 	constructor-arg元素：用来配置构造器方式的注入，其中index属性为指定参数的下标(从0开始)
+	 	<constructor-arg index="1" ref="bb"/>将b对象传给A对象构造器的第二个参数
+	  -->
+	  <bean id="aa" class="ioc2.AA">
+	  	<constructor-arg index="0" ref="bb"/>
+	  </bean>
+	  <bean id="bb" class="ioc2.BB"></bean>
+	  
+	  
+	  
+	  <!-- 
+	  	autowire属性(有3个值)：表示让容器自动装配
+		  	byName： 优选！
+			  	autowire会检查Restrarant类的属性-wt，将wt当做bean的id来找到对应的bean, 然后将wt的第一个字母大写加set
+			  	然后调用Restrarant的setWt方法,并将wt对象传入 
+			  	注：
+			  		a.如果找不到对应的bean，会注入null
+			  		b.不可能找到符合多个条件的bean
+		  	byType：
+		  		autowire会检查Restrarant类的属性的类型-wt的类型-为Waiter,然后去配置文件中查找对应的类型的bean,
+		  		然后调对应的set方法-setWt完成注入,这样就不存在上述找不打的现象了，跟bean的id无关
+		  		注：
+		  			a.如果找不到对应的bean，会注入null
+		  			b.有可能找到多个符合条件的bean，此时会出错
+		  	constructor:
+		  		与byType类似
+		  		autowire会检查Restrarant类的属性的类型-wt的类型-为Waiter,然后去配置文件中查找对应的类型的bean,
+		  		然后调对应的构造器方法-完成注入wt对象
+	   -->
+	   <bean id="wt" class="ioc2.Waiter"></bean>
+	   <bean id="wt1" class="ioc2.Waiter"></bean>
+	   <bean id="rest" class="ioc2.Restrarant" autowire="byName"></bean>
+	   
+	   
+	   <!-- 
+	   		name:必须与属性名一致
+	   		age: 必须与属性名一致
+	   		
+	    -->
+	    <bean id="vb1" class="value.ValueBean">
+	    	<property name="name" value="胡八一"/>
+	    	<property name="age" value="30"/>
+	    	<property name="city">
+	    		<list>
+	    			<value>北京</value>
+	    			<value>上海</value>
+	    			<value>广州</value>
+	    			<value>深圳</value>
+	    		</list>
+	    	</property>
+	    	<property name="instrest">
+	    		<set>
+	    			<value>足球</value>
+	    			<value>篮球</value>
+	    			<value>冰球</value>
+	    			<value>铅球</value>
+	    		</set>
+	    	</property>
+	    	<property name="score">
+	    		<map>
+	    			<entry key="英语" value="60.3"/>
+	    			<entry key="数学" value="66.3"/>
+	    			<entry key="语文" value="50.5"/>
+	    			<entry key="化学" value="11.2"/>
+	    		</map>
+	    	</property>
+	    	<property name="db">
+	    		<props>
+	    			<prop key="用户名">Tiger</prop>
+	    			<prop key="密码">123465</prop>
+	    		</props>
+	    	</property>
+	    </bean>
 </beans>
 
 
