@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import annotation.SomeBean;
 import ioc.A;
 import ioc2.AA;
 import ioc2.Restrarant;
@@ -107,10 +108,17 @@ public class TestCase {
 	}
 	
 	@Test
-	//测试
+	//测试spring表达式
 	public void Test11(){
 		ApplicationContext ac = new ClassPathXmlApplicationContext("ioc.xml");
 		SpelBean sp1 = ac.getBean("sp1",SpelBean.class);
 		System.out.println(sp1);
+	}
+	
+	@Test
+	//测试组件扫描 @Component
+	public void Test12(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
+		SomeBean sp1 = ac.getBean("sb1",SomeBean.class);
 	}
 }

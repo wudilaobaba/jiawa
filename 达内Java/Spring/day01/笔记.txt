@@ -86,6 +86,19 @@
   9.读取properties文件的内容
   10.使用spring表达式
 
+  使用注解简化配置
+  1.什么是组件扫描
+    spring容器在启动之后，会扫描指定的包及其子包下面的所有的类，如果该类前面有指定的注解(比如:@Component)，则spring容器
+    会将这个类纳入容器进行管理(相当于在配置文件中配置了一个bean元素)
+  2.如何进行组件扫描
+    step01.在类前添加特定的注解
+      注：常见的注解：
+        @Component
+        @Service 业务层注解
+        @Respository 持久层注解
+        @Controller 控制层注解
+    step02.要在配置文件中添加组件扫描的配置
+  3.
 
 补充
   .properties文件
