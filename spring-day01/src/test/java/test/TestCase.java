@@ -121,4 +121,29 @@ public class TestCase {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
 		SomeBean sp1 = ac.getBean("sb1",SomeBean.class);
 	}
+	
+	@Test
+	//测试基于注解@Scope的作用域
+	public void Test13(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
+		SomeBean sp1 = ac.getBean("sb1",SomeBean.class);
+		SomeBean sp2 = ac.getBean("sb1",SomeBean.class);
+		System.out.println(sp1==sp2);
+	}
+	
+	@Test
+	//测试基于生命周期的注解
+	public void Test14(){
+		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
+		SomeBean sp1 = ac.getBean("sb1",SomeBean.class);
+		ac.close();
+	}
+	
+	@Test
+	//测试延迟加载
+	public void Test15(){
+		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
+//		SomeBean sp1 = ac.getBean("sb1",SomeBean.class);
+//		ac.close();
+	}
 }
