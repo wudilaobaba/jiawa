@@ -102,6 +102,8 @@
   4.依赖注入相关的注解
       @Autowired和@Qualifier  联合使用
         a.该注解支持set方式注入和构造器方式的注入
+        b.当采用set方式注入时，可以将@Autowired添加到set方法前面，如果不使用@Qualifier，则容器会使用byType的方式来注入，
+          有可能出错，所以建议使用@Qualifier注解，以明确指定要注入的bean的id。
       @Resource (常用)
         a.只支持set方式注入
 
