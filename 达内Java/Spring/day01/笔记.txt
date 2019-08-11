@@ -99,6 +99,11 @@
         @Controller 控制层注解
     step02.要在配置文件中添加组件扫描的配置
   3.
+  4.依赖注入相关的注解
+      @Autowired和@Qualifier  联合使用
+        a.该注解支持set方式注入和构造器方式的注入
+      @Resource (常用)
+        a.只支持set方式注入
 
 补充
   .properties文件
