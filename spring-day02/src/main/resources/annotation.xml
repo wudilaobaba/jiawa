@@ -30,6 +30,11 @@
 		如果该类前面有特定的注解，如@Component,则spring容器会将其纳入容器进行管理（相当于默认配置了一个bean ）
 	 -->
 	<context:component-scan base-package="annotation"/>
+	
+	<!-- 
+		<util:properties id="config" location="classpath:config.properties"/>
+	 -->
+	
 </beans>
 
 

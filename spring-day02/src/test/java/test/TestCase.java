@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import annotation.AnotherUse;
 import annotation.Bar;
+import annotation.Manger;
 import annotation.Restrant;
 import annotation.School;
 
@@ -36,6 +37,13 @@ public class TestCase {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
 		Bar bar = ac.getBean("bar",Bar.class);
 		System.out.println(bar);
+	}
+	
+	@Test
+	public void Test5(){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("annotation.xml");
+		Manger mg = ac.getBean("mg",Manger.class);
+		System.out.println(mg);
 	}
 	
 }
