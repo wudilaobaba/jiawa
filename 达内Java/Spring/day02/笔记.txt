@@ -1,0 +1,14 @@
+springmvc
+1.springmvc是什么：
+  是一个mvc框架，用来简化基于mvc架构的web应用开发
+2.五大组件
+  01.DispatcherServlet
+    接受请求，依据HandlerMapping的配置调用响应的模型来处理
+  02.HanderMapping
+    包含了请求路径与模型的对应关系
+  03.Controller
+    负责处理业务逻辑
+  04.ModelAndView
+    封装了处理结果。注：处理结果除了数据之外，还可能有视图名
+  05.ViewResolver
+    DispatcherServlet依据ViewResolver的解析，调用真正的视图对象来生成相应的页面
