@@ -43,3 +43,10 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
   4.创建数据库指定字符集   create database 数据库名称 character set utf8;
                          create database 数据库名称 character set gbk;
   5.删除数据库            drop database 数据库名称;
+  6.使用数据库            use 数据库名称;
+和表相关的SQL
+  什么是表：关系型数据库中保存数据的单元，类似于Excle中的表，创建表时需要指定字段信息
+  1.创建表
+    格式：create table 表名 (字段1名 字段1类型，字段2名 字段2类型);
+          create table person (name varchar(10),age int);
+                                    //10个字符的字符串
