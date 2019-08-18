@@ -19,10 +19,19 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
   1.MySQL: 2008年被sun收购，2009sun被oricle收购，开源免费。到oracle后，MySQL发布了5.0版本
     (使用oracle核心技术，性能提高30%),因为Oracle数据库地位受到威胁，计划把mysql闭源，
     原mysql的作者们不干了，原程序员出去单干，发布了MariaDB数据库(其实就是mysql),名字是
-    因为作者的女儿叫Maria
-  2.
+    因为作者的女儿叫Maria,MySQL市场排名第一
+  2.Oracle: 闭源，最贵，性能最高，拉里埃里森  市场排名第二
+  3.SQLserver:微软的  市场排名第三，主要应用在.net(C#)开发的
+  4.DB2: IBM公司 有完整的解决方案(操作系统、webserver/如tomcat/，数据库等)，主要应用在
+      银行等大型企业中
+  5.sqlite：轻量级数据库，只有几十k，一般应用在嵌入式和移动设备中
 开源和必源的区别：
   开源：开放源代码，盈利方式靠卖服务(赚钱慢-少)
       用户群大，大牛程序员会无偿的帮着升级维护
   闭源：不开放源代码，盈利方式靠卖产品和服务(赚钱快-多)
       大牛们各种攻击找漏洞
+数据库的安装 ：https://blog.csdn.net/bobo553443/article/details/81383194
+  MySQL 端口号是3306   SQL Structured Query Language  结构化查询语言
+  sql是写在客户端，执行在DBMS中，DBMS解析后执行
+打开数据库客户端，并登录
+  终端中执行以下命令 mysql -uroot -p 两次回车
