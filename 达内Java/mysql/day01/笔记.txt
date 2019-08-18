@@ -35,3 +35,4 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
   sql是写在客户端，执行在DBMS中，DBMS解析后执行
 打开数据库客户端，并登录
   终端中执行以下命令 mysql -uroot -p 两次回车
+  退出数据库 exit 或 \q
