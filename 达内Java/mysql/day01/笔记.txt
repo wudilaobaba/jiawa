@@ -50,3 +50,18 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
     格式：create table 表名 (字段1名 字段1类型，字段2名 字段2类型);
           create table person (name varchar(10),age int);
                                     //10个字符的字符串
+  2.查询所有表
+    show tables;
+  3.查看单个表的属性
+    show create table 表名
+表的引擎：engine
+  1.Myisam: 只支持数据基础的增删改查，不支持高级操作，如：事务、外键等
+  2.InnoDB: 支持高级操作，默认为InnoDB
+创建并且指定引擎和字符集
+  create table t1(id int, name varchar(10)) engine=myisam charset=gbk;
+查看表字段信息
+  desc 表名;
+对创建好的表进行修改
+  修改表名：rename table 原名 to 新名
+修改表属性(引擎和字符集)
+  alter table 表名 engine=myisam charset=gbk;
