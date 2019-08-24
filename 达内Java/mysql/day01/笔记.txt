@@ -66,7 +66,7 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
 修改表属性(引擎和字符集)
   alter table 表名 engine=myisam charset=gbk;
 添加表字段
-  追加字符
+  追加字段
     alter table 表名 add 字段名 字段类型;
   在前面添加字段
     alter table 表名 add 字段名 字段类型 first;
@@ -102,8 +102,50 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
       update 表名 set 字段名a=字段值b;//所有字段a都变成b了
       update 表名 set 字段名a=字段值b where id=5;
     -删除数据
-      delete from student;//删除全表数据
+      delete from student;//删除全表数据，清空该表
       delete from student where id=7;
+主键约束：
+  给主键添加约束，起到非空并且唯一的作用，主键指表示数据唯一性的字段，
+  一张表中主键字段只有一个
+  主键就是唯一标识
+  如何使用：
+    create table t1(id int primary key, name varchar(10)); //
+  主键约束+自增：
+    create table t2(id int primary key auto_increment, name varchar(10));
+    insert into t2 values (null,'貂蝉');
+    insert into t2 (name) values('吕布');
+    可以自定义不存在的主键的值
+    主键的值会以曾经存在过的最大值进行+1
+    自增总结：
+      1.表内自增的数值，只增不减
+      2.清空表的数据，数值不归零，继续增长
+      3.数值以出现过的最大值的基础+1
+注释 comment
+  可以在创建表添加字段的时候对字段进行介绍，便于以后查看表的时候知道每个字段的作用
+  如何使用：
+    create table t3(id int primary key auto_increment comment '这是主键',name varchar(10),comm int comment '这是奖金');
+    show create table 表名;//可以看见注释内容
+`和'的区别
+  `的作用是用来修饰表名和字段名，可以省略
+  '的作用是用来修饰字符串的
+数据冗余
+  什么是冗余？如果设计表不够合理，随着数据量的增多，出现大量的重复数据，称为数据的冗余。
+  练习：创建商品表
+    category_id 分类id
+      create table item(id int primary key auto_increment,name varchar(10),price int,num int,category_id int);
+    创建分类表：
+      create table category(int id primary key auto_increment, name varchar(10));
+    insert into category values(null,'手机'),(null,'电脑');
+    insert into item values(null,'苹果手机',5888,200,1),(null,'dell电脑',4000,150,2),(null,'联想电脑',3500,100,2);
+    给分类表添加上级id字段
+      alter table category add parent_id int;
+    插入一条办公耗材分类下的打印机分类下的惠普打印机，价格2300，库存20
+      insert into category values(null,'办公耗材',null);
+      insert into category values(null,'打印机分类',3);
+      insert into item values(null,'惠普打印机',4);
+事务
+SQL分类
+数据库的数据类型
 编码问题：
   -sql语句在客户端中写完后需要通过网络发送给数据库服务器，这时需要字符的编解码，数据库
   保存数据时也需要字符的编解码。win系统，在命令行中执行set names gbk; 通知数据库客户端传过去的内容需要使用gbk进行解码
