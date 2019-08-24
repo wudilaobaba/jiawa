@@ -65,3 +65,45 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
   修改表名：rename table 原名 to 新名
 修改表属性(引擎和字符集)
   alter table 表名 engine=myisam charset=gbk;
+添加表字段
+  追加字符
+    alter table 表名 add 字段名 字段类型;
+  在前面添加字段
+    alter table 表名 add 字段名 字段类型 first;
+  在某个字段的后面添加
+    alter table 表名 add 字段名 字段类型 after 已有字段名;
+删除表字段
+  alter table 表名 drop 字段名;
+修改表字段名和类型
+  alter table 表名 change 原字段名 新字段名 类型;
+修改表字段类型和位置
+  alter table 表名 modify 原字段名 新字段类型 first/ after 原字段名;
+删除表
+  drop table 表名;
+
+
+
+数据相关的SQL
+  表中插入数据
+    - 全表插入：
+     insert into 表名 values (1,'王泓钧',88,20,59); //顺序、类型必须一致
+    - 指定字段插入：
+     insert into 表名 (id,name) values (2,'李四
+    - 批量插入
+      insert into student values(6,'唐僧',56,59,22),(7,'八戒',96,23,92);
+      insert into student(id,name) values(8,'花在'),(9,'太白');
+    -查询全部字段信息
+      select * from student
+    -查询执行字段
+      select id,name from student;
+    -条件查询
+      select * from student where id<5;
+    -修改数据
+      update 表名 set 字段名a=字段值b;//所有字段a都变成b了
+      update 表名 set 字段名a=字段值b where id=5;
+    -删除数据
+      delete from student;//删除全表数据
+      delete from student where id=7;
+编码问题：
+  -sql语句在客户端中写完后需要通过网络发送给数据库服务器，这时需要字符的编解码，数据库
+  保存数据时也需要字符的编解码。win系统，在命令行中执行set names gbk; 通知数据库客户端传过去的内容需要使用gbk进行解码
