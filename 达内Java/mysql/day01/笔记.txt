@@ -144,8 +144,99 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
       insert into category values(null,'打印机分类',3);
       insert into item values(null,'惠普打印机',4);
 事务
+  事务是数据库中执行SQL语句的最小工作单元
+  (数据库客户端可以自动提交也可以手动提交，防止突然断电带来的问题)
+  如何开启事务：关闭客户端自动提交，改为手动提交。把多次修改数据库的SQL放在一次提交中，
+  则多次操作数据库的sql就相当于是放到了同一个是务中。
+  数据库默认的提交方式是自动提交。
+  没有事务是如下过程：如果第一次提交中断(断电)，则数据库中的数据会异常
+    超人+300   update person set money=500 where id=1;
+    蝙蝠侠-300 update person set money=9500 where id=2;
+  有事务的过程： 只要不提交，数据库中的数据就不会改变
+    step1.关闭自动提交
+    step2.超人+300;
+    step3.蝙蝠侠-300;
+    step4.手动提交
+    以上代码就算中间异常中断，结果要么同时成功，要么同时失败
+  为什么使用事务？
+    如果不使用事务，客户端会自动提交，多次操作数据库做某一件事的时候(如转账)，会出现部分
+    成功，部分失败，则数据会出现异常。
+    使用事务，把多次操作数据库的sql合并到一次提交中，这样就能保证同时成功或失败。
+  使用事务的执行过程：
+    关闭自动提交
+    执行多次sql(此时在内存中执行)
+    手动提交
+  查看客户端自动提交的状态：
+    show variables like '%autocommit%';
+  关闭自动提交,仅对当前窗口生效！！！
+    set autocommit=0;  //1为自动提交
+  验证转账流程
+    创建表：create table person(id int  key auto_increment,name varchar(10),money int);
+    插入数据：insert into person values()
+    关闭自动提交 set autocommit=0;
+    转账:update person set money=500 where id=1; //再打开一个终端money就不会变
+         update person set money=9700 where id=2; //再打开一个终端money就不会变
+         以上两部都是在内存中，并未提交
+    手动提交：commit;
+  数据回滚- 执行rollback会将数据回滚到上次提交(执行commit)的点，只要没commit就可以使用
+    rollback;
+  设置回滚点：
+    savepoint xxx;保存回滚点
+  回滚到指定的回滚点：
+    rollback to xxx;
 SQL分类
+  DDL (Data Definition Language) 数据定义语言
+    create,alter,drop,truncate
+    以上都不支持事务
+  DML (Data Mauipulation Language) 数据操作语言
+    insert,update,delete,select(DQL)
+    以上都支持事务
+  DQL (Data Query Language) 数据查询语言
+    包括：select
+    和事务没关系
+  TCL (Transaction Control Language) 事务控制语言
+    包括：commit rollback savepoint
+  DCL (Data Control Language) 数据控制语言
+    分配用于权限先关的sql
+truncate:删除表并且创建一个新表
+  用法:truncate table 表名;
+drop,truncate,delete的区别：
+  delete:删除表中的数据，自增数字不清零，支持事务
+  drop:直接删除表 不支持事务
+  truncate:删除表并且创建一个新表，自增数值清零，不支持事务
+  对数据的操作才支持事务
 数据库的数据类型
+  五种数据类型分别为：
+    整数
+      常用 int(m) bigint(m) ,m代表显示长度,不足m位则在前面补零
+      int(5)  23      查询的显示为：00023
+      int(5)  123456  查询的显示为：
+      若想要有补零的效果，则必须和zerofill关键字结合使用，使用方式如下:
+        create table t_int(num int(10) zerofill);
+        insert into t_int values(25);
+        select * from t_int;
+    浮点数
+      常用：
+        double(m,d)  m代表总长度，d代表小数长度
+          75.233， double(5,3);
+          create table t_double(num double(5,3));
+          insert into t_double values(12.3456); 小数超过d位则四舍五入
+          insert into t_double values(1.34);  小数不足d位则补零
+        decimal(m,d)  m代表总长度，d代表小数长度.超高精度小数，需要涉及超高精度运算的时候使用。
+    字符串
+      char(m)     m代表字符长度，固定长度 char(10) ,执行效率高，不用改变长度，最大长度为255
+      varchar(m) 可变长度，会根据内容长度改变自身长度，更节省资源 最大长度65535，如果长度超过255建议使用text
+      text:可变长度，最大值65535
+    日期
+      date:只能保存年月日
+      time:只能保存时分秒
+      datetime:年月日时分秒 默认值为null 最大值9999年12月31日
+      timestamp:年月日时分秒 默认值为当期时间，最大值为2038年1月19日
+      测试：
+        create table t_date (t1 date,t2 time,t3 datetime,t4 timestamp);
+        insert into t_date values('2019-05-09',null,null,null);
+        insert into t_date values(null,'12:12:50','2019-05-06 12:45:59',null);
+    其他
 编码问题：
   -sql语句在客户端中写完后需要通过网络发送给数据库服务器，这时需要字符的编解码，数据库
   保存数据时也需要字符的编解码。win系统，在命令行中执行set names gbk; 通知数据库客户端传过去的内容需要使用gbk进行解码
