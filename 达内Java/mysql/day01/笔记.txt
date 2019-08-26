@@ -85,6 +85,7 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
 ***查询：
   is null
     查询没有上级领导的员工编号，姓名，工资
+      select * from
 
 
 
