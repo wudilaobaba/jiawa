@@ -84,10 +84,23 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
 
 ***查询：
   is null
-    查询没有上级领导的员工编号，姓名，工资
-      select * from
+    1.查询没有上级领导的员工编号，姓名，工资
+      select empno,ename,sal from emp where mgr is null;
+    2.查询emp表中没有奖金(comm)的员工姓名，工资和奖金
+      select ename,sal,comm from emp where comm is null;
+  is not null  不为null
+    1.查询emp表中没有奖金的员工所有信息
+      select * from emp where comm is not null;
 
-
+  别名
+    1.查询emp中所有姓名。将ename显示为'姓名'
+      select ename as '姓名' from emp;
+      select ename '姓名' from emp;
+      select ename 姓名 from emp;  -->推荐！！！
+  去重
+    查询emp表中出现的所有职位
+      select job from emp;  //所有的，包含重复的
+      select distinct job from emp;
 
 数据相关的SQL
   表中插入数据
