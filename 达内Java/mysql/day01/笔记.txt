@@ -101,13 +101,167 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
     查询emp表中出现的所有职位
       select job from emp;  //所有的，包含重复的
       select distinct job from emp;
+  比较运算符> < >= <= = !=不等于    <>不等于
+    select
+  and 和 or
+    and 与
+    or  或
+  in
+    查询emp表中工资为5000，1500,3000的员工信息
+      select * from emp where sal in (5000,1500,3000);
+  between x and y  在x~y之间，闭区间
+  not between x and y  不在x~y之间
+    select * from emp where sal between 2000 and 4000;
+  like 和 not like
+    _ : 代表单个未知字符
+    % : 代表0个或多个未知字符
+      举例：
+        包含字符a：                     %a%
+        以a开头                         a%
+        以a结尾                         %a
+        第二个字符是a                    _a%
+        倒数第三个字符是a                %a__
+        第二个字符是a,最后一个字符是b     _a%b
+    例题：
+      查询标题中包含笔记本的商品信息
+        select * from t_item where title like '%记事本%';
+      查询单价低于100的记事本标题和单价
+        select title,price from t_item where title like '%记事本%' and price<100;
+      查询单价在50到200之间的得力商品
+        select * from t_item where title like '%得力%' && price between 50 and 200;
+      查询图片不为null的得力商品
+        select * from t_item where image is not null and title like '%得力%';
+      查询含有赠品的商品信息
+        select * from t_item where sell_point like '%赠%';
+      查询商品中不包含得力的商品标题
+        select * from t_item where title not like '%得力%';
+      查询单价在50到200之外的商品信息
+       select * from t_item where price not between 50 and 200;
+      查询分类为238,917的商品信息
+        select * from t_item where category_id in (238,917);
+    排序 order by
+      order by写在where后面，如果没有where 则写在最后
+      by的后面写排序的字段名称
+      默认的排序是升序，可以自定 升序asc  降序desc
+        举例：select name,age from person order by age;
+        举例：select name,age from person where age<50 order by age desc; //降序排列
+      例子：
+        查询所有员工的姓名和工资，按照工资降序排列
+          select ename,sal from emp order by sal desc;
+        查询所有dell商品，按单价降序排列
+          select * from t_item where title like '%得力%' order by price desc;
+        查询所有员工信息按部门编号升序排列，工资降序排列
+          select * from emp order by deptno,sal desc;
+    分页查询 limit
+      limit 跳过数量skipNum,每页的数量perNum
+        skipNum = (当前页码-1)*每页条目数;
+        limit skipNum,perNum;
+      limit关键字通常写在sql语句的最后面
+        查询第三页，每页10条数据 limit 20,10;
+        查询第五页，每页3条数据  limit 12,3
+      例子：
+        查询所有商品 按照单价升序展示，显示第二页，每页7条数据
+          select * from t_item order by price limit 7,7;
+        查询工资金额前三名的三位员工信息
+          select * from emp order by sal desc limt 0,3;
+    数值计算 + - * / %     7%2等效于mod(7,2)
+      1.查询员工姓名、工资及年终奖信息。年终奖=工资*5
+        select ename,sal,sal*5 年终奖 from emp;
+      2.查询t_item表中商品单价，库存和总金额(单价*库存)
+        select price,num,price*num 总金额 from t_item;
+    日期相关函数
+      select 'helloworld';
+        获取当期日期+时间 now();
+          select now();
+        获取当期的日期
+          select curdate();
+        获取当期的时间
+          select curtime();
+        从年月日时分秒中提取年月日 时分秒
+          select date(now());
+          select time(now());
+        从年月日时分秒中单独提取年,月,日,时,分,秒
+          select extract(year from now());
+          select extract(month from now());
+          select extract(day from now());
+          select extract(hour from now());
+          select extract(minute from now());
+          select extract(second from now());
+        日期格式化函数
+          格式：date_format(date，format);
+          format:
+            %Y四位年    %y两位年
+            %m两位月份  %c一位月份
+            %d日
+            %H24小时    %h12小时
+            %i分
+            %s秒
+            1.把now()转换成xxxx年xx月xx日 xx时xx分xx秒
+              select date_format(now(),'%Y年%m月%d日%H时%i分%s秒');
+        把非标准格式的时间转成标准格式
+          函数str_to_date(非标准格式时间,格式)
+            1.把 18日05月2018年  转为  2018-05-18
+                select str_to_date('18日05月2018年','%d日%m月%Y年')
+            2.把14.08.2008 08:00:00转成标准格式
+                select str_to_date('14.08.2008 08:00:00','%d.%m.%Y %H:%i:%s');
+    ifnull()函数
+      age=ifnull(x,y);  如果x的值为null,则age=y
+                        如果x不为null,则age=x
+      将emp表中奖金为null的全部修改为0
+        update emp set comm=ifnull(comm,0);
+    聚合函数
+      对多行数据进行统计： 可以加查询条件
+        求和：sum(需要求和的字段名)
+          例：emp中工资总和
+            select sum(sal) from emp;
+        平均值:avg(字段名) from emp where deptno=10;
+        最大值:max(字段名 from emp where deptno=10;
+        最小值:min(字段名) from emp where deptno=10;;
+        统计数量:count(*) from emp where sal<1000;  返回满足条件的数量
+    字符串相关函数
+      1.字符串拼接 concat(s1,s2)  s1s2
+         案例：查询emp表中，员工姓名和工资，工资后面有单位：元
+          select ename,concat(sal,'元') from emp;
+      2.获取字符串的长度 char_length(str);   select char_length('abckll');
+         案例：查询员工姓名和名字的长度
+          select ename,char_length(ename) from emp;
+      3.获取字符串在另一个字符串中出现的位置，从第一次匹配到的字符串开始
+          格式1：instr(str,substr);
+            select instr('asdhkjhdk','d');
+          格式2：locate(substr,str);
+            select locate('d','asddasw');
+          案例：查询
+      4.插入字符串   顺序是从1开始的！！！
+        格式：insert(str,start,length,newstr);
+                //原字符串，插入的起始位置，需要删掉的长度，待插入的字符串(覆盖到删掉的部分)
+          select insert('abcdefg',3,2,'m');  -> 'abmefg'  第start个会被删掉
+      5.转大写和小写
+        格式：upper(str) lower(str)
+          select upper('Nba'),lower('NBA');
+      6.从左边截取和从右边截取
+        格式：left(str,count)  right(str,count)
+          select left('abcdefg',2);   //ab
+          select right('abcdefg',2);  //fg
+      7.去掉字符串两端空格
+        select trim('    a    b  ');
+      8.截取字符串
+        select substring('abcdefg',2);    //bcdefg
+        select substring('abcdefg',2,3);  //bcd
+      9.重复 repeat(str,count);
+        select repeat('ab',2);  //'abab';
+      10.替换 replace(str,old,new); 将str中的所有old部分替换为new
+        select replace('abccc','c','m');
+      11.反转 reverse(str);
+        select reverse('abc');  //'cba'
+
+
 
 数据相关的SQL
   表中插入数据
     - 全表插入：
      insert into 表名 values (1,'王泓钧',88,20,59); //顺序、类型必须一致
     - 指定字段插入：
-     insert into 表名 (id,name) values (2,'李四
+     insert into 表名 (id,name) values (2,'李四)
     - 批量插入
       insert into student values(6,'唐僧',56,59,22),(7,'八戒',96,23,92);
       insert into student(id,name) values(8,'花在'),(9,'太白');
