@@ -253,8 +253,121 @@ DBMS(dataBaseManagementSystem) 数据库管理系统(软件)
         select replace('abccc','c','m');
       11.反转 reverse(str);
         select reverse('abc');  //'cba'
+    数学相关函数
+      floor(num) 向下取整
+        select floor(3.9); //3
+      round(num) 四舍五入取整
+        select round(3.4);
+      round(num,m)四舍五入后保留m位小数
+        select round(39.5654,5); //39.56540
+        select round(39.5654,2); //39.57
+      truncate(num,m) 和上面一样，但是不会四舍五入
+        select truncate(39.5654,5); //39.56540
+        select truncate(39.5654,2); //39.56
+      rand() 随机数，获取0-1之间的随机数
+        select rand();
+          获取3~8之间的随机数(整数)
+            select floor(rand()*6)+3;
+          获取8~10之间的随机数
+            select floor(rand()*11)
+          获取min~max之间的随机整数(闭区间)
+            select floor(rand()*(max-min+1))+min;
 
+    分组查询
+      分组查询通常和聚合函数结合使用
+        单个分组条件：
+          1.查询每个部门的最高工资
+            select deptno max(sal) from emp group by deptno;
+          2.查询每个职位的平均工资
+            select job,avg(sal) from emp group by job;
+        可以有多个分组条件
+          1.查询每个部门下每个主管的手下人数
+            select deptno,mgr,count(*) from emp group by deptno,mgr;
+       group by存在的位置,记住以下顺序
+        select * from emp where ... group by ... order by... limit ...
+      练习：分组查询练习.png
+        53. select deptno, count(*), sum(sal) from emp group by deptno order by count(*),sum(sal) desc;
+        54. select deptno,avg(sal),min(sal),max(sal) from emp where sal between 1000 and 3000 group by deptno order by avg(sal);
+        55. select job,count(*) c,sum(sal),avg(sal) a,min(sal) from emp where mgr is not null group by job order by c desc,a;
+          //55题注意别名的使用
+      练习：查询每个部门的平均工资，要求平均工资大于2000
+        //以下为错误语法：以为where后面不可以写聚合函数
+        select deptno,avg(sal) a from emp where a>2000 group by deptno;
+      使用having解决聚合函数的条件过滤问题，having写在group by后面
+      where后面写普通字段的过滤条件
+      having后面写聚合函数的过滤条件
+        //正确写法如下：
+          select deptno,avg(sal) a from emp group by deptno having a>2000;
+      练习：
+        1.查询每个分类商品的库存总量，高于1000的库存总量
+          select category_id,sum(num) s from t_item group by category_id having s>1000;
+        2.查询每个分类商品对应的平均单价，要求平均单价低于100
+          select category_id,avg(price) a from t_item group by category_id having a<100;
+        3.查询分类id为238和917两个分类的平均单价
+          select category_id,avg(price) a from t_item where category_id in (238,917) group by category_id;
+        4.查询emp表中每个部门的平均工资高于2000的部门编号，人数，平均工资，最后根据平均工资降序排序
+          select deptno,count(*),avg(sal) a from emp group by deptno having a>2000 order by a  desc;
+        5.查询emp表中工资在1000~3000之间的员工，每个部门的编号，工资总和，平均工资，过滤掉平均工资低于2000的部门，按照平均工资升序排列
+          select deptno,sum(sal),avg(sal) a from emp where sal between 1000 and 3000 group by deptno having a>=2000 order by a;
+        6.查询emp表中名字不是以s开头，每个职位的名字，人数，工资总和，最高工资，过滤掉平均工资是3000的职位，根据人数升序排序，如果一致根据工资总和降序排序
+          select job,ename,count(*) c,sum(sal) s,max(sal) from emp where ename not like 's%' group by job having avg(sal)!=3000 order by c,s desc;
+        7.查询emp表 每年入职的人数(提高题)
+          select extract(year from hiredate) e, count(*) from emp group by e;
+    子查询(嵌套查询，将多条查询语句合并以一条) ，可以写在from后面当一张新表
+      1.查询emp表中工资最高的员工信息
+        select * from emp where sal=(select max(sal) from emp);
+      2.查询emp表中工资超过平均线的所有员工信息
+        select * from emp where sal>(select avg(sal) from emp);
+      3.查询工资高于20号部门平均工资的员工信息
+        select * from emp where sal>(select avg(sal) from emp where deptno=20);
+      4.查询和Jones相同工作的其他员工信息
+        select * from emp where job=(select job from emp where ename='Jones') and ename!='Jones';
+      5.查询工资最低的员工所在部门的员工信息
+        select * from emp where deptno=(select deptno from emp where sal=(select min(sal) from emp));
+      6.查询最后入职的员工信息
+        select * from emp where hiredate=(select max(hiredate) from emp);
+      7.查询姓名为King的部门编号和部门名称(需要使用dept表)
+        select depono,dname from dept where deptno=(select deptno from emp where ename="King");
+      8.查询有员工的部门信息
+        select * from dept where deptno in (select distinct deptno from emp);
+      9.扩展题(提高难度)：查询平均工资最高的部门信息
+        注意：子查询中的返回结果只能有一个字段一个值，才可以作为结果使用，不允许返回多个字段多个值！！！！
+        step01 得到平均工资最高的部门的平均工资：
+          select avg(sal) a from emp group by deptno order by a desc limit 0,1;
+        step02 通过上面的结果得到对应的部门
+          select deptno from emp group by deptno having avg(sal)=(select avg(sal) a from emp group by deptno order by a desc limit 0,1);
+        step03 通过ste03的结果查询该部门的信息
+          select * from dept where deptno in (select deptno from emp group by deptno having avg(sal)=(select avg(sal) a from emp group by deptno order by a desc limit 0,1));
+      10. 将子查询的结果当做新表来使用：必须起别名
+        select * from(select deptno,sal from emp where sal>2000) newtable; //newtable就是别名
+      11.子查询可以写在创建表的时候
+        将所有10号部门的数据作为一张新表
+        create table t_emp_10 as (select * from emp where deptno=10);
+      having要和group by一起使用！！！！！！！！！！！！！！！！！！！！！
 
+    关联查询
+      同时查询多张表的数据称为关联查询
+        1.查询每一个员工的姓名和对应的部门名称 emp表+dept表
+          select e.ename,d.dname from emp e , dept d where e.deptno=d.deptno; //where后面两张表的关联关系
+        2.查询在纽约工作的所有员工的信息
+          //只要确定了是多张表，那么先这样写出来！！！  *代表会把所有表的字段都带出来
+          select * from emp e,dept d where e.deptno=d.deptno;
+          select e.* from emp e,dept d where e.deptno=d.deptno and d.loc='New York';
+    笛卡尔积
+      关联查询如果不写关联关系，则查询结果为两张表的乘积，这个乘积称为笛卡尔积
+      笛卡尔积是一种错误的查询结果，工作中切记不要出现
+    等值连接和内连接
+      等值连接：
+        select * from A,B where A.x=B.x and A.age=18;
+      内连接(用的更多) 用的是多个表中的交s集部分
+        select * from A join B on A.x=B.x where A.age=18;
+        查询每个员工的姓名和对应的部门名称
+          select e.ename,d.dname from emp e join dept d on e.deptno=d.deptno;
+    外连接（查一个表的所有数据以及另一个表的交集数据使用外连接）
+      左外连接：以join左边的表为主表，左边表显示所有数据，右边显示交集数据
+        select e.ename,d.dname from emp e left join dept d on e.deptno=d.deptno;
+      右外连接：以join右边的表为主表，右边表显示所有数据，左边显示交集数据
+        select e.ename,d.dname from emp e right join dept d on e.deptno=d.deptno;
 
 数据相关的SQL
   表中插入数据
