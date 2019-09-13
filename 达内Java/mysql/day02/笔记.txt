@@ -34,3 +34,38 @@
         select t.name from student s left join t_s ts on s.id=ts.sid left join teacher t on t.id=ts.tid where s.name='小明';
       查询苍老师的所有学生
         select s.name from student s left join t_s ts on s.id=ts.sid left join teacher t on t.id=ts.tid where t.name='苍老师';
+####自关联
+  什么是自关联：在表中有一个外键字段，指向自己表的主键值，称为自关联
+  应用场景，需要保存层级关系，但是不确定有多少层的时候，使用自关联，如上级领导或商品分类
+  练习：
+    查询员工姓名和对应的上级主管姓名
+      select e.ename,m.ename from emp e left join emp m on e.mgr=m.empno;
+####连接方式和关联关系
+  连接方式：包括内连接和外连接（左外，右外），是关联查询的查询方式
+  关联关系：包括一对一，一对多，多对多，是指设计表时两个表之间存在的逻辑关系
+####案例：权限管理的表设计(5张表)
+  用户表
+  角色表
+  权限表
+  用户-角色关系表
+  角色-权限关系表
+  1.创建以上五张表
+    create database db4;
+    use db4;
+    create table user(id int primary key auto_increment,name varchar(10));
+    create table role(id int primary key auto_increment,name varchar(10));
+    create table module(id int primary key auto_increment,name varchar(10));
+    create table u_r(uid int,rid int);
+    create table r_m(rid int,mid int);
+  2.插入数据
+    insert into user values(null,'刘德华'),(null,'张学友'),(null,'凤姐');
+    insert into role values(null,'男游客'),(null,'男会员'),(null,'女游客'),(null,'女管理员');
+    insert into module values(null,'男浏览'),(null,'男发帖'),(null,'女浏览'),(null,'女发帖'),(null,'女删帖');
+    insert into u_r values(1,1),(2,2),(3,4),(3,2);
+    insert into r_m values(1,1),(2,1),(2,2),(3,3),(4,3),(4,4),(4,5);
+  3.查询每个用户对应的权限(4个表连在一起就行)
+    select * from user u left join u_r ur on u.id=ur.uid left join r_m rm on ur.rid=rm.rid join module m on m.id=rm.mid;
+  4.查询张学友的所有权限
+    select m.name from user u left join u_r ur on u.id=ur.uid left join r_m rm on ur.rid=rm.rid join module m on m.id=rm.mid where u.name='张学友';
+  5.查询男发帖的用户都有哪些
+    select u.name from user u left join u_r ur on u.id=ur.uid left join r_m rm on ur.rid=rm.rid join module m on m.id=rm.mid where m.name='男发帖';
