@@ -1,0 +1,36 @@
+###表设计 关联关系
+####一对一
+  什么是一对一：两张表A表和B表，A表中一条数据对应B表中的一条数据，这种关系成为一对一的关系
+  应用场景：用户表和用户信息扩展表
+          登录：select count(*) from user where usenamr='Tom' and passward='123456';
+  如何建立关系：
+    在从表中添加一个外键字段，值指向主表中的主键字段
+  练习：
+    创建user(id,uername,passward,userinfo)  和  userinfo(nick,qq,phone,user_id)
+    两个表中个插入三条数据
+####一对多
+  什么是一对多：AB两张表，A表中1条数据对应B表中多条数据；B表中一条数据对应A表中一条数据
+  应用场景：部门和员工/分类和商品等
+  如何建立关系：一对多的两张表  在多的一端添加外键，记录另外一个表的主键值
+  练习：
+    创建员工表t_emp(id,ename,deptid) 和 部门表t_dept(id,name,loc)
+    部门表数据：神仙部，天上； 妖怪部门，盘丝洞
+    员工表数据：孙悟空，猪八戒，蜘蛛精，白骨精
+    查询每个部门对应的每个员工
+    查询盘丝洞工作的所有员工姓名
+    查询孙悟空的工作地点和部门名称
+####多对多
+  什么是多对多:AB两张表，A表中一条对应B表中的多条数据，同时B表中的一条数据对应A表中的多条数据
+  应用场景：老师和学生/用户表和角色表
+  如何建立关系：需要创建一个单独的关系表，关系表中两个字段(外键字段)，保存两个表的主键值
+  练习：
+    创建三个表：stident(id,name) tacher(id,name) t_s(sid,tid)
+    插入以下数据：
+      苍老师对应的学生：小明，小红，小花
+      刘老师对应的学生：小绿，小蓝，小明
+      查询每个老师对应的所有学生 (三表连查)
+        select t.name,s.name from student s left join t_s ts on s.id=ts.sid left join teacher t on t.id=ts.tid;
+      查询小明的老师都有谁
+        select t.name from student s left join t_s ts on s.id=ts.sid left join teacher t on t.id=ts.tid where s.name='小明';
+      查询苍老师的所有学生
+        select s.name from student s left join t_s ts on s.id=ts.sid left join teacher t on t.id=ts.tid where t.name='苍老师';
