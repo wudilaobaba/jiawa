@@ -1,0 +1,32 @@
+1.select deptno,count(*) c from emp group by deptno order by c;
+2.select deptno ,mgr,count(*) from emp where mgr is not null group by deptno, mgr;
+3.select job,avg(sal) from emp group by job;
+4.select extract(year from hiredate) y,count(*) from emp group by y;
+5.子查询：select * from dept where deptno in (select deptno from emp group by deptno having count(*)<=3);
+  内连接：select d.* from dept d right join (select deptno from emp group by deptno having count(*)<=3) n on d.deptno=n.deptno;
+6.select * from emp where sal=(select min(sal) from emp);
+7.select * from emp where empno in (select mgr from emp group by mgr having count(*)=1);
+7.只有一个员工的部门信息
+select * from dept where deptno in(select deptno from emp group by deptno having count(*)=6);
+
+8.select deptno from (select deptno,avg(sal) a from emp group by deptno) u where a=(select max(a) from (select deptno,avg(sal) a from emp group by deptno) t);
+9.考虑并列第一的问题(根据临界值，也就是最大值/最小值，找到对应的mgr,这样可以保证并列第一)
+    select * from emp where empno in (select mgr from emp group by mgr having count(*)=(select count(*) c from emp group by mgr order by c desc limit 0,1));
+10.select * from emp where sal = (select min(sal) from emp);
+11.select * from emp where hiredate=(select max(hiredate) from emp);
+12.select * from emp where sal>(select avg(sal) from emp);
+13.select e.*,d.dname from emp e left join dept d on e.deptno=d.deptno;
+14.select e.*,d.dname,d.loc from emp e left join dept d on e.deptno=d.deptno;
+15.
+    子查询：select * from emp where deptno in (select deptno from dept where loc='dallas');
+    连表查询：select e.* from emp e left join dept d on e.deptno=d.deptno where d.loc='dallas';
+16.select d.loc,count(*) from emp e left join dept d on e.deptno=d.deptno group by d.loc;
+17.select a.*,b.ename from emp a left join emp b on a.mgr=b.empno;
+18.三张表的联合查询：
+    select a.*,b.ename,d.dname from emp a left join emp b on a.mgr=b.empno left join dept d on a.deptno=d.deptno;
+19.select e.ename,d.dname from emp e left join dept d on e.deptno=d.deptno;
+22.select e.ename,d.empno,d.ename,d.job,d.sal from emp e left join emp d on e.mgr=d.empno;
+23.select e.empno,e.ename,e.job,e.deptno,d.dname,d.loc from emp e left join dept d on e.deptno=d.deptno where e.ename not like '%k%';
+24.select d.*,e.empno,e.ename,e.job,e.sal from emp e right join dept d on e.deptno=d.deptno;
+
+
