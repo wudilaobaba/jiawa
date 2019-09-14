@@ -1,0 +1,63 @@
+###视图
+  什么是视图：数据库中表和视图都是其内部的对象，视图可以理解成一个虚拟的表，
+    视图本质就是取代了一段sql查询语句
+  创建视图 create view v_emp_10 as (select * from emp where deptno=10);
+          show tables可以看到刚才创建的视图
+          注意：数据只有一份，视图的数据发生变化，原表的数据也会发生变化，反之亦然
+      可以通过视图来隐藏原表中的部分字段，如隐藏emp表中的sal字段
+        create view v_emp_nosal as (select empno,ename,job,deptno,mgr from emp);
+   为什么使用视图：
+     因为有些数据的查询需要使用大量的sql语句，每次书写比较麻烦，使用视图可以起到sal重用
+     的作用，还可以隐藏表中的敏感信息
+   如何使用：
+     格式：create view 视图名 as 子查询;
+     练习1.创建部门是20并且工资小于3000的视图
+     练习2.创建每个部门的工资总和，平均工资，最高工资，最低工资的视图
+
+####视图的分类
+  1.简单视图
+    创建视图的自查询中不包含：去重，函数，分组，关联查询的视图称为简单视图。可以对数据
+    进行增删改查操作
+  2.复杂视图
+    创建视图的自查询中包含：去重，函数，分组，关联查询的视图称为复杂视图。仅可以进行查
+    的操作
+  也就是说，只能修改原数据！！！！！！！！！！！！！
+####简单视图的增删改操作，操作方式和table一样
+  1.插入数据：（如果插入的数据在视图中不显示但是在原表中显示，称为数据污染）
+    insert into v_emp_10 (empno,ename) values(7777,'Mike'); //错误写法
+    //因为v_emp_10的数据全是10号部门的，所以一定要加部门编号为10
+    insert into v_emp_10 (empno,ename,deptno) values(7777,'Jery',10);//正确写法
+    可以通过'with check option'关键字禁止出现数据污染
+    create view v_emp_30 as (select * from emp where deptno=30) with check option;
+    此时如果插入的数据不包含deptno=30,则会报错，如：
+    insert into v_emp_30 (empno,ename) values (7777,'Mike');//错误
+    insert into v_emp_30 (empno,ename,deptno) values (7777,'Mike',30);//正确
+  2.修改数据：（只能修改视图中存在的数据，所以不会出现数据污染）
+    update v_emp_30 set ename='张三' where empno=7777;
+    update v_emp_30 set ename='张三' where empno=7369; //7369是二号部门的人，所以
+    无法在v_emp_30视图中进行修改，所以更不会修改到原表数据
+  3.删除数据：（只能删除视图中存在的数据，所以不会出现数据污染）
+    delete from v_emp_30 where ename='张三';
+    delete from v_emp_30 where ename='smith';//smith是二号部门的人，所以
+    无法在v_emp_30视图中进行删除，所以更不会修改到原表数据
+####修改视图信息
+  格式：create or replace view 视图名 as 子查询;（视图名存在就自动替换，不存在就自动新建）
+####删除视图
+  drop view 视图名;
+  drop view if exists 视图名;  视图名不存在也不会报错
+####视图别名
+  创建视图的时候子查询对字段起了别名，则后期对视图进行操作只能使用别名
+    create view v_emp_10 as (select empno,ename name from emp);
+    update v_emp_10 set name='TTT' where empno=7778; //正确
+    update v_emp_10 set ename='TTT' where empno=7778; //错误
+
+###约束
+  什么是约束：约束是给表字段添加的限制条件
+####非空约束 not null
+  字段值不能为null
+  create table t1 (id int primary key auto_increment,age int not null);
+####唯一约束 unique
+  字段值不能重复
+  create table t1(id int primary key auto_increment,age int unique);
+####主键约束
+  主键的字段不能重复也不能为null
