@@ -61,3 +61,47 @@
   create table t1(id int primary key auto_increment,age int unique);
 ####主键约束
   主键的字段不能重复也不能为null
+  创建表的时候添加主键
+    create table t_pri1(id int primary key auto_increment)
+  创建表后添加主键
+    create table t_pri2(id int);
+    desc t_pri2;
+    alter table t_pri2 add primary key (id);
+    desc t_pri2;
+  删除主键 一个表只能有一个主键
+    alter table t_pri2 drop primary key;
+    desc t_pri2; //key里就没有值了
+###自增
+  当字段的值为null的时候数值自动+1
+  删除数据数值不减
+  如果插入数据指定比较大的值，下次从最大值基础上+1，如果删除最大值，也是从曾经出现的最大值
+  基础上+1
+  使用delete删除全表数据，自增值不变
+  使用truncate删除，自增数值清零
+###默认约束
+  当字段的值不赋值的时候，默认约束的内容生效
+  create table t_def(id int,age int default 10);
+  insert into t_def (id) values (10);
+###检查约束 check
+  mysql语法支持 不报错 但是没有效果
+  create table t_check(id int,age int check(age>10)); //并没有起作用
+###外键约束
+  作用：
+    1.外键值可以为null,可以重复,但是不能是不存在的值
+    2.外键指向的表，不能先删除
+    3.外键指向的数据不能先删除，如果需要删除，先删除外键约束或先删除外键的数据(断开关联关系)
+    使用外键必须要求两张表相同的innodb引擎，myisam引擎不支持外键约束
+    除非特定情况，一般工作中不适用外键约束！！！使用java代码通过逻辑对插入和删除的数据进
+    行限制，因为加了外键约束后，不方便测试
+####如何使用外键约束
+  创建db6数据库
+  1.创建部门表
+    create table dept(id int primary key auto_increment,name varchar(10));
+    insert into dept values(null,'神仙'),(null,'妖怪');
+  2.创建员工表
+    create table emp(id int primary key auto_increment,name varchar(10),deptid int,constraint fk_dept foreign key(deptid) references dept(id));
+                                                                                                外键约束名 外键约束 (约束字段)   引用    表名(主键)
+    insert into emp values(null,'悟空',1); //成功
+    insert into emp values(null,'赛亚人',3);//失败
+    drop table dept; //此时删除会失败
+    delete from dept where id=1;//此时删除会失败
