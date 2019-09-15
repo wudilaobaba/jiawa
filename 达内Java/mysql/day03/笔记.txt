@@ -105,3 +105,54 @@
     insert into emp values(null,'赛亚人',3);//失败
     drop table dept; //此时删除会失败
     delete from dept where id=1;//此时删除会失败
+###索引
+####导入数据
+  linux:source /home/soft01/desktop/item_backup.sql
+  win:  source d:/item_backup.sql
+  测试：
+    1.show tables;//看是否有item2的表
+    2.select count(*) from item2;//看是否有172万条
+    3.select * from item2 where title='100';//查看查询时间是多少
+  什么是索引：索引是数据库中用来提高查询效率的技术，类似于目录
+  为什么使用索引？如果不使用索引，数据会零散的保存在磁盘块中，查询数据要挨个遍历每一个磁盘块，
+  知道找到数据为止；使用索引后，会在磁盘中以树状结构对数据进行保存，查询数据时会大大降低
+  磁盘块的访问量，从而提高查询效率。
+  索引原理图.png(了解)
+####索引是越多越好吗
+  索引会占用磁盘空间，只对常用的查询字段创建索引！！！！！！！
+####有索引就一定好吗
+  不一定，如果数据量比较小，使用索引反而会降低查询效率
+####索引的分类
+  1.聚集索引：一张表只用一个聚集索引，数据库会自动为添加了主键的表创建聚集索引，一般情况下
+    聚集索引就是通过主键值创建的索引，聚集索引的树状结构中保存了数据。
+  2.非聚集索引：
+    一张表只用多个非聚集索引，通过非主键字段创建的索引称为非聚集索引，非聚集索引中不会保存数据，
+    保存的是磁盘块的地址
+###如何创建索引
+  格式：create index 索引名 on 表名(字段名(长度));
+  创建title索引:create index index_item2_title on item2(title); //添加索引后，查询时间缩短
+####查看索引
+  show index from 表名
+####删除索引
+  drop index index_item2_title on 表名
+####复合索引
+  通过多个字段创建的索引称为复合索引
+  应用场景：频繁使用多个字段进行作为查询条件时，可以为这几个字段创建一个复合索引
+  创建格式：create index index_item2_title_price on item2(title,price);
+####尽量不要在频繁修改的表中创建索引，在频繁查询的表中添加索引
+
+###事务
+  数据库中执行sql语句的最小单元，不能拆分，执行同一业务的sql语句可以保证全部成功或全部失败
+###事务的ACID特性 (面试常考)
+  Atomicity:原子性，最小不可拆分 全部成功或全部失败
+  Consistency:一致性，从一个一致状态到另一个一致状态 (多张表关联，一个表变换了，其他表的关系也一定要发生变化)
+  Isolation:隔离性，多个事物之间互不影响
+  Durability:持久性，事务完成后数据提交到数据库中持久保存
+####事务相关指令
+  show variables like '%qutocommit%';
+  set autocommit=0;
+  set autocommit=1;
+  commit;
+  rollback;
+  savepoint s1;
+  rollback to s1;
