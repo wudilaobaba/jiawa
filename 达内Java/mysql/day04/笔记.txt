@@ -9,3 +9,11 @@
 ###如何使用JDBC
   创建maven工程，导入mysql的jar包。去中央仓库找mysql 5.1.6  复制坐标
   阿里私服：maven.aliyun.com
+  show global variables like 'port';  查看mysq端口号的命令
+####执行sql语句的方法
+  excute(sql) 可以执行任意sql，但是推荐执行DDL
+    返回值为boolean. True代表有结果集。成功或失败通过是否有异常来判断
+  excuteUpdate(sql). 推荐执行DML
+    返回值为int类型 代表生效的行数
+  excuteQuery(sql). 推荐执行DQL
+    返回值为ResultSet，里面装了查询的结果
