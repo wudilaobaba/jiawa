@@ -42,3 +42,7 @@
       <artifactId>commons-dbcp</artifactId>
       <version>1.4</version>
   </dependency>
+
+###解决jdbc乱码问题
+    在url后面添加如下内容
+    jdbc:mysql://localhost:3306/whj?useUnicode=true&characterEncoding=UTF-8
