@@ -1,0 +1,11 @@
+##JDBC
+###什么是JDBC
+  Java Database Connectivity ,java数据库连接，实际上jdbc是java中的一套和数据库交互的api
+  API(application program interface  应用程序编程接口)
+###为什么使用jdbc
+  因为java程序员需要连接多种数据库(mysql,db2,orcale)，为了避免每一个数据库都学习一套新的
+  api,sun公司提出了一个JDBC接口，各个数据库厂商根据此接口写实现类(驱动),这样java程序员
+  只需要掌握JDBC接口中的一套方法，就可以访问任何数据库
+###如何使用JDBC
+  创建maven工程，导入mysql的jar包。去中央仓库找mysql 5.1.6  复制坐标
+  阿里私服：maven.aliyun.com
