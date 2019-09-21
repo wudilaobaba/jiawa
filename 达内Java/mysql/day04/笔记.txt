@@ -17,3 +17,28 @@
     返回值为int类型 代表生效的行数
   excuteQuery(sql). 推荐执行DQL
     返回值为ResultSet，里面装了查询的结果
+###数据库类型和java类型对比
+  mysql                java
+  int                  getInt
+  vatchar              getString
+  float/double         getFloat/getDouble
+  datetime/timestamp   getDate
+###ResultSet获取数据的方式
+  通过字段名获取  如：getString("name")
+  通过查询到结果数据的字段位置获取 如：getString(2);位置从1开始
+###读取配置文件
+  在项目的resource中创建配置文件：jdbc.properties  这个文件中输入汉字会自动转码
+###数据库连接池
+  DBCP Database Connection Pool
+  为什么使用：
+    如果没有连接池，每一次业务都需要和数据库服务器建立一次连接，业务处理完断开连接，如果
+    有上万次的业务就会有上万次的开关连接，频繁开关连接非常浪费资源，使用数据库连接池可以
+    设置几个初始连接，如果有业务需要使用连接，则从连接池中直接获取，如果连接池中连接用光
+    则会等待连接归还后再获取连接
+  如何使用：
+    从maven中导入jar包
+  <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
+  </dependency>
