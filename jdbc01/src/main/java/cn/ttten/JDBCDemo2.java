@@ -53,6 +53,7 @@ public class JDBCDemo2 {
 					String name = rs.getString("name");
 					System.out.println(id+":"+"name");
 				}
+				rs.close();
 				stat.close();
 				conn.close();
 				break;
