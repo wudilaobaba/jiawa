@@ -12,6 +12,7 @@ public class DBCPDemo6 {
 		//2.设置数据库连接信息
 		dataSource.setDriverClassName("com.mysql,jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/whj");
+		dataSource.setUsername("root");
 		dataSource.setPassword("whjlyn938751");
 		//3.设置连接池策略信息
 		dataSource.setInitialSize(3);//初始连接数量
