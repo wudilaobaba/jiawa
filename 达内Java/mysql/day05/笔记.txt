@@ -1,0 +1,19 @@
+创建一个新表
+create database jdbc2;
+use jdbc2;
+create table user(id int primary key auto_increment,name varchar(10),age int);
+
+
+###PreparedStatement
+预编译的sql执行对象
+好处：1.代码可读性高，不容易出错
+      2.带有预编译效果，执行效率比statement略高
+      3.可以避免sql注入,因为预编译的时候已经sql语句逻辑固定，替换?符号进去的内容只能以
+      值的形式体现
+      sql中有变量就用PreparedStatement，没有变量就用Statement
+使用方式：看代码TestStatement8.java、TestStatement9.java
+
+
+###通过登录案例演示sql注入 TestLogin10.java
+  create table t_login(id int primary key auto_increment,username varchar(10),password varchar(10));
+  insert into t_login values(null, 'libai','admin'),(null,'lisi','admin');
