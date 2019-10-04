@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import org.junit.Test;
 
-public class MataDataTest15 {
+public class MataDataTest16 {
 	@Test
 	public void database() {
 		Connection conn = null;
