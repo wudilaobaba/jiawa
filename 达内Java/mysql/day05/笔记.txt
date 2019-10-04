@@ -17,3 +17,6 @@ create table user(id int primary key auto_increment,name varchar(10),age int);
 ###通过登录案例演示sql注入 TestLogin10.java
   create table t_login(id int primary key auto_increment,username varchar(10),password varchar(10));
   insert into t_login values(null, 'libai','admin'),(null,'lisi','admin');
+
+###批量操作 batch
+  - 批量操作可以把多次sql合并成一次执行，避免了频繁和数据库服务器进行交互，从而提高执行效率
