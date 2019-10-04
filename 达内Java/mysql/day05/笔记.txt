@@ -20,3 +20,40 @@ create table user(id int primary key auto_increment,name varchar(10),age int);
 
 ###批量操作 batch
   - 批量操作可以把多次sql合并成一次执行，避免了频繁和数据库服务器进行交互，从而提高执行效率
+  -代码参见 TestBatch.java
+
+####分页查询
+在控制台输入页数和每页的数量，得到对应的内容
+如：输入。页数3，每页数量5 则得到第11～15条数据
+
+###事物
+设置自动提交的状态 conn.setAutoCommit(true/false);
+提交 conn.commit()
+回滚 conn.rollback()
+
+#####练习:实现蝙蝠侠给超人转帐。超人有500   蝙蝠侠有5000
+代码运行 蝙蝠侠给超人转账2000   前两次转账成功提交，第三次转账失败，回滚
+创建TransactionTest.java类
+添加main方法 在方法中实现上面的流程
+create table person(id int primary key auto_increment,name varchar(10),money int);
+insert into person values(null,"超人",500),(null,"蝙蝠侠",5000);
+
+####获取自增主键值
+员工表  id name
+
+部门表  id name deputed
+
+###练习：往部门表插入一个神仙部，同时往员工表插入孙悟空和猪八戒并且和神仙部建立关系. DeptAndEmpTest.java
+create table dept(id int primary key auto_increment,name varchar(10));
+Create table emp(id int primary key auto_increment,name varchar(10),deputed int);
+
+###获取元数据
+- 数据库的元数据
+  数据库厂商（mysql,oracle）,数据库的连接信息等都称为数据库的元数据
+- 表的元数据：表有哪些字段，字段类型等
+
+
+
+
+
+ctrl+shift+o 自动导包
