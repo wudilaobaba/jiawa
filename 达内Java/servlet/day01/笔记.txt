@@ -1,0 +1,33 @@
+Servlet介绍
+1.服务器如何保存并返回一个网页
+  1)静态网页：无论谁看内容都一样，服务器直接存HTML,直接返回HTML即可
+  2)动态网页：不同人看到的内容有差异，服务器保存一个组件，动态给每个用户拼一个网页，
+    组件就是满足规范的对象，在java中，这个组件就是Servlet
+2.Servlet特点
+  是服务器端的组件
+  满足sun的规范
+  可以动态拼资源(HTML/IMG等)
+  术语:处理HTTP协议
+3.什么是Servlet
+  是sun推出的，用于在服务器端处理HTTP协议的组件
+
+服务器
+1.名称
+  Java服务器
+  WEB服务器
+  Java WEB服务器
+  Servlet容器
+2.本质
+  是一个软件
+  它和浏览器是平级的关系
+3.举例
+  Tomcat(Apache)
+  JBoss
+  WebLogic
+  WebSphere
+
+Tomcat的使用方式
+1.单独使用(项目上线时)：
+  1)必须配置好JAVA_HOME
+  2)下载及安装：Apache官网
+2.通过Eclipse调用(*常用，开发时)
