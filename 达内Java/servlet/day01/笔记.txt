@@ -29,5 +29,36 @@ Servlet介绍
 Tomcat的使用方式
 1.单独使用(项目上线时)：
   1)必须配置好JAVA_HOME
-  2)下载及安装：Apache官网
+  2)下载及安装：Apache官网  绿色版解压缩即可用
+  3)启动(千万不要启动多次)
+    Linux:打开tomct/bin, 在终端输入chmod +x *sh
+    Linux:打开tomct/bin, 在终端输入./startup.sh
+    Windows:打开tomct/bin,双击startup.bat
+  4)访问tomcat
+    在浏览器中输入http://localhost:8080  看到猫咪就代表成功
+  5)关闭tomcat
+    Linux:打开tomct/bin, 在终端输入./shutdown.sh
+    Windows:打开tomct/bin,双击shutdown.bat
 2.通过Eclipse调用(*常用，开发时)
+  Tomcat的安装与配置
+    1)window-Preferences-Server-RunTime Environment-Add-选7.0版本-勾选Create a new local server-Next-Browerser-选择现有的7版本-finish-OK
+    2)打开eclipes控制台-选Servers(若没有，window-Show View-other-搜索Servers)-双击下面的tomcat7-在Servef Locations中选第二个Use Tomcat ins... - Ctrl+s
+    3)在控制台Servers下，点击三角按钮 - http://localhost:8080 看到猫就意味着启动成功
+    4)点红色方块按钮，即可关闭tomcat
+    补充：若配置失败，需要重来，
+    1)window-Preferences-Server-RunTime Environment-右侧选择tomcat，然后点击remove按钮
+    2)在eclipse中将自动生成的servers项目删除，再按照以上4步进行重新配置
+
+补充：
+1.tomcat的常见使用问题
+  1)问题描述
+  在启动tomcat时看到如下的错误
+  address already in use, JVM_BIND:8080
+  2)产生的原因
+    重复启动tomcat造成8080端口的冲突 或 其他软件也占用了8080端口
+  3)解决方案
+    启动原因：打开tomcat/bin目录，通过双击shutdown.bat
+    其他软件：打开D:\apache-tomcat-7.0.6\conf\server.xml,在65行修改tomcat端口
+             或
+             eclipes中的servers项目中打开server.xml,在<Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>行修改tomcat端口port
+             修改后要重启tomcat才可使用
