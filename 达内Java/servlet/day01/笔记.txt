@@ -49,6 +49,29 @@ Tomcat的使用方式
     1)window-Preferences-Server-RunTime Environment-右侧选择tomcat，然后点击remove按钮
     2)在eclipse中将自动生成的servers项目删除，再按照以上4步进行重新配置
 
+Servlet开发步骤
+1.创建WEB的maven项目(见图片 “创建Serlet的maven项目.png”)：必须具备标准的web目录。/webapp/WEB-INF/web.xml,该文件手动创建到webapp目录中，其内容看web.xml
+2.导入jar包 两种导入方式：
+  1)使用maven,搜索javaee-api（不建议使用maven）
+  2)使用tomcat自带的包 
+    在tomcat文件夹中打开lib目录,找到servlet-api.jar
+    右键项目-properties-Targeted Runtimes-勾选上Apache Tomcat V7.0
+3.开发servlet
+  1)编写Servlet
+    创建package
+    创建一个类，名为XxxServlet
+    继承HttpServlet，从而间接实现了Servlet接口
+    重写父类的service()
+  2)配置Servlet (也就是在web.xml中进行配置)
+    先声明类，并给它取别名
+    再通过别名引用此类，给它取一个访问路径
+4.部署
+  在servlet标签下右键tomcat7-Add and Remove，在左边选中要部署的项目-Add-变化到右边，代表已部署-finish-重启tomcat, 项目被复制到了tomcat文件夹下的wtpwebapps目录中
+5.访问
+  格式 http://ip:port/项目名/网名
+  例子 http://localhost:8080/servlet1/ts
+6.改了代码以后要重新部署，在servlet标签下右键tomcat7-Publish
+
 补充：
 1.tomcat的常见使用问题
   1)问题描述
