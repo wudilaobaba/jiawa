@@ -7,13 +7,13 @@
   metadata-complete="true">
   <!-- 1.声明Servlet的类型，并给它取一个别名(小名) -->
   <servlet>
-      <servlet-name>time</servlet-name>
-      <servlet-class>web.TimeServlet</servlet-class>
+      <servlet-name>reg</servlet-name>
+      <servlet-class>web.RegServlet</servlet-class>
    </servlet>
    <!-- 通过别名引用Servlet并给它取一个网名(访问路径) -->
    <servlet-mapping> 
-       <servlet-name>time</servlet-name><!-- 由上面的别名而来 -->
+       <servlet-name>reg</servlet-name><!-- 由上面的别名而来 -->
        <!-- 网名需以斜线开头 -->
-       <url-pattern>/ts</url-pattern>
+       <url-pattern>/reg</url-pattern>
    </servlet-mapping>
 </web-app>  
