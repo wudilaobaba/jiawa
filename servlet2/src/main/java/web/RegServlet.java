@@ -2,11 +2,15 @@ package web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 public class RegServlet extends HttpServlet {
 
@@ -29,9 +33,26 @@ public class RegServlet extends HttpServlet {
 			}
 		}
 		//3.发送响应
-		res.setContentType("text/html");//设置消息头
+		//允许跨域
+		System.out.println(req.getHeader("origin"));
+		res.setHeader("Access-Control-Allow-Origin", req.getHeader("origin"));
+		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, X-Test-Cors");
+		res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
+
+
+		res.setContentType("application/json");//设置消息头
 		PrintWriter out = res.getWriter();
-		out.println("<p>注册成功</p>");//设置实体内容
+		Map<String,String> json =new HashMap();
+		json.put("result"," success");
+		json.put("code"," 200");
+		JSONObject jsonObject = JSONObject.fromObject(json);
+		String result = jsonObject.toString();
+
+
+
+
+		out.println(result);//设置实体内容
 		out.close();
 	}
 
