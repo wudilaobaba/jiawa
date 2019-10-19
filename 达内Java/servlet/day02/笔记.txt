@@ -27,7 +27,7 @@ HTTP协议：(HyperText Transfer Protocol)
       提供具体的响应中的返回数据
       通过request处理请求数据，通过response处理响应数据
       开发者会使用request和response就行了
-  注册项目：servlet2
+  注册项目：servlet2的whj项目是react项目，进行get/post请求
     webapp中放html文件，项目部署以后访问http://localhost:8080/servlet2/register.html
     注册提交地址为 http://localhost:8080/servlet2/reg
 
@@ -38,3 +38,41 @@ HTTP协议：(HyperText Transfer Protocol)
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, X-Test-Cors");
 		res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
+
+
+    请求方式：
+    1.什么是请求方式？
+      就是浏览器向服务器发送数据的方式
+      需要掌握众多方式中的两种：GET & POST
+      GET:采用请求路径传参,所有的请求默认都是GET请求
+        (参数在传递过程中可见，导致隐私性很差，路径可以容纳的数据有限，只能传少量数据)
+      POST:采用实体内容传参
+        参数在传递过程中不可见，隐私性好
+        实体内容专门用来传数据，大小没有限制
+      观察GET和POST请求
+
+
+    编码问题：
+      浏览器使用UTF-8来编码，服务器默认使用ISO8859-1来解码，所以就会存在乱码
+      服务器解决请求乱码的三种方法：
+        1.将乱码后的字符串按照ISO8859-1还原为byte,再将byte按照utf-8编码为字符串(get/post都适用)
+          优点：万能     缺点：麻烦
+        2.修改tomcat配置文件就是Servers项目中的server.xml,第65行加一句话，URIEncoding="utf-8"(只对get方式有效)
+          优点：简单     缺点：只对get有效
+        3.在接受参数之前加上一句话，req.setCharacterEncoding("utf-8")  (只对post有效)
+          是声明实体内容的编码为utf-8
+          优点：简单   缺点：只对post有效
+      服务器处理响应乱码：
+        res.setCharacterEncoding("utf-8");//建议省略这句
+        res.setContentType(xxxx;charset=utf-8);//建议写这句
+        以上两处写一个就行了，不用都写
+
+实体类用来封装表中的数据：entity po vo pojo
+
+补充：
+  1.JavaBean：满足如下规范的类
+    有包
+    有默认的构造器
+    实现序列化接口
+    public class Emp implements Serializable{//实现序列化接口}
+    有get/set方法(非必要)
