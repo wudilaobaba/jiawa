@@ -30,3 +30,11 @@ HTTP协议：(HyperText Transfer Protocol)
   注册项目：servlet2
     webapp中放html文件，项目部署以后访问http://localhost:8080/servlet2/register.html
     注册提交地址为 http://localhost:8080/servlet2/reg
+
+    servlet中允许跨域的代码：
+    //允许跨域
+		System.out.println(req.getHeader("origin"));
+		res.setHeader("Access-Control-Allow-Origin", req.getHeader("origin"));
+		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, X-Test-Cors");
+		res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
