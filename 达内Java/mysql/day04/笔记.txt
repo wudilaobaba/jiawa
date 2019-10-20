@@ -50,3 +50,7 @@
 调试：
   在junit的test方法中右键debug as--确定，然后页面上最后三个小箭头可以进行调试，右上角
   可以切换debug和java模式
+
+补充：
+eclipse导入jar包的三种方式：
+https://blog.csdn.net/androidSmallJi/article/details/78854344
