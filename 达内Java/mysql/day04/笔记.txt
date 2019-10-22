@@ -54,3 +54,16 @@
 补充：
 eclipse导入jar包的三种方式：
 https://blog.csdn.net/androidSmallJi/article/details/78854344
+
+
+java读取.properties文件的通用方法：
+Properties prop = new Properties();
+InputStream ips = 当前类的类名.class.getClassLoader().getResourceAsStream("xxx.properties");
+try {
+	prop.load(ips);
+	System.out.println(prop.getProperty("id"));
+	System.out.println(prop.getProperty("name"));
+	System.out.println(prop.getProperty("age"));
+} catch (IOException e) {
+	e.printStackTrace();
+}
