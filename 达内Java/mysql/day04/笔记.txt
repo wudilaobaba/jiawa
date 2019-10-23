@@ -55,6 +55,11 @@
 eclipse导入jar包的三种方式：
 https://blog.csdn.net/androidSmallJi/article/details/78854344
 
+管理数据库连接：
+  在软件中数据库连接使用非常频繁，如果每次都创建连接，就会造成代码的大量冗余，常规的做法是建立数据库
+  连接工具类，封装数据库连接过程，统一数据库连接过程，使用的时候就可以简化代码  见jdbc4中的JDB.java类
+
+
 
 java读取.properties文件的通用方法：
 Properties prop = new Properties();
