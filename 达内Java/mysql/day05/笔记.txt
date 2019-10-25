@@ -15,6 +15,7 @@ create table user(id int primary key auto_increment,name varchar(10),age int);
 
 
 ###通过登录案例演示sql注入 TestLogin10.java
+  字符串拼接可能造成sql注入
   create table t_login(id int primary key auto_increment,username varchar(10),password varchar(10));
   insert into t_login values(null, 'libai','admin'),(null,'lisi','admin');
 
@@ -26,10 +27,20 @@ create table user(id int primary key auto_increment,name varchar(10),age int);
 在控制台输入页数和每页的数量，得到对应的内容
 如：输入。页数3，每页数量5 则得到第11～15条数据
 
-###事物
+###事务
+Demo05.java   代码模板见 sqlwhjspecial
 设置自动提交的状态 conn.setAutoCommit(true/false);
 提交 conn.commit()
 回滚 conn.rollback()
+set autocommit=0;
+create table account(id int primary key auto_increment,name varchar(10),balance int);
+insert into account values(null,'范老师',500);
+insert into account values(null,'刘老师',1500);
+insert into account values(null,'何仙姑',2000);
+update account set balance=balance-1000 where id=2;
+update account set balance=balance+1000 where id=1;
+commit;
+update操作一张表的时候,如果不设置自动提交并且不执行commit,对该表的其他操作不可以进行处理，会出现卡顿显现,这是数据库隔离型
 
 #####练习:实现蝙蝠侠给超人转帐。超人有500   蝙蝠侠有5000
 代码运行 蝙蝠侠给超人转账2000   前两次转账成功提交，第三次转账失败，回滚
@@ -40,7 +51,6 @@ insert into person values(null,"超人",500),(null,"蝙蝠侠",5000);
 
 ####获取自增主键值
 员工表  id name
-
 部门表  id name deputed
 
 ###练习：往部门表插入一个神仙部，同时往员工表插入孙悟空和猪八戒并且和神仙部建立关系. DeptAndEmpTest.java
