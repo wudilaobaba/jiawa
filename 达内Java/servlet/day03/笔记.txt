@@ -1,0 +1,55 @@
+1.路径
+2.URI 和 URL 的区别：  看'URI和URL的理解.png'
+  1).狭义的理解：
+    只在java项目中理解URI和URL
+      URI:绝对路径
+      URL:完整路径
+    从表面上看URI包含了URL
+  2).广义的理解：
+    在任意的WEB项目中理解URI和URL
+      URI:资源的名称
+      URL:资源的真名
+      URI包含了URL
+
+如何配置servlet访问路径：
+1.精确匹配
+  举例：/abc
+  只有访问/abc才能访问此Servlet
+  适合规模很小的项目
+2.通配符  注意：该方式无法通过getServletPath方法获取网名，需要根据相对路径获取到网名getRequestURI
+  举例：/*
+  所有路径都能访问此Servlet
+  此Servlet能处理所有请求
+  适合一个项目只写一个Servlet
+3.后缀 建议！！！
+  举例：*.hi    不允许以斜线开头   访问：http://localhost:8080/servlet4/sasa.hi
+  所有以hi为后缀的请求都能访问此Servlet
+  此Servlet能处理多个请求
+  适合一个项目写少量的几个Servlet
+
+  案例：在servlet3中新增加一个类，进行以通配符的形式判断路径进行在一个Servlet中进行操作
+
+
+
+
+Servlet的生命周期
+
+
+ServletConfig 和 ServletContext
+我们也可以使用web.xml作为配置文件，使用ServletConfig或ServletContext来读取该文件中的参数
+ServletContext只有一份，其数据可以被多个Servlet所共享
+ServletConfig有多份，其每一份中的数据对应一个Servlet
+类比：Servlet学生  ServletContext教室  ServletConfigTTS账号
+作用：
+  见：“ServletConfig 和 ServletContext.png”
+区别：
+  ServletConfig：
+    ServletConfig和Servlet是一对一的关系，Tomcat在初始化每个Servlet之前给它创建一个ServletConfig
+      举例：调用HiServlet.init ()前给它创建一个ServletConfig
+           调用HelloServlet.init ()前给它创建一个ServletConfig
+      如果想给某个Servlet预置数据，使用ServletConfig
+  ServletContext：
+    ServletContext和Servlet是一对多的关系，Tomcat在启动是就自动创建唯一的ServletContext
+    所有的Servlet都可以共享ServletContext对象中的数据
+    如果想给多个Servlet预置数据使用ServletContext
+应用：
