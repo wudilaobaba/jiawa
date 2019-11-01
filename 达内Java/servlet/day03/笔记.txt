@@ -33,6 +33,7 @@
 
 
 Servlet的生命周期
+一个项目的中的<load-on-startup>1</load-on-startup>，中间的数字不能重复，数字越大，执行越靠后
 
 
 ServletConfig 和 ServletContext
@@ -53,3 +54,44 @@ ServletConfig有多份，其每一份中的数据对应一个Servlet
     所有的Servlet都可以共享ServletContext对象中的数据
     如果想给多个Servlet预置数据使用ServletContext
 应用：
+  ServletConfig：servlet5/LoginServlet.java
+    假设开发一个页游，当用户数超出最大在线人数时要排队
+    登录时，判断是否已达到最大人数
+    登陆：LoginServlet
+    最大人数：maxOnline
+    该参数只给LoginServlet自己用，用ServletConfig读取即可，别人不用
+
+  ServletContext：servlet5/FindEmpServlet.java  servlet5/FindDeptServlet.java
+    软件内有很多查询功能，都带有分页功能
+    select * from emp limit (3-1)*10,10; //查询第三页，每页10条
+    每页显示的条目是常量，是可以配置的
+    该数据在多个查询功能之间公用，使用ServletContext读取
+
+  ServletContext的特殊用法：servlet6
+    前提：之前使用ServletConfig和ServletContext读取的是常量，
+    而ServletContext还有能力读写变量，用该对象读写的变量是可以被所有Servlet共用的
+    setAttribute()读变量  getAttribute()写变量
+    案例：开发流量统计的功能，无论访问哪个功能，流量+1
+         由于流量是变量，并且在多功能间共用，所以用ServletContext来读写
+
+在web.xml中配置ServletConfig
+<init-param>
+	<param-name></param-name>
+	<param-value></param-value>
+</init-param>
+
+在web.xml中配置ServletContext
+<!-- 在标签外配置的参数是给所有Servlet公用的参数，它们都可以通过ServletContext读取该参数 -->
+<context-param>
+	<param-name>size</param-name>
+	<param-value>20</param-value>
+</context-param>
+
+总结：
+  当需要给Servlet预置参数的时候使用这样的对象
+  若参数只给一个Servlet使用 - 用ServletConfig
+  若参数要给多个Servlet共用 - 用ServletContext
+
+补充：
+  在一个类上ctrl+T 可以看到这个类的继承关系
+  Ctrl+Shift+T 可以搜索各种类，再点击左侧黄色的双向箭头图标，可以定位到该类具体在哪个包中
