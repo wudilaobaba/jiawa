@@ -1,0 +1,30 @@
+项目 电信系统 jsp03project
+建表：
+  1.资费信息表
+    create table cost(cost_id int primary key auto_increment,name varchar(50),base_duration int,base_cost double,unit_cost double,status char(1),descr varchar(100),createtime date,starttime date,cost_type char(1));
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+    insert into cost values(null,'5.9元套餐',20,5.9,0.4,'1','ewwewe','2010-10-10 02:09:00','2010-10-10 02:09:00','2');
+
+补充：
+导包失败怎么办？
+  1.打开pom.xml,删除失败的那个包
+  2.打开.m2文件夹，删除失败的文件
+  然后重新导入
+  通过eclipse右侧目录，可以看到.m2文件夹的位置
+
+开发步骤***：
+  1.根据操作分析本功能包含几个请求
+  2.画图或文字分析每个请求执行的过程
+  3.按照执行过程的倒序逐个开发组件
+
+自己处理“新增”逻辑的处理
+
+
+eclipse中选中一大段代码--command+option+m  可以生成一个方法
+
+每写一个模块都要写一个dao,登陆的dao是Admin

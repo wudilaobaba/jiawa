@@ -1,0 +1,77 @@
+Cookie和Session
+  Cookie储存在浏览器上，服务器压力小，但数据不安全
+  Session储存在服务器上，服务器压力大，但数据安全
+  重要数据存在Session中，一般的数据存入cookie
+
+Cookie jsp04
+  Cookie特点：
+    cookie保存在浏览器上，多个请求可以共用一组cookie，多个Servlet可以共用一组cookie
+    每个用户(浏览器)访问服务器都会获取一组cookie
+
+  Cookie的生存时间：
+    second>0 浏览器将Cookie保存在硬盘上，超时后浏览器将硬盘中的Cookie删除
+    second<0 浏览器将Cookie保存在内存中，浏览器关闭，内存中的Cookie就会被销毁
+    second=0 删除cookie就将其设为0
+
+  Cookie的有效路径
+    在main/login路径下创建的cookie,他只对/main及其下级的路径有效
+
+  前后分离的项目，Cookie由前端来设置
+
+
+Session jsp05建一个session,服务器会使用cookie将sessionID
+       返回给浏览器，浏览器再次访问服务器时会传入SessionId
+       多个请求可以公用统一session
+       多个servlet可以公用统一session
+       一个浏览器一个session
+  一般服务器保存session的时间是30分钟，修改该时间的话，就去web.xml配置以下：
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  //删除session
+	//Session.invalidate();
+
+  使用了jsp的话，一访问servlet就会创建session,不用的话，只要写了session才会创建，不写不创建
+
+
+  Cookie和Session的作用：
+  1.通俗的描述：
+    它们内部存储的数据满足如下规则：
+      这些数据在不同的请求中可以共用
+      这些数据在不同的Servlet之间可以共用
+      每个浏览器都有一组这样的数据
+  2.专业的描述：
+    Http协议是无状态协议，即服务器没有记住浏览器
+    cookie和session就是用来管理状态，让服务器记住浏览器
+    状态：浏览器曾经访问过服务器的证据（数据）
+
+
+过滤器：测试代码jsp06
+  1.过滤器的作用： 用来处理项目中公共的需求。举例：记录日志，过滤敏感词，权限检查等
+    公共的需求：很多请求都包含的业务
+  2.过滤器的开发步骤
+    创建一个类，实现过滤器接口filter LogFilter import javax.servlet.Filter;
+    在web.xml里配置这个类
+    过滤器由服务器自动调用
+    <filter>
+  		<filter-name>log</filter-name>
+  		<filter-class>web.LogFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+  		<filter-name>log</filter-name>
+  		<!-- 声明此Filter可以过滤哪些请求 -->
+  		<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+    多个过滤器同时执行的话，根据配置文件的顺序进行过滤前操作-->先进后出
+
+    jsp04中增加了登陆权限的判断
+      排除不需要过滤的路径：看LoginFilter.java
+      删除cookie以后，再访问http://localhost:8080/jsp04/chackcookie.do，即可以进入到过滤器中
+
+  监听器：很少使用
+    监听request的创建与销毁：实现ServletRequestListener接口
+    监听request的值发生变化时候：实现ServletRequestAttributeListener接口
+    配置文件：
+    <listener>
+      <listener-class>web.MyListener</listener-class>
+    </listener>

@@ -1,0 +1,70 @@
+jsp隐含对象(内置) 面试题
+1.request
+  HttpServletRequest
+2.response
+  HttpServletRespones
+3.out
+  JSPWriter 类似于 PrintWriter
+4.config
+  ServletConfig
+5.application
+  ServletContext
+6.exception
+  Throwable jsp翻译成的Servlet所抛出的异常
+7.session
+  HttpSession
+8.page
+  Object 相当于this,用来指代翻译成的那个Servlet
+9.pageContext
+  pageContext 是管理者，通过它可以获取其他8个隐含对象
+
+如何在jsp上使用隐含对象
+<%Object user = session.getAttribute("user")%>
+<%=session.getAttribute("user")%>
+
+Model1模式，使用jsp请求员工列表 jsp2
+Model2模式，引入MVC设计模式对代码分层，降低代码的耦合度 jsp2中引入了web包来放置Servlet这个C层
+  MVC：是经典的设计模式，是代码的分层思想
+    M: Model业务层，用来处理业务  DAO
+    V: View视图层，用来展现数据   JSP
+    C: Controller，控制层，用来进行调度，是业务层和视图的层桥梁  Servlet
+  其目的是要将代码解耦，便于团队开发及维护
+  MVC模式下访问的都是servlet,会自动转发个.jsp文件
+
+转发和重定向
+  都是解决WEB组件之间的跳转问题
+  WEB组件：Servlet/JSP
+  WEB组件之间，依赖时使用转发
+  WEB组件之间，两者不依赖时，使用重定向
+
+转发和重定向专业的理解：
+  转发的特点： req.getRequestDispatcher("emp_list.jsp").forward(req, res);
+    1.一次请求
+    2.地址栏不会变化
+    3.一个请求只有一个request，A和B通过它共享数据
+    4.只能转发到项目内部的资源
+  重定向的特点：
+    1.两次请求
+    2.地址栏会发生变化
+    3.2个请求有2个request，A和B无法通过它共享数据
+    4.可以重定向到项目外的资源
+  通常：查询时用转发，
+       增加，修改，删除后重定向到查询
+  归纳：面试
+    1.jsp有哪些内置对象
+    2.什么是mvc
+    3.转发和重定向的区别
+
+EL和JSTL jsp03项目
+
+JSTL的使用：
+  step01.
+  <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+  </dependency>
+  step02.在以上包中找到c.tld,然后在.jsp中加入以下指令：
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+自定义标签的使用：Unit06上午

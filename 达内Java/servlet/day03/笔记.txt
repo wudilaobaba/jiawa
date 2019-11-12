@@ -92,6 +92,21 @@ ServletConfig有多份，其每一份中的数据对应一个Servlet
   若参数只给一个Servlet使用 - 用ServletConfig
   若参数要给多个Servlet共用 - 用ServletContext
 
+Servlet线程安全问题
+  1.同时修改局部变量
+    局部变量存在与栈内，每个线程有自己的栈针，此时没有线程安全问题
+  2.同时修改成员变量
+    成员变量存于堆内，所有线程共享这样的数据，此时存在线程安全问题
+  3.解决方案
+    加锁，servlet6/UpServlet.java
+
+JSP: jsp本质上就是servlet  最终会把jsp转换(翻译)为servlet的.java文件
+  注意：jdk1.8要与tomcat9配合使用
+  在一个web项目中的webapp中创建.jsp文件
+  修改jsp文件后，直接刷新页面即可更新内容
+  在apache-tomcat-9.0.27中的work文件加中可以找到翻译后的.java文件
+
 补充：
   在一个类上ctrl+T 可以看到这个类的继承关系
   Ctrl+Shift+T 可以搜索各种类，再点击左侧黄色的双向箭头图标，可以定位到该类具体在哪个包中
+  Ctrl+O 查看这个类的基本信息，绿色的public  黄色是protected  红色是private
