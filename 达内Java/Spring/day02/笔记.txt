@@ -2,13 +2,79 @@ springmvc
 1.springmvc是什么：
   是一个mvc框架，用来简化基于mvc架构的web应用开发
 2.五大组件
-  01.DispatcherServlet
+  01.DispatcherServlet - 前端控制器
     接受请求，依据HandlerMapping的配置调用响应的模型来处理
   02.HanderMapping
     包含了请求路径与模型的对应关系
-  03.Controller
+  03.Controller - 处理器
     负责处理业务逻辑
   04.ModelAndView
     封装了处理结果。注：处理结果除了数据之外，还可能有视图名
   05.ViewResolver
     DispatcherServlet依据ViewResolver的解析，调用真正的视图对象来生成相应的页面
+
+五大组件的关系：
+  a.DispatcherServlet收到请求之后，依据HanderMapping的配置，调用相应的Controller来处理
+  b.Controller将处理结果封装成ModelAndView对象，然后返回给DispatcherServlet
+  c.DispatcherServlet根据ViewResolver的解析调用相应的视图对象(比如jsp),来生成相应的页面
+
+编程步骤： springmvc01
+  step1.导包
+  <dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+  step02.添加spring配置文件
+    就是资源目录下的.xml文件
+  step03.配置DispatcherServlet，即在web.xml配置如下：
+    <servlet>
+       <servlet-name>springmvc</servlet-name>
+       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>classpath:springmvc.xml</param-value>
+       </init-param>
+       <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+  step04.写Controller - 处理器
+    新建HelloController.java继承Controller
+  step05.写jsp文件
+  step06.配置HanderMapping
+    在springmvc.xml中配置如下：
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+  		<property name="mappings">
+  			<props>
+  				<prop key="/hello.do">helloController</prop> <!-- 请求路径和对应的处理器 -->
+  			</props>
+  		</property>
+  	</bean>
+  	<!-- 配置处理器 -->
+  	<bean id="helloController" class="controller.HelloController"></bean>
+
+  	<!-- 配置视图解析器 -->
+  	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  		<property name="prefix" value="/WEB-INF/"></property> <!-- 路径前缀 -->
+  		<!-- hello                                                 中间插入 -->
+  		<property name="suffix" value=".jsp"></property>      <!-- 路径后缀 -->
+  	</bean>
+  	<!-- 视图名hello通过以上配置可以映射到 /WEB-INF/hello.jsp -->
+
+练习生成登陆页面 springmvc02

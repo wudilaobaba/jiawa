@@ -1,0 +1,95 @@
+使用注解来开发基于springmvc的web应用
+编程步骤：
+step01.导包
+  <dependencies>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>3.2.8.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.annotation</groupId>
+  		<artifactId>jsr250-api</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  </dependencies>
+step02.添加Spring的配置文件
+  springmvc.xml
+step03.配置DispatcherServlet  即在web.xml配置
+step04.写Controller  controller包下的HelloController.java
+step05.WEB-INF中写.jsp文件
+
+step02中若<mvc:annotation-driven>报错，则
+将以下：
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/tx/spring-mvc-3.2.xsd
+改为：
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+
+
+
+
+读取请求参数：
+  1.通过request对象,将req作为方法的入参即可
+  2.使用注解 - @RequestParam
+    说明：将该注解添加到方法的形参前面。
+  3.使用javabean封装请求参数值
+    step01.写一个Java类，设置参数，并生成get/set方法 - 看AdminParam
+
+向页面传值：
+  1.使用request,将数据绑定到request，然后转发到某个jsp
+  2.使用ModelAndView对象
+    将数据先封装到ModelAndView对象中，然后将该对象作为方法的返回值
+  3.使用ModelMap对象
+    将该对象作为方法的参数，然后将数据绑定到该对象
+  4.使用Session
+
+前后分离返回JSON：
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.8.3</version>
+</dependency>
+//  返回json    http://localhost:8080/springmvc04/login.do?username=22&age=12&psw=111
+//	@RequestMapping(value = "/login.do", produces = "application/json;charset=UTF-8")
+//	public @ResponseBody String xxx(AdminParam ap,HttpServletRequest req, HttpServletResponse res) {
+//		//以下四行允许跨于：
+//		res.setHeader("Access-Control-Allow-Origin", req.getHeader("origin"));
+//		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, X-Test-Cors");
+//		res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+//		res.setHeader("Access-Control-Allow-Credentials", "true");
+//		Map map = new HashMap();
+//		map.put("username", ap.getUsername());
+//		map.put("age", ap.getAge());
+//		map.put("psw", ap.getPsw());
+//		ObjectMapper mapper = new ObjectMapper();
+//		String resultString = "";
+//		try {
+//			resultString = mapper.writeValueAsString(map);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+//		return resultString;
+//	}
+
+
+练习：计算一个人的bmi指数： springmvc05
+  算法：bmi = 体重(公斤)/身高(米)/身高(米)
+       如果 bmi<19  过轻
+       如果 bmi>25  过重
+       否则 正常
+
+重定向： springmvc04
+  如果方法的返回值是String,在重定向地址前 + "redirect:"
+    return "redirect:toIndex.do";
+  如果方法的返回值是ModelAndView
+    @RequestMapping("/login.do")
+    public ModelAndView xxx() {
+      RedirectView rv = new RedirectView("toIndex.do");
+      return new ModelAndView(rv);
+    }
