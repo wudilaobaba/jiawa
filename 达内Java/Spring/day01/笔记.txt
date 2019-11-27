@@ -95,8 +95,8 @@
       注：常见的注解：
         @Component
         @Service 业务层注解
-        @Respository 持久层注解
-        @Controller 控制层注解
+        @Repository 持久层注解
+        @Controller 控制层注解 无名字
     step02.要在配置文件中添加组件扫描的配置
   3.
   4.依赖注入相关的注解

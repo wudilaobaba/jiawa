@@ -1,1 +1,56 @@
 springmvc06 电信计费项目
+分层：
+  V:view(表示逻辑)
+  C:controller(控制逻辑)
+  M:model(封装业务逻辑)
+    业务逻辑 + 数据访问逻辑
+    Service(服务类)  +  DAO(持久化类)
+
+  表示层vc
+    数据展现和控制逻辑(请求分发)
+  业务层m
+    业务逻辑的处理
+  持久层m
+    数据库访问
+
+  调用关系：表示层调用业务层，业务层调用持久层
+  a.上一层通过接口调用下一层提供的服务，比如业务层调用持久层提供的接口
+  b.下一层发生改变，不影响上一层
+
+修改：
+  以依赖注入的方式修改JDB.java的代码
+
+解决中文乱码问题，要在web.xml中进行配置如下：
+
+拦截器：
+  是Spring中的一个组件，当前端控制器收到请求之后，如果有拦截器，会先调用拦截器，然后调用相应的处理器
+  注：过滤器属于servlet规范，拦截器属于Spring框架
+  如何写一个拦截器：springmvc07项目中的SomeInterceptor类
+  step01：写一个java类，实现HandlerInterceptor接口
+  step02: 实现具体的拦截处理逻辑，比如,session验证
+  step03: 配置拦截器，在springmvc.xml中进行配置以下内容：
+  <!-- 配置拦截器 若有多个拦截器，由上而下执行-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/><!-- 对哪个请求进行拦截 --> <!-- /*是对一层请求 -->
+			<!-- 注意：若请求的路径是分层的，如/demo/name/xxx ,那么上面的path就要写/** 两个星,建议全部都写/** -->
+			<mvc:exclude-mapping path="/hello.do"/> <!-- 对哪个请求不进行拦截 -->
+			<bean class="com.whj.project.interceptors.SomeInterceptor"></bean><!-- 拦截器的类名 -->
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+异常处理：
+  两种处理方式：建议使用第二种
+    01.可以将异常交给Spring处理，不需要自己处理了，交给前端控制器,只需在spring.xml中配置以下即可：
+      <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    		<property name="exceptionMappings">
+    			<props>
+    				<!-- 以下可配置多个异常   一旦controller中遇到对应的异常类，就会走到对应的.jsp页面中-->
+    				<prop key="java.lang.NumberFormatException">error</prop>
+    				<prop key="service.ApplicationException">login</prop>
+    				<!--                   自定义异常的类      视图页面 login.jsp -->
+    			</props>
+    		</property>
+    	</bean>
+    02.使用@ExceptionHandler注解实现异常处理，在controller中添加该方法 看：springmvc需要的配置文件/LoginController.java

@@ -1,0 +1,25 @@
+spring jdbc  项目：spring-jdbc01  该技术用的很少
+  该技术的增删改查方法请看：EmpDAOImpl.java
+  spring jdbc是什么？
+    是spring对jdbc的封装，使用spring jdbc访问数据库，可以不用写重复的代码，比如获取/关闭连接等
+  编程步骤：
+    JdbcTemplate类
+    step01.导包
+      spring-jdbc
+    step02.配置spring.xml文件
+      <!-- 配置spring-jdbc -->
+    	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+    		<property name="dataSource" ref="ds"></property>
+    	</bean>
+    step03.配置JdbcTemplate  注：JdbcTemplate提供了一些方法，用来访问数据库
+    step04.调用JdbcTemplate类提供的方法来访问数据库，注：通常将JdbcTemplate类注入到DAO对象中
+      /**
+       * 增
+       */
+      @Resource(name="jt")
+      private JdbcTemplate template;
+      public void save(Emp e) {
+        String sql = "insert into emp values(null,?,?)";
+        Object[] args = new Object[] {e.getName(),e.getAge()}; //对应的参数值
+        template.update(sql,args);
+      }

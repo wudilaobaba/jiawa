@@ -1,0 +1,18 @@
+spring mybatis
+  mybatis是什么？
+    开源的持久层框架(数据库层)
+    jdbc:代码繁琐 但是 性能最好
+    mybatis 代码简洁，要写sql 性能较jdbc稍微慢一些 容易掌握
+  mybatis编程步骤：
+    step01.导包：mybatis
+      <dependency>
+  			<groupId>org.mybatis</groupId>
+  			<artifactId>mybatis</artifactId>
+  			<version>3.2.8</version>
+  		</dependency>
+    step02.添加mybatis配置文件 SqlMapConfig.xml 放在资源目录下,很重要：数据库名就写在这里！！！！
+    step03.写实体类
+      注：实体类的属性名和表的字段名一样，忽略大小写。类中要添加get/set方法
+    step04.写映射文件 EmpMapper.xml 放在实体类eneity包下
+
+  mybatis基本原理：
