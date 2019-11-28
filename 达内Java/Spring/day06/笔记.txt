@@ -14,5 +14,13 @@ spring mybatis
     step03.写实体类
       注：实体类的属性名和表的字段名一样，忽略大小写。类中要添加get/set方法
     step04.写映射文件 EmpMapper.xml 放在实体类eneity包下
+    step05.修改配置文件SqlMapConfig.xml，指定映射文件的位置
+    step06.调用mybatis的API，调用SqlSession提供的方法来访问数据库,看测试类中的使用方式
 
-  mybatis基本原理：
+  mybatis基本原理(了解) "mybatis的原理.png"
+
+  返回Map类型的结果：
+    mybatis会将查询结果先封装到一个Map对象里(以字段名作为key,以字段值作为value).然后再将Map对象中的数据
+    添加到实体对象里面
+
+  使用resultMap解决实体类与表字段名不一致的情况 Emp2.java
