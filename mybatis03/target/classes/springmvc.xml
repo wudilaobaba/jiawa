@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/tx/spring-jms-3.2.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/tx/spring-lang-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+		
+	<!-- =============================== 以下配置持久层 , 同时，DAO接口不需要进行组建扫描也可以使用注解的形式进行依赖注入！！！！ MapperScannerConfigurer自动组件扫描了=========================================== -->
+	<!-- 配置连接池 -->
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/whj?useUnicode=true&amp;characterEncoding=utf8"/>
+		<property name="username" value="root"/>
+		<property name="password" value="whjlyn938751"/>
+		<property name="initialSize" value="3"/>
+		<property name="maxActive" value="5"/>
+	</bean>
+	<!-- 配置mybatis，spring集成mybatis，不在需要mybatis的配置文件，使用sqlSessionFactoryBean来代替mybatis的配置文件 -->
+	<bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入连接池 ，不再使用mybatis自带的连接池，而是使用spring管理的连接池-->
+		<property name="dataSource" ref="ds"/>
+		<!-- 指定映射文件的位置 -->
+		<property name="mapperLocations" value="classpath:com/whj/project/entity/*.xml"/>
+	</bean>
+	<!-- 负责扫描指定包下面的所有mapper映射器，然后生成符合这些接口要求的对象（其实就是调用SqlSession的getMapper方法）类似于以下： -->
+	<!-- 
+		EmpDAO dao = session.getMapper(EmpDAO.class);
+		List<Emp> lists = dao.findAll();
+		System.out.println(lists);
+		session.close();
+	 -->
+	 <!-- 另外还会将这些对象添加到spring容器中，这些对象默认的id就是其接口首字母小写后的名字，如empDAO，也可以在不进行组件扫描的情况下使用@Respository来设置id -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 指定Mapper映射器，就是dao接口所在的包 -->
+		<property name="basePackage" value="com.whj.project.dao"/> <!-- 符合Mapper映射器要求的接口的包名 -->
+		<!-- 只扫描有@Whj注解的接口 , 没有@Whj注解的接口，我们可以使用jdbc来处理以提升效率 -->
+		<property name="annotationClass" value="com.whj.project.annotations.Whj"/><!-- 指定注解的位置 -->
+	</bean>
+</beans>

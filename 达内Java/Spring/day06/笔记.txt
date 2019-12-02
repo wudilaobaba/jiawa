@@ -1,4 +1,4 @@
-spring mybatis
+spring mybatis  底层就是jdbc  项目mybatis01
   mybatis是什么？
     开源的持久层框架(数据库层)
     jdbc:代码繁琐 但是 性能最好
@@ -24,3 +24,76 @@ spring mybatis
     添加到实体对象里面
 
   使用resultMap解决实体类与表字段名不一致的情况 Emp2.java
+
+
+===========================================================================
+
+项目mybatis02
+1.Mapper映射器
+  符合映射文件要求的接口
+    注：mybatis会自动实现一个符合该接口要求的对象
+  映射文件要求：
+    a.接口方法的名称与映射文件中的sql的id要一样
+    b.方法的参数类型要与映射文件中的paramaterType一致
+    c.方法的返回类型要与映射文件中的resultType一致，若配置文件中没有resultType，则方法为void
+    d.映射文件的命名空间必须等于mapper映射器的包名.类名
+  编程步骤：
+    step01.写一个映射器(即一个接口)
+    step02.调用SqlSession提供的getMapper方法
+      注：该方法会返回一个符合映射器要求的对象
+
+============================================================================
+
+项目mybatis03
+spring集成mybatis
+step01.导包
+    <dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+step02.配置文件 即spring的配置文件
+  注：mybatis的配置信息可以添加到spring的配置文件当中，以前的mybatis配置文件就不要了
+step03.实体类
+step04.映射文件，就是entity中的.xml文件
+step05.Mapper映射器，就是dao接口
+step06.在spring的配置文件中，添加MapperScannerConfigurer,该bean负责调用SqlSession的
+    getMapper方法，创建符合Mapper映射器要求的对象
+    注：该bean会将符合Mapper映射器要求的对象添加到spring容器中
+    此时，不需要手动进行commit和close的操作了
+
+只扫描特定的映射器：
+  step01. 开发一个注解，如@Whj
+  step02. 将该注解添加到需要扫描的映射器
+  step03. 配置MapperScannerConfigurer,设置annotationClass,指定注解类
+
+========================================================================
+
+spring集成mybatis 另一种老旧的集成方式（了解） 项目 mybatis04-liao-jie
+  step01.导包，与以上一致
+  step02.添加spring的配置文件
+  step03.写实体类
+  step04.映射文件，就是entity中的.xml文件
+  step05.Mapper映射器，就是dao接口
+  step06.写dao接口的实现类
+
+练习：把之前的电信计费的登陆使用spring+mybatis的SM架构实现
+
+表示层：springmvc
+持久层：mybatis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+。

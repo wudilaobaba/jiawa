@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace 的值是 DeptMapper 接口 每个Mapper 接口对应一个配置文件 parameterType 其实就是sql中的#{}中属性名的类型 -->
+<mapper namespace="com.whj.project.dao.EmpDAO">
+	<!-- 增 -->
+	<insert id="save" parameterType="com.whj.project.entity.Emp"> <!-- id必须唯一 -->
+		<!-- 属性名必须与实体类一致 -->
+		insert into emp values(null,#{name},#{age})  <!-- 变量必须与属性名一致！！！ -->
+	</insert>
+
+	<!-- 查:所有 -->
+	<!-- resultType:返回的结果的数据类型 parameterType:session调用的方法的参数类型，如果没有第二个参数，则不用写parameterType -->
+	<select id="findAll" resultType="com.whj.project.entity.Emp"> <!-- id必须唯一 -->
+		select * from emp
+	</select>
+	
+	<!-- 查:根据id查 -->
+	<select id="findById" parameterType="int" resultType="com.whj.project.entity.Emp"> <!-- id必须唯一 -->
+		select * from emp where id=#{xxx}      <!-- 查询操作的时候变量名不一定与属性名一致！！！ -->
+	</select>
+	
+	<!-- 改 -->
+	<update id="modify" parameterType="com.whj.project.entity.Emp">
+		update emp set name=#{name},age=#{age} where id=#{id}  <!-- 变量必须与属性名一致！！！ -->
+	</update>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="int">
+		delete from emp where
+		id=#{xxx}
+	</delete>
+	
+	<!-- 总结：只要parameterType，也就是参数的类型是数据对象，那么sql中的变量一旦使用了对象的属性，那么其变量名就必须与对象的属性名一致！！！！！ -->
+
+
+	<!-- 返回Map类型的结果 -->
+	<select id="findById2" parameterType="int" resultType="map"> <!-- map是java.util.Map的简写形式 -->
+		select * from emp where id = #{xxx}
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 使用resultMap解决实体类与表字段名不一致的情况 Emp2.java -->
+	<!-- 
+		处理表的字段名与实体类的属性名对应关系 把type中的类中与数据库字段名不同的列出来 
+		property = 实体类中的字段名 
+		column   = 数据库中的字段名 -->
+	<resultMap type="com.whj.project.entity.Emp2" id="emp2Map">
+		<result property="eName" column="name"/>
+		<result property="empNo" column="id"/>
+	</resultMap>
+	<select id="findById3" parameterType="int" resultMap="emp2Map"><!-- 这里要与resultMap的id保持一致 -->
+		select * from emp where id = #{xxx}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+

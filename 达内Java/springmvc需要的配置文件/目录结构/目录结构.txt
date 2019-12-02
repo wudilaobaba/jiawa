@@ -1,0 +1,8 @@
+项目包下面的包如下：
+com.whj.project.controller
+com.whj.project.dao
+com.whj.project.entity
+com.whj.project.service
+com.whj.project.util
+com.whj.project.interceptors  拦截器
+com.whj.project.annotations 自定义注解

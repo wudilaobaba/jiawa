@@ -1,0 +1,30 @@
+编码问题：
+  在Servers中找到server.xml,配置以下：
+  <Connector URIEncoding="utf-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+  发送get请求：
+    ie浏览器会使用gbk进行编码，而其他浏览器会使用utf-8来编码。服务器端默认使用ios-8859-1来解码
+    所以会产生乱码
+    解决方案：
+      step01.服务器端统一使用utf-8来解码：
+        <Connector URIEncoding="utf-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+      step02.浏览器端使用encodeURI函数来进行utf-8编码
+        注：encodeURI函数是js内置的函数
+        let uri = 'login.do?name='+name+'&age='+age;
+        xhr.open('get',encodeURI(uri),true);
+  发送post请求：
+    所有浏览器都会使用utf-8来编码，服务器端默认使用ios-8859-1来解码
+      解决方案：
+        req.setCharacterEncoding("utf-8");
+
+JSON：（javascript object notation）
+  JSON是什么：
+    是一种轻量级的数据交换格式
+    注：
+      数据交换：将要交换的数据先转换成一种与平台无关的数据格式，然后交给接收方来处理
+      轻量级：相对于xml，json文档更小，解析的速度更快
+  JSON语法
+    {"属性名":"属性值"}
+    注：
+      a.属性名必须使用双引号括起来
+      b.属性值可以是String,Number,boolean,null,object
+      c.属性值如果是String,那么必须使用双引号括起来
