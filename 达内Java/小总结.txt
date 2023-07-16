@@ -1,4 +1,4 @@
-for循环和while循环都有continue和break
+for循环和while循环都有continue和break;
 
 switch case有break;
 
